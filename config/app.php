@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'api_service' => env('API_SERVICES', 'https://api.samudrawasesa.co.id/api'),
 
     /*
     |--------------------------------------------------------------------------

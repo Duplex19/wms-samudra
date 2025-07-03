@@ -17,6 +17,7 @@
     <title>Dashboard - Samudra Wasesa</title>
 
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://samudrawasesa.co.id/assets/home/assets/img/samudra.png" />
@@ -103,14 +104,11 @@
     <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
-    <!-- Vendors JS -->
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/sweetalert.min.js') }}"></script>
 
     <!-- Page JS -->
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
       <script type="text/javascript">
         var btnSubmit = null;
         var btnLoading = null;
@@ -339,7 +337,7 @@
 
         async function logOut() {
             const willLogout = await swal({
-                title: "Keluar?",
+                title: "Apakah Anda yakin?",
                 text: "Anda akan keluar dari aplikasi ini!",
                 icon: "warning",
                 buttons: true,
@@ -347,7 +345,7 @@
             });
             if (willLogout) {
                 let param = {
-                    url: '/logout',
+                    url: '/wms/logout',
                     method: "POST",
                     processData: false,
                     contentType: false,
@@ -356,8 +354,8 @@
 
                 await transAjax(param).then((response) => {
                     swal({
-                        title: "Logout!",
-                        text: response.message,
+                        title: "Sukses!",
+                        text: response.message || 'Anda berhasil keluar',
                         icon: 'success',
                     }).then(() => {
                         window.location.href = '/';

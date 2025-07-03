@@ -166,7 +166,7 @@
             <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-cog"></i></button>
             <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-slider"></i></button>
             <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-trash"></i></button>
-            <div class="table-responsive text-nowrap">
+            <div class="table-responsive text-nowrap mt-3">
                 <table class="table table-sm">
             <thead class="table-light">
                 <tr>
