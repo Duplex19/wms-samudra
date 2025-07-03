@@ -1,13 +1,20 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   pull-to-server:
-    runs-on: almalinux-9
+    runs-on: almalinux-9  # Pastikan kamu pakai self-hosted runner untuk almalinux
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-     devwm9509 - name: Install SSH Client
-        run: sudo yum install openssh-clients -y
+      - name: Install SSH Client
+        run: sudo yum install -y openssh-clients
 
       - name: Add SSH Key
         run: |
@@ -17,4 +24,4 @@ jobs:
           ssh-add key.pem
 
       - name: Git Pull to Server
-        run: ssh -p 6789 -o StrictHostKeyChecking=no devwm9509@samudrawasesa.co.id  'cd /home/dev-wms.samudrawasesa.co.id/wms-samudra && git pull'
+        run: ssh -p 6789 -o StrictHostKeyChecking=no devwm9509@samudrawasesa.co.id 'cd /home/dev-wms.samudrawasesa.co.id/wms-samudra && git pull'
