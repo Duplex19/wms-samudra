@@ -7,7 +7,7 @@ on:
 
 jobs:
   pull-to-server:
-    runs-on: almalinux-9  # Pastikan kamu pakai self-hosted runner untuk almalinux
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Repository
