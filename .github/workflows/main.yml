@@ -13,9 +13,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Install SSH Client
-        run: sudo yum install -y openssh-clients
-
       - name: Add SSH Key
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
