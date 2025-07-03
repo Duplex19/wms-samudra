@@ -1,0 +1,19 @@
+jobs:
+  pull-to-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install SSH Client
+        run: sudo apt-get install openssh-client -y
+
+      - name: Add SSH Key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
+          chmod 600 key.pem
+          ssh-add key.pem
+
+      - name: Git Pull to Server
+        run: ssh -o StrictHostKeyChecking=no user@ip -p  'cd /var/www/html/project && git pull'
