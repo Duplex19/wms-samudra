@@ -1,19 +1,26 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   pull-to-server:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Install SSH Client
-        run: sudo apt-get install openssh-client -y
-
       - name: Add SSH Key
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
+          eval "$(ssh-agent -s)"
           ssh-add key.pem
 
+      - name: Print key.pem (for debug only!)
+        run: cat key.pem
       - name: Git Pull to Server
-        run: ssh -o StrictHostKeyChecking=no user@ip -p  'cd /var/www/html/project && git pull'
+        run: ssh -o StrictHostKeyChecking=no -p 6789 samudrawasesa@samudrawasesa.co.id 'cd /home/dev-wms.samudrawasesa.co.id/wms-samudra && git pull'
