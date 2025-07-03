@@ -14,16 +14,16 @@ class AuthController extends Controller
     {
         $credentials = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password'  => 'required'
+            'password' => 'required'
         ]);
 
-        if($credentials->fails()) {
+        if ($credentials->fails()) {
             return $this->error('Unprocessable Entity', $credentials->errors(), 422);
         }
 
         try {
-            $response = Http::post(config('app.api_service') . '/login',  $credentials->validate());
-            if($response->ok()) {
+            $response = Http::post(config('app.api_service') . '/login-admin', $credentials->validate());
+            if ($response->ok()) {
                 $data = $response->json('metadata');
                 session([
                     'api_token' => $data['token'],
@@ -34,7 +34,7 @@ class AuthController extends Controller
             }
             return $this->error('Email atau password Anda salah', 500);
         } catch (\Throwable $th) {
-            Log::error('Error pada saat login ' . $th->getMessage());   
+            Log::error('Error pada saat login ' . $th->getMessage());
             return $this->error('Internal Server Error');
         }
     }
