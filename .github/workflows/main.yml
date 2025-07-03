@@ -1,19 +1,20 @@
 jobs:
   pull-to-server:
-    runs-on: ubuntu-latest
+    runs-on: almalinux-9
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Install SSH Client
-        run: sudo apt-get install openssh-client -y
+     devwm9509 - name: Install SSH Client
+        run: sudo yum install openssh-clients -y
 
       - name: Add SSH Key
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
+          eval "$(ssh-agent -s)"
           ssh-add key.pem
 
       - name: Git Pull to Server
-        run: ssh -o StrictHostKeyChecking=no user@ip -p  'cd /var/www/html/project && git pull'
+        run: ssh -p 6789 -o StrictHostKeyChecking=no devwm9509@samudrawasesa.co.id  'cd /home/dev-wms.samudrawasesa.co.id/wms-samudra && git pull'
