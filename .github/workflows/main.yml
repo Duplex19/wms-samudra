@@ -20,5 +20,7 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add key.pem
 
+      - name: Print key.pem (for debug only!)
+        run: cat key.pem
       - name: Git Pull to Server
         run: ssh -o StrictHostKeyChecking=no -p 6789 samudrawasesa@samudrawasesa.co.id 'cd /home/dev-wms.samudrawasesa.co.id/wms-samudra && git pull'
