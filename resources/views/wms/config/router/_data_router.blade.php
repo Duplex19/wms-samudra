@@ -20,5 +20,5 @@
         </td>
     </tr>
 @empty
-    
+<x-dataNotFound colspan="6" />
 @endforelse

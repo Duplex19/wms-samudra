@@ -319,12 +319,11 @@
                 }
 
                 await transAjax(param).then((response) => {
+                    getData();
                     swal({
                         title: "Berhasil",
                         text: response.message,
                         icon: 'success',
-                    }).then(() => {
-                        window.location.reload();
                     });
                 }).catch((error) => {
                     console.log(error);

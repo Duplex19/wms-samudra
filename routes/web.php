@@ -23,6 +23,22 @@ Route::middleware(AuthApi::class)->group(function() {
                 Route::delete('/router/delete/{id}', 'delete')->name('wms.router.delete');
                 Route::post('/router/connection_check/{id}', 'ping');
             });
+
+            Route::controller(WMS\Config\ProfilePppController::class)->group(function() {
+                Route::get('/profile_ppp', 'index')->name('wms.profile_ppp');
+                Route::post('/profile_ppp', 'store')->name('wms.profile_ppp.store');
+                Route::get('/profile_ppp/edit/{id}', 'edit')->name('wms.profile_ppp.edit');
+                Route::post('/profile_ppp/update/{id}', 'update')->name('wms.profile_ppp.update');
+                Route::delete('/profile_ppp/delete/{id}', 'delete')->name('wms.profile_ppp.delete');
+            });
+
+            Route::controller(WMS\Config\PppoeController::class)->group(function() {
+                Route::get('/pppoe', 'index')->name('wms.pppoe');
+                Route::post('/pppoe', 'store')->name('wms.pppoe.store');
+                Route::get('/pppoe/edit/{id}', 'edit')->name('wms.pppoe.edit');
+                Route::post('/pppoe/update/{id}', 'update')->name('wms.pppoe.update');
+                Route::delete('/pppoe/delete/{id}', 'delete')->name('wms.pppoe.delete');
+            });
             
             Route::controller(WMS\Config\VPNController::class)->group(function() {
                 Route::get('/vpn', 'index')->name('wms.vpn');

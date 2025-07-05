@@ -11,5 +11,5 @@
         <td><span class="btn btn-danger btn-sm" onclick="hapus('/wms/config/vpn/delete/{{ $dt['id'] }}')"><i class='bx  bx-trash'></i></span></td>
     </tr>
 @empty
-    
+    <x-dataNotFound colspan="9" />
 @endforelse

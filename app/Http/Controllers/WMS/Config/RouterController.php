@@ -21,10 +21,10 @@ class RouterController extends Controller
                 }
                 return [];
             });
-            return view('wms.router._data_router', compact('data'));
+            return view('wms.config.router._data_router', compact('data'));
         }
 
-        return view('wms.router.index', [
+        return view('wms.config.router.index', [
             'title' => 'WMS Router'
         ]);
     }

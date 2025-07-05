@@ -29,16 +29,16 @@
         <div data-i18n="Basic">Router</div>
         </a>
     </li>
-   <li class="menu-item">
-        <a href="#" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-vector"></i>
-        <div data-i18n="Basic">Pppoe</div>
-        </a>
-    </li>
-        <li class="menu-item">
-        <a href="#" class="menu-link">
+    <li class="menu-item {{ Request::is('wms/config/profile_ppp') ? 'active' : '' }}">
+        <a href="{{ route('wms.profile_ppp') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-user"></i>
         <div data-i18n="Basic">Profil PPP</div>
+        </a>
+    </li>
+   <li class="menu-item {{ Request::is('wms/config/pppoe') ? 'active' : '' }}">
+        <a href="{{ route('wms.pppoe') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-vector"></i>
+        <div data-i18n="Basic">Pppoe</div>
         </a>
     </li>
     <li class="menu-item {{ Request::is('wms/config/vpn') ? 'active' : '' }}">
