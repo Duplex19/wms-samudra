@@ -7,7 +7,7 @@
         <td>
             @if ($dt['status'] == 'pending')
             <span class="badge bg-warning rounded-pill">{{ $dt['status'] }}</span>
-            @elseif($dt['status'] == 'connect')
+            @elseif($dt['status'] == 'connected')
             <span class="badge bg-success rounded-pill">{{ $dt['status'] }}</span>
             @else
             <span class="badge bg-danger rounded-pill">{{ $dt['status'] }}</span>
