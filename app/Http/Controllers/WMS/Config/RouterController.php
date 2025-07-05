@@ -107,13 +107,16 @@ class RouterController extends Controller
     public function ping($id)
     {
         try {
-           $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/router/cek_koneksi', ['id' => $id]);
+            $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/router/cek_koneksi', ['id' => $id]);
             if($response->successful()) {
+                Cache::forget('router_metadata');
                 return $this->success('','Router berhasil terhubung', 200);
             }else {
+                Cache::forget('router_metadata');
                 return $this->error('Router gagal terhubung', 500);
             }
         } catch (\Throwable $th) {
+            Cache::forget('router_metadata');
             Log::error('Gagal saat menghungungkan router ' . $th->getMessage());
             return $this->error('Silakan hubungi Administrator', 500);
         }

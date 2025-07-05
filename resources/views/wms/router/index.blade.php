@@ -125,6 +125,7 @@
                     icon: 'error', 
                 });
             });
+            getData();
         }
     </script>
 @endpush
