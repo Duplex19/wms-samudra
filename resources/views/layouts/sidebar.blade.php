@@ -22,8 +22,8 @@
     </li>
 
     <!-- Layouts -->
-    <li class="menu-item">
-        <a href="#" class="menu-link">
+    <li class="menu-item {{ Request::is('wms/config/router') ? 'active' : '' }}">
+        <a href="{{ route('wms.router') }}" class="menu-link">
             <i class='bx  bx-grid-circle-diagonal-left'  ></i> 
         <i class="menu-icon tf-icons bx bx-directions"></i>
         <div data-i18n="Basic">Router</div>

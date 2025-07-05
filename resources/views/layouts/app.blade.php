@@ -144,6 +144,7 @@
 
             await transAjax(param).then((result) => {
                 loading(false, btnSubmit, btnLoading);
+                form.trigger('reset');
                 swal({ 
                     title: 'Berhasil',
                     text:  result.message, 

@@ -15,6 +15,15 @@ Route::middleware(AuthApi::class)->group(function() {
         Route::get('/dashboard', WMS\DashboardController::class)->name('wms.dashboard');
 
         Route::prefix('config')->group(function() {
+            Route::controller(WMS\Config\RouterController::class)->group(function() {
+                Route::get('/router', 'index')->name('wms.router');
+                Route::post('/router', 'store')->name('wms.router.store');
+                Route::get('/router/edit/{id}', 'edit')->name('wms.router.edit');
+                Route::post('/router/update/{id}', 'update')->name('wms.router.update');
+                Route::delete('/router/delete/{id}', 'delete')->name('wms.router.delete');
+                Route::post('/router/connection_check/{id}', 'ping');
+            });
+            
             Route::controller(WMS\Config\VPNController::class)->group(function() {
                 Route::get('/vpn', 'index')->name('wms.vpn');
                 Route::post('/vpn/store', 'store')->name('wms.vpn.store');
