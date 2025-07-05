@@ -5,30 +5,34 @@
             <div class="card">
                 <h5 class="card-header" id="textHeader">Tambah router</h5>
                 <div class="card-body">
+                    <div class="alert alert-primary" role="alert">
+                    <h4 class="alert-heading">Informasi</h4>
+                    <p>Untuk kolom IP, gunakan IP public atau IP client dari <a href="{{ route('wms.vpn') }}">VPN Server <i class="bx bx-link-external"></i></a></p>
+                    </div>
                     <form id="formAction" action="{{ route('wms.router.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
-                        <label for="">Nama</label>
+                        <label for="">Nama*</label>
                         <input type="text" class="form-control" name="name">
                         <span class="text-danger" id="error-name"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">IP</label>
+                            <label for="">IP*</label>
                             <input type="text" class="form-control" name="ip">
                              <span class="text-danger" id="error-ip"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Port</label>
-                            <input type="text" class="form-control" name="port">
+                            <label for="">Port (opsional)</label>
+                            <input type="text" class="form-control" name="port" placeholder="8728">
                              <span class="text-danger" id="error-port"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Nama pengguna</label>
+                            <label for="">Nama pengguna*</label>
                             <input type="text" class="form-control" name="username">
                              <span class="text-danger" id="error-username"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Password</label>
+                            <label for="">Password*</label>
                             <input type="text" class="form-control" name="password">
                             <span class="text-danger" id="error-password"></span>
                         </div>
