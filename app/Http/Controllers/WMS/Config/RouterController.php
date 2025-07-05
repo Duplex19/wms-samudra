@@ -111,7 +111,7 @@ class RouterController extends Controller
             if($response->successful()) {
                 return $this->success('','Router berhasil terhubung', 200);
             }else {
-                return $this->error($response->json('message'), 500);
+                return $this->error('Router gagal terhubung', 500);
             }
         } catch (\Throwable $th) {
             Log::error('Gagal saat menghungungkan router ' . $th->getMessage());
