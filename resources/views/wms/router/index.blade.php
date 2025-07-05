@@ -120,7 +120,7 @@
                 $("#loadingOverlay").addClass('d-none');
                 console.log(err.responseJSON.message);
                 swal({ 
-                    title: 'Berhasil',
+                    title: 'Gagal',
                     text:  err.responseJSON.message, 
                     icon: 'error', 
                 });
