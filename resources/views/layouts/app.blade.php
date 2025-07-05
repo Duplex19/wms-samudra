@@ -75,10 +75,9 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
+            <div class="container-xxl flex-grow-1 container-p-y">
             @yield('content')
-            <!-- / Content -->
-
+            </div>
             <!-- Footer -->
             @include('layouts.footer')
             <!-- / Footer -->
@@ -112,7 +111,6 @@
       <script type="text/javascript">
         var btnSubmit = null;
         var btnLoading = null;
-        var refreshData = false;
 
         async function transAjax(data) {
             html = null;
@@ -146,30 +144,18 @@
 
             await transAjax(param).then((result) => {
                 loading(false, btnSubmit, btnLoading);
-                if(refreshData === true) {
-                     swal({ 
-                        title: 'Berhasil',
-                        text:  result.message, 
-                        icon: 'success', 
-                    });
-                    loadTable();
-                }else {
-                   swal({ 
-                        title: 'Berhasil',
-                        text:  result.message, 
-                        icon: 'success', 
-                    }).then(() => {
-                        window.location.reload();
-                    });
-                }
-                
-                
-                
+                swal({ 
+                    title: 'Berhasil',
+                    text:  result.message, 
+                    icon: 'success', 
+                });
+                getData();
             }).catch((err) => {
                 console.log(err.message);
                 
                 switch (err.status) {
                     case 400:
+                        badRequest(err)
                         console.error("Bad Request");
                         break;
                     case 401:
@@ -195,6 +181,16 @@
                         internalServerError(err);
                         console.error("Terjadi kesalahan yang tidak diketahui.");
                         break;
+                }
+
+                function badRequest(err) {
+                    loading(false, btnSubmit, btnLoading);
+                    const response = err.responseJSON || '';
+                    swal({
+                        title: "Oops!",
+                        text: response.message || "Bad Request - Permintaan tidak dapat diproses.",
+                        icon: 'error',
+                    });
                 }
 
                 function forbidden(err) {
@@ -368,9 +364,10 @@
 
         function loading(state, submit, loading, callback) {
 
+            console.log(submit, loading);
+            
             btnSubmit = submit;
             btnLoading = loading;
-            refreshData = callback;
             
             if(state) {
                 $('#'+btnSubmit).addClass('d-none');

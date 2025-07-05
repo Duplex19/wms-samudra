@@ -14,8 +14,8 @@
 
     <ul class="menu-inner py-1">
     <!-- Dashboard -->
-    <li class="menu-item active">
-        <a href="#" class="menu-link">
+    <li class="menu-item {{ Request::is('wms/dashboard') ? 'active' : '' }}">
+        <a href="{{ route('wms.dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-building-house"></i>
         <div data-i18n="Analytics">Dashboard</div>
         </a>
@@ -41,8 +41,8 @@
         <div data-i18n="Basic">Profil PPP</div>
         </a>
     </li>
-    <li class="menu-item">
-        <a href="#" class="menu-link">
+    <li class="menu-item {{ Request::is('wms/config/vpn') ? 'active' : '' }}">
+        <a href="{{ route('wms.vpn') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-server"></i>
         <div data-i18n="Basic">VPN Server</div>
         </a>
