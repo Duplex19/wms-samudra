@@ -1,235 +1,363 @@
 @extends('layouts.app')
+@push('css')
+        <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+@endpush
 @section('content')
-<div class="col-md-12">
-    <div class="card">
-        <h5 class="card-header" id="textHeader">Tambah pppoe</h5>
-        <div class="card-body">
-            <div class="row">
-                 <form id="formAction" action="{{ route('wms.pppoe.store') }}" method="POST">
-                @csrf
-                <div class="row g-3">
-                    <div class="col">
-                        <div class="form-group mb-3">
-                            <label for="">Router*</label>
-                            <select name="router_id" id="router_id" class="form-select">
-                                <option>--pilih router--</option>
-                            </select>
-                            <span class="text-danger" id="error-router_id"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                         <div class="form-group mb-3">
-                            <label for="">Profil PPP*</label>
-                            <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
-                                <option>--pilih profil ppp--</option>
-                            </select>
-                            <span class="text-danger" id="error-profile_ppp_id"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row g-3">
-                    <div class="col">
-                        <div class="form-group mb-3">
-                            <label for="">Nama pengguna*</label>
-                            <input type="text" class="form-control" name="username">
-                            <span class="text-danger" id="error-username"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group mb-3">
-                            <label for="">Password*</label>
-                            <input type="text" class="form-control" name="password">
-                            <span class="text-danger" id="error-password"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-3">
-                    <div class="col">
-                        <div class="form-group mb-3">
-                            <label for="">Nama*</label>
-                            <input type="text" class="form-control" name="name">
-                            <span class="text-danger" id="error-name"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group mb-3">
-                            <label for="">No WhatsApp*</label>
-                            <input type="text" class="form-control" name="whatsapp">
-                            <span class="text-danger" id="error-whatsapp"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-3">
-                    <div class="col">
-                        <div class="form-group mb-3">
-                            <label for="">Alamat*</label>
-                            <input name="address" class="form-control"></input>
-                            <span class="text-danger" id="error-address"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group mb-3">
-                            <label for="">Tanggal aktif*</label>
-                            <input type="date" name="active_date" class="form-control"></input>
-                            <span class="text-danger" id="error-active_date"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                         <div class="form-group mb-3">
-                            <label for="">Metode pembayaran*</label>
-                            <select name="payment_type" id="payment_type" class="form-select">
-                                <option>--pilih metode pembayaran--</option>
-                                <option value="postpaid">Postpaid</option>
-                                <option value="prepaid">Prepaid</option>
-                            </select>
-                            <span class="text-danger" id="error-payment_type"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                       <div class="form-group mb-3">
-                            <label for="">Status*</label>
-                            <select name="status" id="status" class="form-select">
-                                <option>--pilih status--</option>
-                                <option value="active">Aktif</option>
-                                <option value="inactive">Tdk aktif</option>
-                            </select>
-                            <span class="text-danger" id="error-status"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <x-btnLoading id="btnLoading" />
-            <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />
-            </form>
-        </div>
-    </div>
-</div>
 <div class="col-md-12 mt-3">
-        <div class="card">
-            <h5 class="card-header">List data pppe</h5>
-            <div class="card-body">
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-sm">
-                        <thead class="table-light">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Nama pengguna</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Profil</th>
-                                <th scope="col">Router</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dataTable">
-                            <x-loadingTable colspan="12" />
-                        </tbody>
-                </table>
-            </div>
+    <div class="card">
+        <h5 class="card-header">List data pppe</h5>
+        <div class="card-body">
+            <button class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPppoe"><i class="tf-icons bx bx-user-plus"></i> Tambah pppoe</button>
+            <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-cog"></i></button>
+            <button class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="tf-icons bx bx-slider"></i></button>
+            <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-trash"></i></button>
+            <div class="table-responsive mt-2">
+                <table id="dataTable" class="table table-sm text-nowrap">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Nama pengguna</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Profil</th>
+                            <th scope="col">Router</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <x-loadingTable colspan="12" />
+                    </tbody>
+            </table>
         </div>
     </div>
 </div>
+<!-- Modal add PPPOE -->
+    <div class="modal fade" id="addPppoe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah pppoe</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="formAction" action="{{ route('wms.pppoe.store') }}" method="POST">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Router*</label>
+                                    <select name="router_id" id="router_id" class="form-select">
+                                        <option>--pilih router--</option>
+                                    </select>
+                                    <span class="text-danger" id="error-router_id"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Profil PPP*</label>
+                                    <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
+                                        <option>--pilih profil ppp--</option>
+                                    </select>
+                                    <span class="text-danger" id="error-profile_ppp_id"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Nama pengguna*</label>
+                                    <input type="text" class="form-control" name="username">
+                                    <span class="text-danger" id="error-username"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Password*</label>
+                                    <input type="text" class="form-control" name="password">
+                                    <span class="text-danger" id="error-password"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Nama*</label>
+                                    <input type="text" class="form-control" name="name">
+                                    <span class="text-danger" id="error-name"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">No WhatsApp*</label>
+                                    <input type="text" class="form-control" name="whatsapp">
+                                    <span class="text-danger" id="error-whatsapp"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Alamat*</label>
+                                    <input name="address" class="form-control"></input>
+                                    <span class="text-danger" id="error-address"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Tanggal aktif*</label>
+                                    <input type="date" name="active_date" class="form-control"></input>
+                                    <span class="text-danger" id="error-active_date"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Metode pembayaran*</label>
+                                    <select name="payment_type" id="payment_type" class="form-select">
+                                        <option>--pilih metode pembayaran--</option>
+                                        <option value="postpaid">Postpaid</option>
+                                        <option value="prepaid">Prepaid</option>
+                                    </select>
+                                    <span class="text-danger" id="error-payment_type"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                            <div class="form-group mb-3">
+                                    <label for="">Status*</label>
+                                    <select name="status" id="status" class="form-select">
+                                        <option value="">--pilih status--</option>
+                                        <option value="active">Aktif</option>
+                                        <option value="inactive">Tdk aktif</option>
+                                    </select>
+                                    <span class="text-danger" id="error-status"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <x-btnLoading id="btnLoading" />
+                    <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+        
+    <!-- Modal filter-->
+    <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Filter status</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select name="filter_status" id="filterStatus" class="form-select">
+                    <option value="">--pilih status--</option>
+                    <option value="active">Aktif</option>
+                    <option value="suspend">Suspend</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
 <x-loadingPopup id="loadingOverlay" />
 @endsection
 @push('js')
-    <script>
-        $(document).ready(function() {
-            getData();
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        getData();
+        getRouter();
+    });
+
+    function getData()
+    {
+        dataTable = $('#dataTable').DataTable({
+            // processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: "{{ url()->current() }}",
+                data: function(d) {
+                    d.status = $('#filterStatus').val();
+                }
+            },
+            columns: [
+                { 
+                    data: null,
+                    name: 'No',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                {data: 'name', name: 'name'},
+                {data: 'username', name: 'username'},
+                {data: 'password', name: 'password'},
+                {data: 'profile', name: 'profile'},
+                {data: 'router', name: 'router'},
+                {
+                    data: 'status',
+                    name: 'status',
+                    render: function (data, type, row) {
+                        let badgeClass = 'bg-secondary'; 
+
+                        if (data.toLowerCase() === 'active') {
+                            badgeClass = 'bg-success';
+                        } else if (data.toLowerCase() === 'suspend') {
+                            badgeClass = 'bg-warning';
+                        }
+                        return `<span class="badge ${badgeClass} rounded-pill cursor-pointer" onclick='setStatus(${JSON.stringify([row.id, row.status])})'>${data}</span>`;
+                    }
+                },
+                {
+                    data: null,
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row) {
+                        return `
+                            <span class="btn btn-warning btn-sm" onclick="editData(${row.id})"><i class='bx bx-edit'></i></span>
+                            <span class="btn btn-danger btn-sm" onclick="deleteData(${row.id})"><i class='bx bx-trash'></i></span>
+                        `;
+                    }
+                }
+
+            ],
+            order: [[0, 'asc']],
+            pageLength: 10,
+            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+            language: {
+                processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
+                search: '<i class="fas fa-search"></i>',
+                lengthMenu: 'Show _MENU_ entries',
+                info: 'Showing _START_ to _END_ of _TOTAL_ entries',
+                paginate: {
+                    first: '<i class="fas fa-angle-double-left"></i>',
+                    previous: '<i class="fas fa-angle-left"></i>',
+                    next: '<i class="fas fa-angle-right"></i>',
+                    last: '<i class="fas fa-angle-double-right"></i>'
+                }
+            }
         });
 
-        async function getData() {
+        // Filter functionality
+        $('#filterStatus').on('change keyup', function() {
+            dataTable.draw();
+        });
+
+        // Add user
+        $('#addUserBtn').click(function() {
+            $('#userForm')[0].reset();
+            $('#userId').val('');
+            $('#userModalLabel').text('Add New User');
+            $('#passwordField').show();
+            $('#password').attr('required', true);
+            $('#userModal').modal('show');
+        });
+    }
+
+    async function setStatus([id, status])
+    {
+        const willDelete = await swal({
+            title: "Perbaharui status",
+            text: 'Apakah Anda yakin ingin memperbaharui status PPPOE?',
+            icon: "info",
+            buttons: true,
+            // dangerMode: true,
+        });
+        if (willDelete) {
             let param = {
-                'url': '{{ url()->current() }}',
-                'method': 'GET',
+                url: `/wms/config/pppoe/update_status/${id}?status=${status}`,
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
             }
 
-            await transAjax(param).then((result) => {
-                $("#dataTable").html(result);
-            }).catch((err) => {
-                console.log(err);
-            });
-            getRouter();
-        }
-
-        async function getRouter() {
-            let param = {
-                'url': '{{ url()->current() }}',
-                'method': 'GET',
-                'data': {
-                    'data': 'router'
-                }
-            }
-
-            await transAjax(param).then((result) => {
-                let html = "";
-                let data = result.metadata;
-                data.forEach(value => {
-                    html += `<option value="${value.id}">${value.name}</option>`
+            $("#loadingOverlay").removeClass('d-none');
+            await transAjax(param).then((response) => {
+                $("#loadingOverlay").addClass('d-none');
+                dataTable.ajax.reload();
+                swal({
+                    title: "Berhasil",
+                    text: response.message,
+                    icon: 'success',
                 });
-                $("#router_id").html(html);
-            }).catch((err) => {
-                console.log(err);
-            });
-            getProfilePPP()
-        }
-
-        async function getProfilePPP() {
-            let param = {
-                'url': '{{ url()->current() }}',
-                'method': 'GET',
-                'data': {
-                    'data': 'profile_ppp'
-                }
-            }
-
-            await transAjax(param).then((result) => {
-                let html = "";
-                let data = result.metadata;
-                data.forEach(value => {
-                    html += `<option value="${value.id}">${value.name}</option>`
-                });
-                $("#profile_ppp_id").html(html);
-            }).catch((err) => {
-                console.log(err);
+            }).catch((error) => {
+                $("#loadingOverlay").addClass('d-none');
+                console.log(error);
             });
         }
-        
-        async function setStatus([id, status])
-        {
-          const willDelete = await swal({
-                title: "Perbaharui status",
-                text: 'Apakah Anda yakin ingin memperbaharui status PPPOE?',
-                icon: "info",
-                buttons: true,
-                // dangerMode: true,
-            });
-            if (willDelete) {
-                let param = {
-                    url: `/wms/config/pppoe/update_status/${id}?status=${status}`,
-                    method: "POST",
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                }
+    }
 
-                $("#loadingOverlay").removeClass('d-none');
-                await transAjax(param).then((response) => {
-                    $("#loadingOverlay").addClass('d-none');
-                    getData();
-                    swal({
-                        title: "Berhasil",
-                        text: response.message,
-                        icon: 'success',
-                    });
-                }).catch((error) => {
-                     $("#loadingOverlay").addClass('d-none');
-                    console.log(error);
-                });
+    async function getRouter() {
+        let param = {
+            'url': '{{ url()->current() }}',
+            'method': 'GET',
+            'data': {
+                'data': 'router'
             }
         }
-    </script>
+
+        await transAjax(param).then((result) => {
+            let html = "";
+            let data = result.metadata;
+            data.forEach(value => {
+                html += `<option value="${value.id}">${value.name}</option>`
+            });
+            $("#router_id").html(html);
+        }).catch((err) => {
+            console.log(err);
+        });
+        getProfilePPP()
+    }
+
+    async function getProfilePPP() {
+        let param = {
+            'url': '{{ url()->current() }}',
+            'method': 'GET',
+            'data': {
+                'data': 'profile_ppp'
+            }
+        }
+
+        await transAjax(param).then((result) => {
+            let html = "";
+            let data = result.metadata;
+            data.forEach(value => {
+                html += `<option value="${value.id}">${value.name}</option>`
+            });
+            $("#profile_ppp_id").html(html);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+</script>
 @endpush

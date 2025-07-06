@@ -109,8 +109,9 @@
 
     <!-- Page JS -->
       <script type="text/javascript">
-        var btnSubmit = null;
-        var btnLoading = null;
+        let dataTable = '';
+        let btnSubmit = null;
+        let btnLoading = null;
 
         async function transAjax(data) {
             html = null;
@@ -144,13 +145,14 @@
 
             await transAjax(param).then((result) => {
                 loading(false, btnSubmit, btnLoading);
+                $(".modal").modal('hide');
                 form.trigger('reset');
                 swal({ 
                     title: 'Berhasil',
                     text:  result.message, 
                     icon: 'success', 
                 });
-                getData();
+                dataTable.ajax.reload();
             }).catch((err) => {
                 console.log(err.message);
                 
@@ -251,24 +253,6 @@
                 }
             });
         });
-
-        async function resfreshData(url, dataTable)
-        {
-            var param = {
-                url: url,
-                method: "GET",
-            }
-
-            await transAjax(param).then((result) => {
-                $("#"+dataTable).html(result);
-            }).catch((err) => {
-                swal({
-                    title: "Mohon Maaf!",
-                    text:  "Internal Server Error - Terjadi kesalahan di server.",
-                    icon: 'error',
-                });
-            }); 
-        }
 
         async function update(url, message = 'Apakah Anda yakin untuk memperbaharui data ini?') {
             const willDelete = await swal({
