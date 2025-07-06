@@ -38,6 +38,7 @@ Route::middleware(AuthApi::class)->group(function() {
                 Route::get('/pppoe/edit/{id}', 'edit')->name('wms.pppoe.edit');
                 Route::post('/pppoe/update/{id}', 'update')->name('wms.pppoe.update');
                 Route::delete('/pppoe/delete/{id}', 'delete')->name('wms.pppoe.delete');
+                Route::post('/pppoe/update_status/{id}', 'setStatus')->name('wms.pppoe.update_status');
             });
             
             Route::controller(WMS\Config\VPNController::class)->group(function() {

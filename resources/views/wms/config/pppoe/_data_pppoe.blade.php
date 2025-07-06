@@ -8,9 +8,9 @@
         <td>{{ $dt['router'] }}</td>
         <td>
             @if ($dt['status'] == 'active')
-            <span class="badge bg-success rounded-pill">{{ $dt['status'] }}</span>
+            <span class="badge bg-success rounded-pill cursor-pointer" onclick='setStatus(@json([$dt["id"], $dt["status"]]))'>{{ $dt['status'] }}</span>
             @else
-            <span class="badge bg-warning rounded-pill">{{ $dt['status'] }}</span>
+            <span class="badge bg-warning rounded-pill cursor-pointer" onclick='setStatus(@json([$dt["id"], $dt["status"]]))'>{{ $dt['status'] }}</span>
             @endif
         </td>
         <td>

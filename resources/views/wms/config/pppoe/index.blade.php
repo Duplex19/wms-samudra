@@ -133,6 +133,7 @@
         </div>
     </div>
 </div>
+<x-loadingPopup id="loadingOverlay" />
 @endsection
 @push('js')
     <script>
@@ -197,18 +198,38 @@
             });
         }
         
-        function edit(data)
+        async function setStatus([id, status])
         {
-            let {id, name, group, price} = data;
-            
-            $("#formAction").attr('action','/wms/config/profile_ppp/update/' + id);
-            $("#textHeader").text('Update profil pppp');
+          const willDelete = await swal({
+                title: "Perbaharui status",
+                text: 'Apakah Anda yakin ingin memperbaharui status PPPOE?',
+                icon: "info",
+                buttons: true,
+                // dangerMode: true,
+            });
+            if (willDelete) {
+                let param = {
+                    url: `/wms/config/pppoe/update_status/${id}?status=${status}`,
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                }
 
-            $("input[name=name]").val(name);
-            $("input[name=group]").val(group);
-            $("input[name=price]").val(price.replace(/Rp\s?/i, '').trim());
-             
-            $("#btnSubmit").text('Upadate');
+                $("#loadingOverlay").removeClass('d-none');
+                await transAjax(param).then((response) => {
+                    $("#loadingOverlay").addClass('d-none');
+                    getData();
+                    swal({
+                        title: "Berhasil",
+                        text: response.message,
+                        icon: 'success',
+                    });
+                }).catch((error) => {
+                     $("#loadingOverlay").addClass('d-none');
+                    console.log(error);
+                });
+            }
         }
     </script>
 @endpush

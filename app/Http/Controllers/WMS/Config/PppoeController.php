@@ -119,6 +119,29 @@ class PppoeController extends Controller
         }
     }
 
+    public function setStatus(Request $request, $id)
+    {
+       try {
+        $status = $request->status == 'active' ? 'suspend' : 'active';
+        try {
+            $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/pppoe/set_status/' . $id, ['status' => $status]);
+            if($response->successful()) {
+                Cache::forget('pppoe_metadata');
+                return $this->success('', 'Status pppoe berhasil diupdate', 200);
+            }else {
+                return $this->error($response->json('message'), 500);
+            }
+        } catch (\Throwable $th) {
+            Log::error('Gagal saat update status pppoe ' . $th->getMessage());
+            return $this->error('Internal Server Error. Silakan hubungi Administrator', 500);
+        }
+       } catch (\Throwable $th) {
+             Log::error('Gagal saat update Pppoe ' . $th->getMessage());
+            return $this->error('Internal Server Error. Silakan hubungi Administrator', 500);
+       }
+    }
+
+
     public function delete($id)
     {
         try {
