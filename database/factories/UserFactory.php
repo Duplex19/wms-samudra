@@ -23,11 +23,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $cities = ['Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Semarang', 'Makassar', 'Palembang', 'Bandar Lampung', 'Yogyakarta', 'Malang'];
+        
         return [
-            'name' => fake()->name(),
+            'name' => fake('id_ID')->name(),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => '08' . fake()->numerify('##########'),
+            'gender' => fake()->randomElement(['male', 'female']),
+            'status' => fake()->randomElement(['active', 'inactive']),
+            'city' => fake()->randomElement($cities),
+            'birth_date' => fake()->dateTimeBetween('-50 years', '-18 years')->format('Y-m-d'),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => Hash::make('password123'),
             'remember_token' => Str::random(10),
         ];
     }

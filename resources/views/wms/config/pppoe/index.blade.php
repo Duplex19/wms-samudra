@@ -1,12 +1,14 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <h5 class="card-header" id="textHeader">Tambah pppoe</h5>
-                <div class="card-body">
-                    <form id="formAction" action="{{ route('wms.pppoe.store') }}" method="POST">
-                        @csrf
+<div class="col-md-12">
+    <div class="card">
+        <h5 class="card-header" id="textHeader">Tambah pppoe</h5>
+        <div class="card-body">
+            <div class="row">
+                 <form id="formAction" action="{{ route('wms.pppoe.store') }}" method="POST">
+                @csrf
+                <div class="row g-3">
+                    <div class="col">
                         <div class="form-group mb-3">
                             <label for="">Router*</label>
                             <select name="router_id" id="router_id" class="form-select">
@@ -14,44 +16,69 @@
                             </select>
                             <span class="text-danger" id="error-router_id"></span>
                         </div>
-                        <div class="form-group mb-3">
+                    </div>
+                    <div class="col">
+                         <div class="form-group mb-3">
                             <label for="">Profil PPP*</label>
                             <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
                                 <option>--pilih profil ppp--</option>
                             </select>
                             <span class="text-danger" id="error-profile_ppp_id"></span>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col">
                         <div class="form-group mb-3">
                             <label for="">Nama pengguna*</label>
                             <input type="text" class="form-control" name="username">
                             <span class="text-danger" id="error-username"></span>
                         </div>
+                    </div>
+                    <div class="col">
                         <div class="form-group mb-3">
                             <label for="">Password*</label>
                             <input type="text" class="form-control" name="password">
-                             <span class="text-danger" id="error-password"></span>
+                            <span class="text-danger" id="error-password"></span>
                         </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col">
                         <div class="form-group mb-3">
                             <label for="">Nama*</label>
                             <input type="text" class="form-control" name="name">
                             <span class="text-danger" id="error-name"></span>
                         </div>
+                    </div>
+                    <div class="col">
                         <div class="form-group mb-3">
                             <label for="">No WhatsApp*</label>
                             <input type="text" class="form-control" name="whatsapp">
                             <span class="text-danger" id="error-whatsapp"></span>
                         </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col">
                         <div class="form-group mb-3">
-                            <label for="">Alamat</label>
-                            <textarea name="address" class="form-control"></textarea>
+                            <label for="">Alamat*</label>
+                            <input name="address" class="form-control"></input>
                             <span class="text-danger" id="error-address"></span>
                         </div>
+                    </div>
+                    <div class="col">
                         <div class="form-group mb-3">
-                            <label for="">Tanggal aktif</label>
+                            <label for="">Tanggal aktif*</label>
                             <input type="date" name="active_date" class="form-control"></input>
                             <span class="text-danger" id="error-active_date"></span>
                         </div>
-                        <div class="form-group mb-3">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                         <div class="form-group mb-3">
                             <label for="">Metode pembayaran*</label>
                             <select name="payment_type" id="payment_type" class="form-select">
                                 <option>--pilih metode pembayaran--</option>
@@ -60,7 +87,9 @@
                             </select>
                             <span class="text-danger" id="error-payment_type"></span>
                         </div>
-                        <div class="form-group mb-3">
+                    </div>
+                    <div class="col">
+                       <div class="form-group mb-3">
                             <label for="">Status*</label>
                             <select name="status" id="status" class="form-select">
                                 <option>--pilih status--</option>
@@ -69,39 +98,41 @@
                             </select>
                             <span class="text-danger" id="error-status"></span>
                         </div>
-                        <x-btnLoading id="btnLoading" />
-                        <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />
-                    </form>
+                    </div>
                 </div>
             </div>
+            <x-btnLoading id="btnLoading" />
+            <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />
+            </form>
         </div>
-        <div class="col-md-8">
-            <div class="card">
-                <h5 class="card-header">List data pppe</h5>
-                <div class="card-body">
-                    <div class="table-responsive text-nowrap">
-                        <table class="table table-sm">
-                            <thead class="table-light">
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Router</th>
-                                <th scope="col">Profil PPP</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Nomor WhatsApp</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Tanggal Aktif</th>
-                                <th scope="col">Metode pembayaran</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dataTable">
-                                <x-loadingTable colspan="12" />
-                            </tbody>
-                    </table>
-                </div>
+    </div>
+</div>
+<div class="col-md-12 mt-3">
+        <div class="card">
+            <h5 class="card-header">List data pppe</h5>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-sm">
+                        <thead class="table-light">
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Router</th>
+                            <th scope="col">Profil PPP</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Nomor WhatsApp</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">Tanggal Aktif</th>
+                            <th scope="col">Metode pembayaran</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTable">
+                            <x-loadingTable colspan="12" />
+                        </tbody>
+                </table>
             </div>
         </div>
     </div>
