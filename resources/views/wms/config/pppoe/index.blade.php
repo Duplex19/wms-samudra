@@ -115,18 +115,14 @@
                     <table class="table table-sm">
                         <thead class="table-light">
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Router</th>
-                            <th scope="col">Profil PPP</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Nomor WhatsApp</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">Tanggal Aktif</th>
-                            <th scope="col">Metode pembayaran</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Aksi</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Nama pengguna</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Profil</th>
+                                <th scope="col">Router</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="dataTable">
