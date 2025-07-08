@@ -47,6 +47,12 @@
         <div data-i18n="Basic">VPN Server</div>
         </a>
     </li>
+    <li class="menu-item {{ Request::is('wms/config/template_whatsapp') ? 'active' : '' }}">
+        <a href="{{ route('wms.templateWhatsapp') }}" class="menu-link">
+        <i class='menu-icon bx  bx-message-detail'  ></i> 
+        <div data-i18n="Basic">Template WhatsApp</div>
+        </a>
+    </li>
 
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Penagihan</span>

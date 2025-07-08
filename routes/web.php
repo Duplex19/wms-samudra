@@ -46,6 +46,11 @@ Route::middleware(AuthApi::class)->group(function() {
                 Route::post('/vpn/store', 'store')->name('wms.vpn.store');
                 Route::delete('/vpn/delete', 'delete')->name('wms.vpn.delete');
             });
+
+            //route template WhatasApp
+            Route::controller(WMS\Config\TemplateController::class)->group(function() {
+                Route::get('/template_whatsapp', 'index')->name('wms.templateWhatsapp');
+            });
         });
 
         //route untuk keluar aplikasi

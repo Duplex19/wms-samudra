@@ -10,23 +10,23 @@
         .filter-section {
             background-color: #f8f9fa;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 20px;
         }
     </style>
 @endpush
 @section('content')
-<div class="col-md-12 mt-3">
+<div class="col-md-12">
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPppoe"><i class="tf-icons bx bx-user-plus"></i> Tambah pppoe</button>
+    <button class="btn btn-primary mb-3"><i class="tf-icons bx bx-cog"></i></button>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="tf-icons bx bx-slider"></i></button>
+    <button class="btn btn-primary mb-3"><i class="tf-icons bx bx-trash"></i></button>
     <div class="card">
         <h5 class="card-header">List data pppe</h5>
         <div class="card-body">
-            <button class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPppoe"><i class="tf-icons bx bx-user-plus"></i> Tambah pppoe</button>
-            <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-cog"></i></button>
-            <button class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="tf-icons bx bx-slider"></i></button>
-            <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-trash"></i></button>
             <div class="table-responsive mt-2">
                 <table id="dataTable" class="table table-sm text-nowrap">
-                    <thead class="table-light">
+                    <thead class="filter-section">
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
@@ -54,6 +54,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary" role="alert">
+                    <h4 class="alert-heading">Informasi</h4>
+                    <p>Pastikan Group sama dengan nama Profile di router</p>
+                </div>
                 <div class="row">
                     <form id="formAction" action="{{ route('wms.pppoe.store') }}" method="POST">
                         @csrf

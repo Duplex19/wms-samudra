@@ -208,8 +208,8 @@ button.list-group-item-primary.active {
 }
 
 .alert-primary {
-    background-color: #e7e7ff;
-    border-color: #d2d3ff;
+    background-color: rgba(22, 160, 133, 0.16) !important;
+    border-color: rgba(22, 160, 133, 0.16) !important;
     color: #2563eb;
 }
 .alert-primary .btn-close {
@@ -914,7 +914,7 @@ html:not(.layout-menu-collapsed)
 }
 .bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
     color: #2563eb;
-    background-color: rgba(105, 108, 255, 0.16) !important;
+    background-color: rgba(22, 160, 133, 0.16) !important;
 }
 .bg-menu-theme .menu-inner > .menu-item.active:before {
     background: #2563eb;
