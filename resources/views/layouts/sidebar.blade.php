@@ -53,6 +53,12 @@
         <div data-i18n="Basic">Template WhatsApp</div>
         </a>
     </li>
+    <li class="menu-item {{ Request::is('wms/config/pengaturan_penagihan') ? 'active' : '' }}">
+        <a href="{{ route('wms.billing') }}" class="menu-link">
+        <i class="menu-icon icon-base bx bx-food-menu"></i>
+        <div data-i18n="Basic">Pengaturan Penagihan</div>
+        </a>
+    </li>
 
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Penagihan</span>

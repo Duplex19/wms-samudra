@@ -47,6 +47,12 @@ Route::middleware(AuthApi::class)->group(function() {
                 Route::delete('/vpn/delete', 'delete')->name('wms.vpn.delete');
             });
 
+            //route untuk billing
+            Route::controller(WMS\Config\BillingController::class)->group(function() {
+                Route::get('/pengaturan_penagihan', 'index')->name('wms.billing');
+                Route::put('/pengaturan_penagihan/update/{id}', 'update')->name('wms.billing.update');
+            });
+
             //route template WhatasApp
             Route::controller(WMS\Config\TemplateController::class)->group(function() {
                 Route::get('/template_whatsapp', 'index')->name('wms.templateWhatsapp');

@@ -134,6 +134,10 @@
             var formData = new FormData(this);
             var method = form.attr('method') || 'POST';
 
+            //config
+            var reloadDataTable = form.data('table');
+            var resetForm = form.data('resetForm');
+
             var param = {
                 url: form.attr('action'),
                 method: method,
@@ -146,13 +150,21 @@
             await transAjax(param).then((result) => {
                 loading(false, btnSubmit, btnLoading);
                 $(".modal").modal('hide');
-                form.trigger('reset');
+                
                 swal({ 
                     title: 'Berhasil',
                     text:  result.message, 
                     icon: 'success', 
                 });
-                dataTable.ajax.reload();
+                
+                if(resetForm) {
+                    form.trigger('reset');
+                }
+                
+                if(reloadDataTable) {
+                    dataTable.ajax.reload();
+                }
+                
             }).catch((err) => {
                 console.log(err.message);
                 
