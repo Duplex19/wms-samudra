@@ -24,7 +24,7 @@ class InvoiceController extends Controller
                     ->addColumn('action', function($row) {
                         return '
                             <button class="btn btn-sm btn-primary view-btn" data-id="'.$row['id'].'">
-                                <i class="fas fa-credit-card"></i> Bayar
+                                <i class="fab fa-whatsapp"></i> Bayar
                             </button>
                             <button class="btn btn-sm btn-info view-btn" data-id="'.$row['id'].'">
                                 <i class="fas fa-link"></i> Link pembayaran
