@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -15,67 +17,59 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         if ($request->ajax()) {
-            $users = User::select([
-                'id', 'name', 'email', 'phone', 'gender', 
-                'status', 'city', 'birth_date', 'created_at'
-            ]);
-
-            return DataTables::of($users)
-                // ->addColumn('action', function ($user) {
-                //     return '<div class="btn-group" role="group">
-                //         <button type="button" class="btn btn-sm btn-primary" onclick="editUser(' . $user->id . ')">
-                //             <i class="fas fa-edit"></i> Edit
-                //         </button>
-                //         <button type="button" class="btn btn-sm btn-danger" onclick="deleteUser(' . $user->id . ')">
-                //             <i class="fas fa-trash"></i> Delete
-                //         </button>
-                //     </div>';
-                // })
-                // ->addColumn('age', function ($user) {
-                //     return \Carbon\Carbon::parse($user->birth_date)->age;
-                // })
-                // ->editColumn('status', function ($user) {
-                //     $badgeClass = $user->status === 'active' ? 'badge-success' : 'badge-secondary';
-                //     return '<span class="badge ' . $badgeClass . '">' . ucfirst($user->status) . '</span>';
-                // })
-                // ->editColumn('gender', function ($user) {
-                //     return ucfirst($user->gender);
-                // })
-                // ->editColumn('birth_date', function ($user) {
-                //     return \Carbon\Carbon::parse($user->birth_date)->format('d M Y');
-                // })
-                // ->editColumn('created_at', function ($user) {
-                //     return $user->created_at->format('d M Y H:i');
-                // })
-                // ->filter(function ($query) use ($request) {
-                //     // Filter by status
-                //     if ($request->has('status') && $request->status !== '') {
-                //         $query->where('status', $request->status);
-                //     }
-                    
-                //     // Filter by gender
-                //     if ($request->has('gender') && $request->gender !== '') {
-                //         $query->where('gender', $request->gender);
-                //     }
-                    
-                //     // Filter by city
-                //     if ($request->has('city') && $request->city !== '') {
-                //         $query->where('city', $request->city);
-                //     }
-                    
-                //     // Filter by age range
-                //     if ($request->has('min_age') && $request->min_age !== '') {
-                //         $maxBirthDate = now()->subYears($request->min_age)->format('Y-m-d');
-                //         $query->where('birth_date', '<=', $maxBirthDate);
-                //     }
-                    
-                //     if ($request->has('max_age') && $request->max_age !== '') {
-                //         $minBirthDate = now()->subYears($request->max_age + 1)->format('Y-m-d');
-                //         $query->where('birth_date', '>', $minBirthDate);
-                //     }
-                // })
-                ->rawColumns(['action', 'status'])
-                ->make(true);
+            $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/member/invoice');
+            
+            if ($response->successful()) {
+                $data = $response->json();
+                $invoices = collect($data['metadata'] ?? []);
+                
+                return DataTables::of($invoices)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row) {
+                        return '<button class="btn btn-sm btn-info view-btn" data-id="'.$row['id'].'">
+                                    <i class="fas fa-eye"></i> View
+                                </button>';
+                    })
+                    ->editColumn('paid_date', function($row) {
+                        return $row['paid_date'] ?? '<span class="text-muted">Belum dibayar</span>';
+                    })
+                    ->editColumn('payment_method', function($row) {
+                        return $row['payment_method'] ?? '<span class="text-muted">Belum ada</span>';
+                    })
+                    ->editColumn('whatsapp', function($row) {
+                        return '<a href="https://wa.me/'.$row['whatsapp'].'" target="_blank" class="text-success">
+                                    '.$row['whatsapp'].'
+                                </a>';
+                    })
+                    ->filter(function ($query) use ($request) {
+                        // Filter by status
+                        // if ($request->has('status') && $request->status !== 'all') {
+                        //     $query->where('status', $request->status);
+                        // }
+                        
+                        // Filter by payment method
+                        if ($request->has('payment_method') && $request->payment_method !== 'all') {
+                            if ($request->payment_method === 'null') {
+                                $query->whereNull('payment_method');
+                            } else {
+                                $query->where('payment_method', 'like', '%' . $request->payment_method . '%');
+                            }
+                        }
+                        
+                        // Filter by date range
+                        if ($request->has('date_from') && $request->date_from) {
+                            $query->whereDate('created_at', '>=', $request->date_from);
+                        }
+                        
+                        if ($request->has('date_to') && $request->date_to) {
+                            $query->whereDate('created_at', '<=', $request->date_to);
+                        }
+                    })
+                    ->rawColumns(['action', 'status', 'paid_date', 'payment_method', 'whatsapp'])
+                    ->make(true);
+            }
+            
+            return response()->json(['error' => 'Failed to fetch data'], 500);
         }
         return view('wms.dashboard.index');
     }

@@ -78,6 +78,23 @@
             border-radius: 8px;
             overflow: hidden;
         }
+
+        /* Belum dibuka */
+        table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+            content: "\f0fe" !important; /* fa-plus-square */
+            font-family: "Font Awesome 6 Free"; /* sesuaikan dengan versimu */
+            font-weight: 900;
+        }
+
+        /* Sudah dibuka */
+        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+            content: "\f146" !important;  /* fa-minus-square */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+        }
+
     </style>
     
     <!-- DataTables CSS -->
@@ -153,7 +170,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-       <div class="filter-section">
+       {{-- <div class="filter-section">
             <h6><i class="fas fa-filter me-2"></i>Filter Data</h6>
                 <div class="row">
                     <div class="col-md-2">
@@ -204,27 +221,32 @@
                 <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-cog"></i></button>
                 <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-slider"></i></button>
                 <button button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-trash"></i></button>
-            </div>
+            </div> --}}
 
             <!-- DataTable -->
-            <div class="table-responsive">
-                <table id="usersTable" class="table table-sm text-nowrap">
+             <div class="table-responsive">
+                <table class="table table-sm text-nowrap" id="invoice-table">
                     <thead class="table-light">
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Gender</th>
+                            <th>Ref ID</th>
+                            <th>Nama</th>
+                            <th>Item</th>
+                            <th>Jumlah</th>
+                            <th>Diskon</th>
                             <th>Status</th>
-                            <th>City</th>
-                            {{-- <th>Birth Date</th>
-                            <th>Age</th>
-                            <th>Created At</th>
-                            <th>Actions</th> --}}
+                            <th>Periode</th>
+                            <th>Alamat</th>
+                            <th>WhatsApp</th>
+                            <th>Due Date</th>
+                            <th>Paid Date</th>
+                            <th>Metode pembayaran</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <x-loadingTable />
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -239,158 +261,132 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
     <script>
-        // Initialize DataTable
-            let table = $('#usersTable').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
-                ajax: {
-                    url: "{{ url()->current() }}",
-                    data: function(d) {
-                        d.status = $('#statusFilter').val();
-                        d.gender = $('#genderFilter').val();
-                        d.city = $('#cityFilter').val();
-                        d.min_age = $('#minAgeFilter').val();
-                        d.max_age = $('#maxAgeFilter').val();
-                    }
-                },
-                columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'email', name: 'email'},
-                    {data: 'phone', name: 'phone'},
-                    {data: 'gender', name: 'gender'},
-                    {data: 'status', name: 'status'},
-                    {data: 'city', name: 'city'},
-                ],
-                order: [[0, 'asc']],
-                pageLength: 10,
-                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-                language: {
-                    processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
-                    search: '<i class="fas fa-search"></i>',
-                    lengthMenu: 'Show _MENU_ entries',
-                    info: 'Showing _START_ to _END_ of _TOTAL_ entries',
-                    paginate: {
-                        first: '<i class="fas fa-angle-double-left"></i>',
-                        previous: '<i class="fas fa-angle-left"></i>',
-                        next: '<i class="fas fa-angle-right"></i>',
-                        last: '<i class="fas fa-angle-double-right"></i>'
-                    }
+        var table = $('#invoice-table').DataTable({
+        processing: false,
+        serverSide: true,
+        ajax: {
+            url: '{{ url()->current() }}',
+            data: function(d) {
+                d.status = $('#status-filter').val();
+                d.payment_method = $('#payment-method-filter').val();
+                d.date_from = $('#date-from').val();
+                d.date_to = $('#date-to').val();
+            }
+        },
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'ref_id', name: 'ref_id' },
+            { data: 'name', name: 'name' },
+            { data: 'item', name: 'item' },
+            { data: 'amount', name: 'amount' },
+            { data: 'discount', name: 'discount' },
+            { data: 'status', name: 'status', render: function(data, type, row) {
+                let badgeClass = 'bg-secondary'; 
+
+                if (data.toLowerCase() === 'paid') {
+                    badgeClass = 'bg-success';
+                } else if (data.toLowerCase() === 'unpaid') {
+                    badgeClass = 'bg-warning';
                 }
-            });
+                return `<span class="badge ${badgeClass} rounded-pill cursor-pointer" onclick='setStatus(${JSON.stringify([row.id, row.status])})'>${data == 'paid' ? 'Dibayar' : 'Belm dibayar'}</span>`;
+            }},
+            { data: 'periode', name: 'periode' },
+            { data: 'address', name: 'address' },
+            { data: 'whatsapp', name: 'whatsapp', orderable: false },
+            { data: 'due_date', name: 'due_date' },
+            { data: 'paid_date', name: 'paid_date' },
+            { data: 'payment_method', name: 'payment_method' },
+            { data: 'action', name: 'action', orderable: false, searchable: false }
+        ],
+        order: [[1, 'desc']], // Order by ref_id desc
+        pageLength: 10,
+        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+        language: {
+            processing: "Sedang memproses...",
+            search: "Cari:",
+            lengthMenu: "Tampilkan _MENU_ data per halaman",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+            infoFiltered: "(disaring dari _MAX_ total data)",
+            loadingRecords: "Memuat data...",
+            zeroRecords: "Tidak ada data yang ditemukan",
+            emptyTable: "Tidak ada data yang tersedia",
+            paginate: {
+                first: "Pertama",
+                previous: "Sebelumnya",
+                next: "Selanjutnya",
+                last: "Terakhir"
+            }
+        },
+        responsive: true,
+        autoWidth: false,
+    });
 
-            // Filter functionality
-            $('#statusFilter, #genderFilter, #cityFilter, #minAgeFilter, #maxAgeFilter').on('change keyup', function() {
-                table.draw();
-            });
+    // Filter button event
+    $('#filter-btn').on('click', function() {
+        table.ajax.reload();
+    });
 
-            // Reset filters
-            $('#resetFilters').click(function() {
-                $('#statusFilter, #genderFilter, #cityFilter, #minAgeFilter, #maxAgeFilter').val('');
-                table.draw();
-            });
+    // Reset button event
+    $('#reset-btn').on('click', function() {
+        $('#status-filter').val('all');
+        $('#payment-method-filter').val('all');
+        $('#date-from').val('');
+        $('#date-to').val('');
+        table.ajax.reload();
+    });
 
-            // Refresh table
-            $('#refreshTable').click(function() {
-                table.ajax.reload();
-            });
+    // Export button event
+    $('#export-btn').on('click', function() {
+        var params = new URLSearchParams({
+            status: $('#status-filter').val(),
+            payment_method: $('#payment-method-filter').val(),
+            date_from: $('#date-from').val(),
+            date_to: $('#date-to').val()
+        });
+        
+        window.location.href = '#' + params.toString();
+    });
 
-            // Add user
-            $('#addUserBtn').click(function() {
-                $('#userForm')[0].reset();
-                $('#userId').val('');
-                $('#userModalLabel').text('Add New User');
-                $('#passwordField').show();
-                $('#password').attr('required', true);
-                $('#userModal').modal('show');
-            });
-
-            // Submit form
-            $('#userForm').submit(function(e) {
-                e.preventDefault();
-                
-                let userId = $('#userId').val();
-                let url = userId ? "#".replace(':id', userId) : "#";
-                let method = userId ? 'PUT' : 'POST';
-
-                $.ajax({
-                    url: url,
-                    method: method,
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#userModal').modal('hide');
-                        table.ajax.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: response.message,
-                            timer: 2000
-                        });
-                    },
-                    error: function(xhr) {
-                        let errors = xhr.responseJSON.errors;
-                        let errorMessage = '';
-                        for (let key in errors) {
-                            errorMessage += errors[key][0] + '\n';
-                        }
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: errorMessage
-                        });
-                    }
-                });
-            });
-
-        // Edit user function
-        function editUser(id) {
-            $.ajax({
-                url: "#".replace(':id', id),
-                method: 'GET',
-                success: function(user) {
-                    $('#userId').val(user.id);
-                    $('#name').val(user.name);
-                    $('#email').val(user.email);
-                    $('#phone').val(user.phone);
-                    $('#gender').val(user.gender);
-                    $('#status').val(user.status);
-                    $('#city').val(user.city);
-                    $('#birth_date').val(user.birth_date);
-                    $('#userModalLabel').text('Edit User');
-                    $('#passwordField').hide();
-                    $('#password').removeAttr('required');
-                    $('#userModal').modal('show');
+    // View detail button event
+    $(document).on('click', '.view-btn', function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '#'.replace(':id', id),
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    var data = response.data;
+                    
+                    $('#detail-ref-id').text(data.ref_id);
+                    $('#detail-name').text(data.name);
+                    $('#detail-address').text(data.address);
+                    $('#detail-whatsapp').html('<a href="https://wa.me/' + data.whatsapp + '" target="_blank">' + data.whatsapp + '</a>');
+                    $('#detail-item').text(data.item);
+                    $('#detail-periode').text(data.periode);
+                    $('#detail-amount').text(data.amount);
+                    $('#detail-discount').text(data.discount);
+                    $('#detail-due-date').text(data.due_date);
+                    $('#detail-paid-date').text(data.paid_date || 'Belum dibayar');
+                    $('#detail-payment-method').text(data.payment_method || 'Belum ada');
+                    
+                    var statusBadge = data.status === 'paid' ? 
+                        '<span class="badge badge-success">Paid</span>' : 
+                        '<span class="badge badge-danger">Unpaid</span>';
+                    $('#detail-status').html(statusBadge);
+                    
+                    $('#detailModal').modal('show');
                 }
-            });
-        }
+            },
+            error: function() {
+                alert('Error loading invoice details');
+            }
+        });
+    });
 
-        // Delete user function
-        function deleteUser(id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "#".replace(':id', id),
-                        method: 'DELETE',
-                        success: function(response) {
-                            $('#usersTable').DataTable().ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                response.message,
-                                'success'
-                            );
-                        }
-                    });
-                }
-            });
-        }
+    // Auto reload every 5 minutes
+    setInterval(function() {
+        table.ajax.reload(null, false);
+    }, 300000);
     </script>
 @endpush
