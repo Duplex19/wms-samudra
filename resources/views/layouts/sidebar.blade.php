@@ -55,8 +55,14 @@
     </li>
     <li class="menu-item {{ Request::is('wms/config/pengaturan_penagihan') ? 'active' : '' }}">
         <a href="{{ route('wms.billing') }}" class="menu-link">
-        <i class="menu-icon icon-base bx bx-food-menu"></i>
+        <i class="menu-icon icon-base bx bx-cog"></i>
         <div data-i18n="Basic">Pengaturan Penagihan</div>
+        </a>
+    </li>
+    <li class="menu-item {{ Request::is('wms/member/invoice') ? 'active' : '' }}">
+        <a href="{{ route('wms.member.invoice') }}" class="menu-link">
+        <i class="menu-icon icon-base bx bx-food-menu"></i>
+        <div data-i18n="Basic">Penagihan</div>
         </a>
     </li>
 

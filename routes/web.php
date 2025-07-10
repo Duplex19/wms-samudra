@@ -59,6 +59,13 @@ Route::middleware(AuthApi::class)->group(function() {
             });
         });
 
+        //route froup member
+        Route::prefix('member')->group(function() {
+            Route::controller(WMS\Member\InvoiceController::class)->group(function() {
+                Route::get('/invoice', 'index')->name('wms.member.invoice');
+            });
+        });
+
         //route untuk keluar aplikasi
         Route::post('/logout', [Auth\AuthController::class, 'logout'])->name('wms.logout');
     });

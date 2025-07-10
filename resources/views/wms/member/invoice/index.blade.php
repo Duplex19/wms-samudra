@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @push('css')
-    <style>
+
+<style>
         .gradient-card {
             background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
             border: none;
@@ -95,15 +96,21 @@
             font-weight: 900;
         }
 
+        .dtr-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px !important;
+            margin: 10px 0;
+            width: 100% !important;
+        }
+
     </style>
-    
-    <!-- DataTables CSS -->
+<!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
 @endpush
 @section('content')
 <div class="row">
@@ -112,11 +119,11 @@
             <div class="card-body card-content">
                 <div class="d-flex align-items-center">
                     <div class="icon-container">
-                        <i class="tf-icons bx bx-user-plus"></i>
+                        <i class="tf-icons bx bx-food-menu"></i>
                     </div>
                     <div>
                         <h2 class="card-number text-white">852</h2>
-                        <p class="card-label">Total</p>
+                        <p class="card-label">Total penagihan</p>
                     </div>
                 </div>
             </div>
@@ -131,7 +138,7 @@
                     </div>
                     <div>
                         <h2 class="card-number text-white">835</h2>
-                        <p class="card-label">Aktif</p>
+                        <p class="card-label">Dibayar</p>
                     </div>
                 </div>
             </div>
@@ -146,7 +153,7 @@
                     </div>
                     <div>
                         <h2 class="card-number text-white">17</h2>
-                        <p class="card-label">Ditangguhkan</p>
+                        <p class="card-label">Belum dibayar</p>
                     </div>
                 </div>
             </div>
@@ -157,11 +164,11 @@
             <div class="card-body card-content">
                 <div class="d-flex align-items-center">
                     <div class="icon-container">
-                        <i class="tf-icons bx bx-user-voice"></i>
+                        <i class="tf-icons bx bx-alarm"></i>
                     </div>
                     <div>
                         <h2 class="card-number text-white">799</h2>
-                        <p class="card-label">Online</p>
+                        <p class="card-label">Jatuh tempo</p>
                     </div>
                 </div>
             </div>
@@ -170,61 +177,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-       {{-- <div class="filter-section">
-            <h6><i class="fas fa-filter me-2"></i>Filter Data</h6>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="form-label">Status</label>
-                        <select class="form-select" id="statusFilter">
-                            <option value="">All Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Gender</label>
-                        <select class="form-select" id="genderFilter">
-                            <option value="">All Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">City</label>
-                        <select class="form-select" id="cityFilter">
-                            <option value="">All Cities</option>
-                            
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Min Age</label>
-                        <input type="number" class="form-control" id="minAgeFilter" placeholder="Min Age">
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Max Age</label>
-                        <input type="number" class="form-control" id="maxAgeFilter" placeholder="Max Age">
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">&nbsp;</label>
-                        <div class="d-grid">
-                            <button class="btn btn-outline-secondary" id="resetFilters">
-                                <i class="fas fa-times"></i> Reset
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="mb-3">
-                <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-user-plus"></i> Tambah pengguna</button>
-                <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-cog"></i></button>
-                <button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-slider"></i></button>
-                <button button class="btn btn-outline-primary mb-3"><i class="tf-icons bx bx-trash"></i></button>
-            </div> --}}
-
-            <!-- DataTable -->
-             <div class="table-responsive">
+        <div class="table-responsive">
                 <table class="table table-sm text-nowrap" id="invoice-table">
                     <thead class="table-light">
                         <tr>
@@ -249,7 +202,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
     </div>
 </div>
 @endsection

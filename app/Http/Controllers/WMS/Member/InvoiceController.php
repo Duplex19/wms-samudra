@@ -1,22 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\WMS;
+namespace App\Http\Controllers\WMS\Member;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Yajra\DataTables\DataTables;
 
-class DashboardController extends Controller
+class InvoiceController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
-        if ($request->ajax()) {
+         if ($request->ajax()) {
             $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/member/invoice');
             
             if ($response->successful()) {
@@ -82,6 +78,9 @@ class DashboardController extends Controller
             
             return response()->json(['error' => 'Failed to fetch data'], 500);
         }
-        return view('wms.dashboard.index');
+        return view('wms.member.invoice.index', [
+            'title' => 'Penagihan'
+        ]);
     }
+
 }
