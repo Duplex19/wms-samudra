@@ -122,7 +122,7 @@
                         <i class="tf-icons bx bx-food-menu"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">852</h2>
+                        <h2 class="card-number text-white">850</h2>
                         <p class="card-label">Total penagihan</p>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                         <i class="tf-icons bx bx-user-check"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">835</h2>
+                        <h2 class="card-number text-white">800</h2>
                         <p class="card-label">Dibayar</p>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                         <i class="tf-icons bx bx-user-x"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">17</h2>
+                        <h2 class="card-number text-white">30</h2>
                         <p class="card-label">Belum dibayar</p>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                         <i class="tf-icons bx bx-alarm"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">799</h2>
+                        <h2 class="card-number text-white">20</h2>
                         <p class="card-label">Jatuh tempo</p>
                     </div>
                 </div>

@@ -48,8 +48,15 @@ Route::middleware(AuthApi::class)->group(function() {
             });
 
             //route untuk billing
-            Route::controller(WMS\Config\BillingController::class)->group(function() {
-                Route::get('/pengaturan_penagihan', 'index')->name('wms.billing');
+            // Route::controller(WMS\Config\BillingController::class)->group(function() {
+            //     Route::get('/setting', 'index')->name('wms.billing');
+            //     Route::put('/pengaturan_penagihan/update/{id}', 'update')->name('wms.billing.update');
+            // });
+
+            //route untuk setting
+            Route::controller(WMS\Config\SettingController::class)->group(function() {
+                Route::get('/setting/sechedule', 'sechedule')->name('wms.sechedule');
+                Route::get('/setting/billing', 'billing')->name('wms.billing');
                 Route::put('/pengaturan_penagihan/update/{id}', 'update')->name('wms.billing.update');
             });
 
