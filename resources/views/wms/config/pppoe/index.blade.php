@@ -76,7 +76,7 @@
                             <div class="col">
                                 <div class="form-group mb-3">
                                     <label for="">Router*</label>
-                                    <select name="router_id" id="router_id" class="form-select">
+                                    <select name="router_id" id="router_id" class="form-select router">
                                         <option>--pilih router--</option>
                                     </select>
                                     <span class="text-danger" id="error-router_id"></span>
@@ -85,7 +85,7 @@
                             <div class="col">
                                 <div class="form-group mb-3">
                                     <label for="">Profil PPP*</label>
-                                    <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
+                                    <select name="profile_ppp_id" id="profile_ppp_id" class="form-select profile">
                                         <option>--pilih profil ppp--</option>
                                     </select>
                                     <span class="text-danger" id="error-profile_ppp_id"></span>
@@ -176,6 +176,65 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="editPppoe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit pppoe</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="formUpdate" action="#" data-table="true" method="POST">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Router*</label>
+                                    <select name="router_id" id="router_id" class="form-select router">
+                                        <option>--pilih router--</option>
+                                    </select>
+                                    <span class="text-danger" id="error-router_id"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Profil PPP*</label>
+                                    <select name="profile_ppp_id" id="profile_ppp_id" class="form-select profile">
+                                        <option>--pilih profil ppp--</option>
+                                    </select>
+                                    <span class="text-danger" id="error-profile_ppp_id"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Nama pengguna*</label>
+                                    <input type="text" class="form-control" id="username" name="username">
+                                    <span class="text-danger" id="error-username"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Password*</label>
+                                    <input type="text" class="form-control" id="password" name="password">
+                                    <span class="text-danger" id="error-password"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <x-btnLoading id="btnUpdateLoading" />
+                    <x-btnSubmit id="btnSubmitLoading" onclick="loading(true, 'btnSubmitLoading', 'btnUpdateLoading', true)" />
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
 
         
     <!-- Modal filter-->
@@ -242,7 +301,7 @@
                     data: 'status',
                     name: 'status',
                     render: function (data, type, row) {
-                        let badgeClass = 'bg-secondary'; 
+                        let badgeClass = 'bg-danger'; 
 
                         if (data.toLowerCase() === 'active') {
                             badgeClass = 'bg-success';
@@ -253,7 +312,7 @@
                     }
                 },
                 {data: 'internet', name: 'internet', render: function(data, type, row) {
-                    let badgeClass = 'bg-secondary'; 
+                    let badgeClass = 'bg-danger'; 
 
                     if (data.toLowerCase() === 'online') {
                         badgeClass = 'bg-success';
@@ -271,9 +330,11 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row) {
+                        console.log(data);
+                        
                         return `
-                            <span class="btn btn-warning btn-sm" onclick="editData(${row.id})"><i class='bx bx-edit'></i></span>
-                            <span class="btn btn-danger btn-sm" onclick="deleteData(${row.id})"><i class='bx bx-trash'></i></span>
+                            <span class="btn btn-warning btn-sm" onclick="editData('${row.id}', '${row.username}', '${row.password}')"><i class='bx bx-edit'></i></span>
+                            <span class="btn btn-danger btn-sm" onclick="hapus('/wms/config/pppoe/delete/${row.id}')"><i class='bx bx-trash'></i></span>
                         `;
                     }
                 }
@@ -284,9 +345,14 @@
             lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
             language: {
                 processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
-                search: '<i class="fas fa-search"></i>',
-                lengthMenu: 'Show _MENU_ entries',
-                info: 'Showing _START_ to _END_ of _TOTAL_ entries',
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                infoFiltered: "(disaring dari _MAX_ total data)",
+                loadingRecords: "Memuat data...",
+                zeroRecords: "Tidak ada data yang ditemukan",
+                emptyTable: "Tidak ada data yang tersedia",
                 paginate: {
                     first: '<i class="fas fa-angle-double-left"></i>',
                     previous: '<i class="fas fa-angle-left"></i>',
@@ -356,12 +422,12 @@
         }
 
         await transAjax(param).then((result) => {
-            let html = "";
+            let html =  `<option value="">--Silakan Pilih--</option>`;
             let data = result.metadata;
             data.forEach(value => {
                 html += `<option value="${value.id}">${value.name}</option>`
             });
-            $("#router_id").html(html);
+            $(".router").html(html);
         }).catch((err) => {
             console.log(err);
         });
@@ -378,15 +444,23 @@
         }
 
         await transAjax(param).then((result) => {
-            let html = "";
+            let html =  `<option value="">--Silakan Pilih--</option>`;
             let data = result.metadata;
             data.forEach(value => {
                 html += `<option value="${value.id}">${value.name}</option>`
             });
-            $("#profile_ppp_id").html(html);
+            $(".profile").html(html);
         }).catch((err) => {
             console.log(err);
         });
+    }
+
+    async function editData(id, username, password)
+    {
+        $("#formUpdate").attr('action', `/wms/config/pppoe/update/${id}`);
+        $('#editPppoe').modal('show');
+        $("#username").val(username);
+        $("#password").val(password);
     }
 </script>
 @endpush

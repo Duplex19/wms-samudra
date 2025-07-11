@@ -1,4 +1,4 @@
-@props(['id' => ''])
+@props(['id' => 'loadingOverlay'])
 <style>
     .loading-overlay {
         position: fixed;

@@ -104,23 +104,21 @@ class PppoeController extends Controller
     public function update(Request $request, $id) 
     {
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
-            'group'  => 'required',
-            'price'  => 'required',
+            "router_id" => "required",
+            "profile_ppp_id" => "required",
+            "username" => "required",
+            "password" => "required"
         ]);
 
         if($validator->fails()) {
             return $this->error('Data tidak dapat diproses', $validator->errors(), 422);
         }
 
-        $data = $validator->validate();
-        $data['price'] = str_replace('.', '',$request->price);
-        
         try {
-            $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/pppoe/update/' . $id, $data);
+            $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/pppoe/update/' . $id,  $validator->validate());
             if($response->successful()) {
                 Cache::forget('pppoe_metadata');
-                return $this->success('', 'Pppoe berhasil diupdate', 201);
+                return $this->success('', 'Pppoe berhasil diupdate', 200);
             }else {
                 return $this->error($response->json('message'), 500);
             }
@@ -164,7 +162,7 @@ class PppoeController extends Controller
                 return $this->error($response->json('message'), 500);
             }
         } catch (\Throwable $th) {
-            Log::error('Gagal saat menambahkan Pppoe ' . $th->getMessage());
+            Log::error('Gagal saat menghapus Pppoe ' . $th->getMessage());
             return $this->error('Internal Server Error. Silakan hubungi Administrator', 500);
         }
     }

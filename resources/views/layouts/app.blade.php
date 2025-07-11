@@ -91,6 +91,7 @@
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
+      <x-loadingPopup />
     </div>
     <!-- / Layout wrapper -->
     <!-- Core JS -->
@@ -314,14 +315,16 @@
                     cache: false,
                 }
 
+                $("#loadingOverlay").removeClass('d-none');
                 await transAjax(param).then((response) => {
-                    getData();
+                    $("#loadingOverlay").addClass('d-none');
                     swal({
                         title: "Berhasil",
                         text: response.message,
                         icon: 'success',
                     });
                 }).catch((error) => {
+                    $("#loadingOverlay").addClass('d-none');
                     console.log(error);
                 });
             }
