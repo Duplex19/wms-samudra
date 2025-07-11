@@ -41,6 +41,7 @@
                             <th scope="col">Nama konfigurasi</th>
                             <th scope="col">Command</th>
                             <th scope="col">Waktu</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,6 +86,9 @@
                 {data: 'name', name: 'name'},
                 {data: 'command', name: 'command'},
                 {data: 'time', name: 'time'},
+                {data: null, name: null, render: function(data, type, row, meta) {
+                    return `<button class="btn btn-warning btn-sm"><i class='bx  bx-edit'></i></button>`;
+                }},
             ],
             order: [[0, 'asc']],
             pageLength: 10,

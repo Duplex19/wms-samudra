@@ -7,11 +7,20 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .filter-section {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+         /* Belum dibuka */
+        table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+            content: "\f0fe" !important; /* fa-plus-square */
+            font-family: "Font Awesome 6 Free"; /* sesuaikan dengan versimu */
+            font-weight: 900;
+        }
+
+        /* Sudah dibuka */
+        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+            content: "\f146" !important;  /* fa-minus-square */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
         }
     </style>
 @endpush
@@ -34,7 +43,9 @@
                             <th scope="col">Password</th>
                             <th scope="col">Profil</th>
                             <th scope="col">Router</th>
+                            <th scope="col">IP</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Internet</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -226,6 +237,7 @@
                 {data: 'password', name: 'password'},
                 {data: 'profile', name: 'profile'},
                 {data: 'router', name: 'router'},
+                {data: 'ip', name: 'ip'},
                 {
                     data: 'status',
                     name: 'status',
@@ -240,6 +252,19 @@
                         return `<span class="badge ${badgeClass} rounded-pill cursor-pointer" onclick='setStatus(${JSON.stringify([row.id, row.status])})'>${data}</span>`;
                     }
                 },
+                {data: 'internet', name: 'internet', render: function(data, type, row) {
+                    let badgeClass = 'bg-secondary'; 
+
+                    if (data.toLowerCase() === 'online') {
+                        badgeClass = 'bg-success';
+                    } else if (data.toLowerCase() === 'suspend') {
+                        badgeClass = 'bg-warning';
+                    }
+                    return `
+                            <span class="badge ${badgeClass} rounded-pill cursor-pointer">${row.internet}</span>
+                        `;
+                    }},
+
                 {
                     data: null,
                     name: 'aksi',
