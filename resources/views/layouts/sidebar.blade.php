@@ -66,7 +66,7 @@
         </a>
     </li>
 
-    <li class="menu-header small text-uppercase">
+    {{-- <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Anggota</span>
     </li>
      <li class="menu-item">
@@ -83,6 +83,6 @@
         <i class="menu-icon tf-icons bx bx-map"></i>
         <div data-i18n="Basic">Map</div>
         </a>
-    </li>
+    </li> --}}
     </ul>
 </aside>

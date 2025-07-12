@@ -48,10 +48,10 @@
                 <h5 class="card-header">List data router</h5>
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">
-                        <table class="table table-sm">
+                        <table id="dataTable" class="table table-sm">
                             <thead class="table-light">
                                 <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">IP</th>
                                 <th scope="col">Port</th>
@@ -59,7 +59,7 @@
                                 <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="dataTable">
+                            <tbody>
                                 <x-loadingTable colspan="8" />
                             </tbody>
                     </table>
@@ -72,21 +72,90 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            getData();
-        });
-
-        async function getData() {
-            let param = {
-                'url': '{{ url()->current() }}',
-                'method': 'GET',
-            }
-
-            await transAjax(param).then((result) => {
-                $("#dataTable").html(result);
-            }).catch((err) => {
-                console.log(err);
+            dataTable = $('#dataTable').DataTable({
+                // processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "{{ url()->current() }}",
+                    data: function(d) {
+                        d.status = $('#filterStatus').val();
+                    }
+                },
+                columns: [
+                    { 
+                    data: null,
+                    name: 'No',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {data: 'name', name: 'name'},
+                    {data: 'ip', name: 'ip'},
+                    {data: 'port', name: 'port'},
+                    {data: 'status', name: 'status', render: function(data, type, row) {
+                        let badgeClass = 'bg-danger'; 
+                        if (data.toLowerCase() === 'connected') {
+                            badgeClass = 'bg-success';
+                        } else if (data.toLowerCase() === 'pending') {
+                            badgeClass = 'bg-warning';
+                        }
+                        return `
+                            <span class="badge ${badgeClass} rounded-pill cursor-pointer">${row.status}</span>
+                        `;
+                    }},
+                    {   
+                    data: null,
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false,
+                        render: function(data, type, row) {
+                            return `
+                                <span class="btn btn-primary btn-sm" onclick="connectionTest('${row.id}')"><i class='bx bx-link'></i></span>
+                                <span class="btn btn-warning btn-sm" onclick='edit(${JSON.stringify(row)})'><i class='bx bx-edit'></i></span>
+                                <span class="btn btn-danger btn-sm" onclick="hapus('/wms/config/router/delete/${row.id}')"><i class='bx bx-trash'></i></span>
+                            `;
+                        }
+                    }
+                ],
+                order: [[0, 'asc']],
+                pageLength: 10,
+                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                language: {
+                    processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ data per halaman",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                    infoFiltered: "(disaring dari _MAX_ total data)",
+                    loadingRecords: "Memuat data...",
+                    zeroRecords: "Tidak ada data yang ditemukan",
+                    emptyTable: "Tidak ada data yang tersedia",
+                    paginate: {
+                        first: '<i class="fas fa-angle-double-left"></i>',
+                        previous: '<i class="fas fa-angle-left"></i>',
+                        next: '<i class="fas fa-angle-right"></i>',
+                        last: '<i class="fas fa-angle-double-right"></i>'
+                    }
+                }
             });
-        }
+
+            // Filter functionality
+            $('#filterStatus').on('change keyup', function() {
+                dataTable.draw();
+            });
+
+            // Add user
+            $('#addUserBtn').click(function() {
+                $('#userForm')[0].reset();
+                $('#userId').val('');
+                $('#userModalLabel').text('Add New User');
+                $('#passwordField').show();
+                $('#password').attr('required', true);
+                $('#userModal').modal('show');
+            });
+        });
+        
 
         function edit(value)
         {
@@ -129,7 +198,7 @@
                     icon: 'error', 
                 });
             });
-            getData();
+            dataTable.ajax.reload();
         }
     </script>
 @endpush

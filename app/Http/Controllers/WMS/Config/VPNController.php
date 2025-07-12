@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class VPNController extends Controller
 {
@@ -22,7 +23,9 @@ class VPNController extends Controller
                 return [];
             });
 
-            return view('wms.config.vpn._data_vpn', compact('data'));
+            return DataTables::of($data)
+            ->rawColumns(['action', 'status'])
+            ->make(true);
         }
 
         return view('wms.config.vpn.index', [

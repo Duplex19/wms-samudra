@@ -5,6 +5,10 @@
             <div class="card">
                 <h5 class="card-header" id="textHeader">Tambah profil ppp</h5>
                 <div class="card-body">
+                    <div class="alert alert-primary" role="alert">
+                        <h4 class="alert-heading">Informasi</h4>
+                        <p>Pastikan Group sama dengan nama Profile di router</p>
+                    </div>
                     <form id="formAction" action="{{ route('wms.profile_ppp.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
@@ -36,17 +40,17 @@
                 <h5 class="card-header">List data profil ppp</h5>
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">
-                        <table class="table table-sm">
+                        <table id="dataTable" class="table table-sm">
                             <thead class="table-light">
                                 <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Grup</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="dataTable">
+                            <tbody >
                                 <x-loadingTable colspan="8" />
                             </tbody>
                     </table>
@@ -59,21 +63,61 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            getData();
+             dataTable = $('#dataTable').DataTable({
+                // processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "{{ url()->current() }}",
+                    data: function(d) {
+                        d.status = $('#filterStatus').val();
+                    }
+                },
+                columns: [
+                    { 
+                    data: null,
+                    name: 'No',
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {data: 'name', name: 'name'},
+                    {data: 'group', name: 'group'},
+                    {data: 'price', name: 'price'}, 
+                    {
+                        data: null,
+                        name: 'aksi',
+                        render: function(data,type,row) {
+                            return `
+                            <span class="btn btn-warning btn-sm" id="edit" onclick='edit(${JSON.stringify(row)})'><i class='bx  bx-edit'></i></span>
+                            <span class="btn btn-danger btn-sm" onclick="hapus('/wms/config/profile_ppp/delete/${row.id}')"><i class='bx  bx-trash'></i></span>
+                            `
+                        }
+                    }, 
+                ],
+                order: [[0, 'asc']],
+                pageLength: 10,
+                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                language: {
+                    processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ data per halaman",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                    infoFiltered: "(disaring dari _MAX_ total data)",
+                    loadingRecords: "Memuat data...",
+                    zeroRecords: "Tidak ada data yang ditemukan",
+                    emptyTable: "Tidak ada data yang tersedia",
+                    paginate: {
+                        first: '<i class="fas fa-angle-double-left"></i>',
+                        previous: '<i class="fas fa-angle-left"></i>',
+                        next: '<i class="fas fa-angle-right"></i>',
+                        last: '<i class="fas fa-angle-double-right"></i>'
+                    }
+                }
+            });
         });
 
-        async function getData() {
-            let param = {
-                'url': '{{ url()->current() }}',
-                'method': 'GET',
-            }
-
-            await transAjax(param).then((result) => {
-                $("#dataTable").html(result);
-            }).catch((err) => {
-                console.log(err);
-            });
-        }
 
         document.getElementById('priceInput').addEventListener('input', function (e) {
         let value = this.value.replace(/[^\d]/g, '');

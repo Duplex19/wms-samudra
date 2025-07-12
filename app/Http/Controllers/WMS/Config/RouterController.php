@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\DataTables;
 
 class RouterController extends Controller
 {
@@ -21,7 +22,10 @@ class RouterController extends Controller
                 }
                 return [];
             });
-            return view('wms.config.router._data_router', compact('data'));
+
+            return DataTables::of($data)
+            ->rawColumns(['action', 'status'])
+            ->make(true);
         }
 
         return view('wms.config.router.index', [
