@@ -51,6 +51,24 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="editData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit jadwal konfigurasi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formUpdate" action="" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <input type="time" name="time" class="form-control mb-3">
+                    <x-btnLoading id="btnLoading" />
+                    <x-btnSubmit id="btnSubmit" text="Perbaharui"  onclick="loading(true, 'btnSubmit','btnLoading')" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 @push('js')
 <!-- DataTables JS -->
@@ -87,7 +105,7 @@
                 {data: 'command', name: 'command'},
                 {data: 'time', name: 'time'},
                 {data: null, name: null, render: function(data, type, row, meta) {
-                    return `<button class="btn btn-warning btn-sm"><i class='bx  bx-edit'></i></button>`;
+                    return `<button class="btn btn-warning btn-sm" onclick="editData('${row.id}','${row.time}')"><i class='bx  bx-edit'></i></button>`;
                 }},
             ],
             order: [[0, 'asc']],
@@ -127,5 +145,11 @@
             $('#userModal').modal('show');
         });
     }
+
+    function editData(id)
+        {
+            $("#formUpdate").attr('action',`/wms/config/setting/sechedule/update/${id}`);
+            $("#editData").modal("show");
+        }
     </script>
 @endpush

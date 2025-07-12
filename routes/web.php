@@ -56,6 +56,7 @@ Route::middleware(AuthApi::class)->group(function() {
             //route untuk setting
             Route::controller(WMS\Config\SettingController::class)->group(function() {
                 Route::get('/setting/sechedule', 'sechedule')->name('wms.sechedule');
+                Route::post('/setting/sechedule/update/{id}', 'secheduleUpdate')->name('wms.sechedule.update');
                 Route::get('/setting/billing', 'billing')->name('wms.billing');
                 Route::put('/pengaturan_penagihan/update/{id}', 'update')->name('wms.billing.update');
             });

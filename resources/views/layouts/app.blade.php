@@ -136,7 +136,7 @@
             var method = form.attr('method') || 'POST';
 
             //config
-            var reloadDataTable = form.data('table');
+            var reloadDataTable = form.data('table') || true;
             var resetForm = form.data('resetForm');
 
             var param = {

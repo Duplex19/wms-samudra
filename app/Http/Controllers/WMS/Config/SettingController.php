@@ -32,6 +32,28 @@ class SettingController extends Controller
         ]);
     }
 
+    public function secheduleUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'time' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return $this->error('Data tidak dapat diproses', $validator->errors(), 422);
+        }
+
+        try {
+            $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/config/schedule/'.$id, $validator->validate());
+            if ($response->ok()) {
+                Cache::forget('schedule_metadata');
+                return $this->success('', 'Pengaturan penagihan berhasil diperbaharui', 200);
+            }
+        } catch (\Throwable $th) {
+           Log::error('Tidak dapat memperbaharui pengaturan penagihan ' . $th->getMessage());
+           return $this->error('Internal Server Error');
+        }
+    }
+
     public function billing(Request $request)
     {
         if($request->ajax()) {
