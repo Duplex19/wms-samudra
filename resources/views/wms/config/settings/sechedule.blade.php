@@ -23,6 +23,7 @@
     </div> --}}
 <a href="{{ route('wms.sechedule') }}" class="btn {{ Request::is('wms/config/setting/sechedule') ? 'btn-primary' : ' btn-outline-primary' }}  mb-3">Jadwal konfigurasi</a>
 <a href="{{ route('wms.billing') }}" class="btn btn-outline-primary mb-3">Pengaturan penagihan</a>
+<a href="{{ route('wms.registration') }}" class="btn {{ Request::is('wms/config/setting/registration') ? 'btn-primary' : ' btn-outline-primary' }} mb-3">Pengaturan pendaftaran</a>
 <div class="card">
     <div class="card-body">
         <div class="table-responsive mt-2">

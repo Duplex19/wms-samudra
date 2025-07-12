@@ -2,6 +2,7 @@
 @section('content')
 <a href="{{ route('wms.sechedule') }}" class="btn {{ Request::is('wms/config/setting/sechedule') ? 'btn-primary' : ' btn-outline-primary' }}  mb-3">Jadwal konfigurasi</a>
 <a href="{{ route('wms.billing') }}" class="btn {{ Request::is('wms/config/setting/billing') ? 'btn-primary' : ' btn-outline-primary' }} mb-3">Pengaturan penagihan</a>
+<a href="{{ route('wms.registration') }}" class="btn {{ Request::is('wms/config/setting/registration') ? 'btn-primary' : ' btn-outline-primary' }} mb-3">Pengaturan pendaftaran</a>
 <div class="card">
     <h5 class="card-header">Pengaturan Penagihan</h5>
     <div class="card-body">
@@ -10,19 +11,19 @@
             @csrf
             <div class="row mb-3">
                 <div class="col-md-3">
-                    <label for="">Tanggal Pembuatan Invoice</label>
+                    <label for="">Tanggal Pembuatan Invoice <i class='bx bx-info-circle' data-bs-toggle="tooltip" data-bs-placement="top" title="Tanggal pembuatan tagihan setiap bulan"></i> </label>
                     <input type="number" name="date_invoice" class="form-control">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Tanggal Pengingat</label>
+                    <label for="">Tanggal Pengingat <i class='bx bx-info-circle' data-bs-toggle="tooltip" data-bs-placement="top" title="Tanggal pengiriman pengingat tagihan pelanggan jika belum melakukan pembayaran"></i></label>
                     <input type="number" name="date_reminder" class="form-control">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Tanggal Jatuh Tempo</label>
+                    <label for="">Tanggal Jatuh Tempo <i class='bx bx-info-circle' data-bs-toggle="tooltip" data-bs-placement="top" title="Tanggal jatuh tempo tagihan pembayaran"></i></label>
                     <input type="number" name="due_date" class="form-control">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Tanggal Penangguhan</label>
+                    <label for="">Tanggal Penangguhan <i class='bx bx-info-circle' data-bs-toggle="tooltip" data-bs-placement="top" title="Tanggal penangguhan ( isolir ) jika belum melakukan pembayaran"></i></label>
                     <input type="number" name="date_suspend" class="form-control">
                 </div>
             </div>

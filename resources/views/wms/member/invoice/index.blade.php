@@ -210,7 +210,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Pilih metode pembayaran</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="formPayment" action="" method="POST">
+                <form id="formPayment" action="" method="POST" data-table="true">
                     @csrf
                     <div class="modal-body">
                         <select name="payment_method" id="payment-method" class="form-select mb-3">
@@ -232,7 +232,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit jumlah pembayaran</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="formUpdateAmmount" action="" method="POST">
+                <form id="formUpdateAmmount" action="" method="POST" data-table="true">
                     @csrf
                     <div class="modal-body">
                          <div class="input-group mb-3">

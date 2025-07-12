@@ -60,7 +60,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <form id="formAction" action="{{ route('wms.pppoe.store') }}" method="POST">
+                    <form id="formAction" action="{{ route('wms.pppoe.store') }}" method="POST" data-table="true">
                         @csrf
                         <div class="row g-3">
                             <div class="col">
@@ -175,7 +175,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <form id="formUpdate" action="#" data-table="true" method="POST">
+                    <form id="formUpdate" action="#" data-table="true" method="POST" data-table="true">
                         @csrf
                         <div class="row g-3">
                             <div class="col">

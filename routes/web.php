@@ -59,6 +59,9 @@ Route::middleware(AuthApi::class)->group(function() {
                 Route::post('/setting/sechedule/update/{id}', 'secheduleUpdate')->name('wms.sechedule.update');
                 Route::get('/setting/billing', 'billing')->name('wms.billing');
                 Route::put('/pengaturan_penagihan/update/{id}', 'update')->name('wms.billing.update');
+                Route::get('/setting/registration', 'registration')->name('wms.registration');
+                Route::post('/setting/registration/status/update', 'registrationUpdate')->name('wms.registration.update');
+                Route::post('/setting/registration/price/update', 'registrationPrice')->name('wms.registration.price');
             });
 
             //route template WhatasApp

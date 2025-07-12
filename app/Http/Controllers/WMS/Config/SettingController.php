@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+use Illuminate\Http\Client\Pool;
 
 class SettingController extends Controller
 {
@@ -92,6 +93,73 @@ class SettingController extends Controller
             }
         } catch (\Throwable $th) {
            Log::error('Tidak dapat memperbaharui pengaturan penagihan ' . $th->getMessage());
+           return $this->error('Internal Server Error');
+        }
+    }
+
+    public function registration(Request $request)
+    {
+        if ($request->ajax()) {
+            $responseData = Cache::rememberForever('registration_data', function () {
+                $responses = Http::pool(fn (Pool $pool) => [
+                    $pool->withToken(session('api_token'))->get(config('app.api_service') . '/config/registration/status'),
+                    $pool->withToken(session('api_token'))->get(config('app.api_service') . '/config/registration/price'),
+                ]);
+
+                return [
+                    'registrationStatus' => $responses[0]->json('metadata'),
+                    'registrationPrice' => $responses[1]->json('metadata'),
+                ];
+            });
+
+            return $this->success($responseData, 'Data status registrasi dan harga registrasi', 200);
+        }
+        return view('wms.config.settings.registration', [
+            'titile'    => 'Pengaturan pendaftaran'
+        ]);
+    }
+
+    public function registrationUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return $this->error('Data tidak dapat diproses', $validator->errors(), 422);
+        }
+
+        try {
+            $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/registration/status', $validator->validate());
+            if ($response->successful()) {
+                Cache::forget('registration_data');
+                return $this->success('', 'Pengaturan pendaftaran berhasil diperbaharui', 200);
+            }
+        } catch (\Throwable $th) {
+           Log::error('Tidak dapat memperbaharui pengaturan pendaftaran ' . $th->getMessage());
+           return $this->error('Internal Server Error');
+        }
+    }
+
+    public function registrationPrice(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'price' => ['required', 'regex:/^[\d.]+$/']
+        ]);
+
+        if($validator->fails()) {
+            return $this->error('Data tidak dapat diproses', $validator->errors(), 422);
+        }
+
+        $price = str_replace('.','', $request->price);
+        try {
+            $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/registration/price', ['price' => $price]);
+            if ($response->successful()) {
+                Cache::forget('registration_data');
+                return $this->success('', 'Pengaturan pendaftaran berhasil diperbaharui', 200);
+            }
+        } catch (\Throwable $th) {
+           Log::error('Tidak dapat memperbaharui pengaturan pendaftaran ' . $th->getMessage());
            return $this->error('Internal Server Error');
         }
     }

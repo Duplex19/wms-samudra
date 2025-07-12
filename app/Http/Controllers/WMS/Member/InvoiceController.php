@@ -45,9 +45,6 @@ class InvoiceController extends Controller
                         ';
                     }else {
                         return '
-                            <button class="btn btn-sm bg-success view-btn text-white" onclick="sendReminder(`'.$row['id'].'`)">
-                                <i class="fab fa-whatsapp"></i> Kirim pengingat
-                            </button>
                             <button class="btn btn-sm btn-info view-btn" onclick="copyLink(`'.$row['inv_link'].'`)">
                                 <i class="fas fa-link"></i> Link pembayaran
                             </button>

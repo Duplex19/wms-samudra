@@ -53,18 +53,19 @@
         <div data-i18n="Basic">Template WhatsApp</div>
         </a>
     </li>
+        <li class="menu-item {{ Request::is('wms/member/invoice') ? 'active' : '' }}">
+        <a href="{{ route('wms.member.invoice') }}" class="menu-link">
+        <i class="menu-icon icon-base bx bx-food-menu"></i>
+        <div data-i18n="Basic">Penagihan</div>
+        </a>
+    </li>
     <li class="menu-item {{ Request::is('wms/config/setting*') ? 'active' : '' }}">
         <a href="{{ route('wms.sechedule') }}" class="menu-link">
         <i class="menu-icon icon-base bx bx-cog"></i>
         <div data-i18n="Basic">Pengaturan</div>
         </a>
     </li>
-    <li class="menu-item {{ Request::is('wms/member/invoice') ? 'active' : '' }}">
-        <a href="{{ route('wms.member.invoice') }}" class="menu-link">
-        <i class="menu-icon icon-base bx bx-food-menu"></i>
-        <div data-i18n="Basic">Penagihan</div>
-        </a>
-    </li>
+
 
     {{-- <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Anggota</span>

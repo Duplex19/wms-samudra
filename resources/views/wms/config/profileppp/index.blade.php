@@ -9,7 +9,7 @@
                         <h4 class="alert-heading">Informasi</h4>
                         <p>Pastikan Group sama dengan nama Profile di router</p>
                     </div>
-                    <form id="formAction" action="{{ route('wms.profile_ppp.store') }}" method="POST">
+                    <form id="formAction" action="{{ route('wms.profile_ppp.store') }}" method="POST" data-table="true">
                         @csrf
                         <div class="form-group mb-3">
                         <label for="">Nama*</label>

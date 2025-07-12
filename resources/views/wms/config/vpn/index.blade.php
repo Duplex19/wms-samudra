@@ -36,7 +36,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <form action="{{ route('wms.vpn.store') }}" method="POST">
+                    <form action="{{ route('wms.vpn.store') }}" method="POST" data-table="true">
                         @csrf
                         <div class="form-group mb-3">
                         <label for="">Nama</label>

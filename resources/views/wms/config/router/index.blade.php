@@ -9,7 +9,7 @@
                     <h4 class="alert-heading">Informasi</h4>
                     <p>Untuk kolom IP, gunakan IP public atau IP client dari <a href="{{ route('wms.vpn') }}">VPN Server <i class="bx bx-link-external"></i></a></p>
                     </div>
-                    <form id="formAction" action="{{ route('wms.router.store') }}" method="POST">
+                    <form id="formAction" action="{{ route('wms.router.store') }}" method="POST" data-table="true">
                         @csrf
                         <div class="form-group mb-3">
                         <label for="">Nama*</label>
