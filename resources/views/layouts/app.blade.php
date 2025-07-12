@@ -319,8 +319,6 @@
                         title: "Berhasil",
                         text: response.message,
                         icon: 'success',
-                    }).then(() => {
-                        window.location.reload();
                     });
                 }).catch((error) => {
                     console.log(error);
@@ -347,6 +345,7 @@
 
                 $("#loadingOverlay").removeClass('d-none');
                 await transAjax(param).then((response) => {
+                    dataTable.ajax.reload();
                     $("#loadingOverlay").addClass('d-none');
                     swal({
                         title: "Berhasil",

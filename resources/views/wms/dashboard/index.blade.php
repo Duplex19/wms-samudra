@@ -245,7 +245,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <x-loadingTable />
+                        {{-- <x-loadingTable /> --}}
                     </tbody>
                 </table>
             </div>

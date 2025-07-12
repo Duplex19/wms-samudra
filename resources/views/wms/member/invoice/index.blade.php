@@ -198,10 +198,54 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <x-loadingTable />
+                        {{-- <x-loadingTable /> --}}
                     </tbody>
                 </table>
             </div>
+    </div>
+    <div class="modal fade" id="payment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Pilih metode pembayaran</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formPayment" action="" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <select name="payment_method" id="payment-method" class="form-select mb-3">
+                            <option value="cash">Tunai</option>
+                            <option value="bank transfer">Transer Bank</option>
+                        </select>
+                        <span class="text-read" id="error-payment_method"></span>
+                        <x-btnLoading id="btnLoading" />
+                        <x-btnSubmit id="btnSubmit" text="Bayar sekarang"  onclick="loading(true, 'btnSubmit','btnLoading')" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit jumlah pembayaran</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formUpdateAmmount" action="" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                         <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Rp.</span>
+                            <input type="text" class="form-control" name="amount" id="priceInput">
+                        </div>
+                        <span class="text-read" id="error-payment_method"></span>
+                        <x-btnLoading id="btnLoadingAmmount" />
+                        <x-btnSubmit id="btnSubmitAmmount" text="Perbaharui"  onclick="loading(true, 'btnSubmitAmmount','btnLoadingAmmount')" />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -213,7 +257,7 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
     <script>
-        var table = $('#invoice-table').DataTable({
+        dataTable = $('#invoice-table').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
@@ -370,9 +414,83 @@
         }
     }
 
-    // Auto reload every 5 minutes
-    setInterval(function() {
-        table.ajax.reload(null, false);
-    }, 300000);
+    async function sendReminder(id)
+    {
+        const willUpdate = await swal({
+            title: "Kirim pengingat",
+            text: 'Kirim pesan pengingat pembayaran melalui WhatsApp?',
+            icon: "info",
+            buttons: true,
+            // dangerMode: true,
+        });
+        if (willUpdate) {
+            let param = {
+                url: `/wms/member/invoice/send_reminder/${id}`,
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+            }
+
+            $("#loadingOverlay").removeClass('d-none');
+            await transAjax(param).then((response) => {
+                $("#loadingOverlay").addClass('d-none');
+                swal({
+                    title: "Berhasil",
+                    text: response.message,
+                    icon: 'success',
+                });
+            }).catch((error) => {
+                $("#loadingOverlay").addClass('d-none');
+                console.log(error);
+            });
+        }
+    }
+
+    function copyLink(link) {
+        navigator.clipboard.writeText(link)
+        .then(() => {
+            swal({
+                title: "Berhasil",
+                text: "Link pembayaran berhasil disalin",
+                icon: 'success',
+            });
+        })
+        .catch((err) => {
+            console.error('Gagal menyalin link:', err);
+            swal({
+                title: "Gagal",
+                text: "Link tidak dapat disalin ke clipboard",
+                icon: 'error',
+            });
+        });
+    }
+
+    function payment(id)
+    {
+        $("#payment").modal('show');
+        $("#formPayment").attr('action', `/wms/member/invoice/payment/${id}`)
+    }
+
+    function editData(id, amount)
+    {
+        document.getElementById('priceInput').addEventListener('input', function (e) {
+        let value = this.value.replace(/[^\d]/g, '');
+        if (!value) {
+            this.value = '';
+            return;
+        }
+
+        this.value = formatRupiah(value);
+        });
+
+        function formatRupiah(angka) {
+            return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+        
+        $("input[name=amount]").val(amount.replace(/Rp\s?/i, '').trim());
+        $("#editData").modal('show');
+        $("#formUpdateAmmount").attr('action', `/wms/member/invoice/update/${id}`)
+    }
     </script>
 @endpush
