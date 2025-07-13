@@ -409,7 +409,22 @@
                 });
             }).catch((error) => {
                 $("#loadingOverlay").addClass('d-none');
-                console.log(error);
+                if(error.status === 401) {
+                    swal({ 
+                        title: 'Sesi habis',
+                        text:  error.responseJSON.message, 
+                        icon: 'error', 
+                        timer: 3000,
+                    }).then(() => {
+                        window.location.href = '/';
+                    });
+                }else {
+                    swal({ 
+                        title: 'Gagal',
+                        text:  error.responseJSON.message, 
+                        icon: 'error', 
+                    });
+                }    
             });
         }
     }
@@ -442,7 +457,22 @@
                 });
             }).catch((error) => {
                 $("#loadingOverlay").addClass('d-none');
-                console.log(error);
+                if(error.status === 401) {
+                    swal({ 
+                        title: 'Sesi habis',
+                        text:  error.responseJSON.message, 
+                        icon: 'error', 
+                        timer: 3000,
+                    }).then(() => {
+                        window.location.href = '/';
+                    });
+                }else {
+                    swal({ 
+                        title: 'Gagal',
+                        text:  error.responseJSON.message, 
+                        icon: 'error', 
+                    });
+                } 
             });
         }
     }

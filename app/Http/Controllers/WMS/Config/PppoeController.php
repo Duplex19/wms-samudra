@@ -38,24 +38,30 @@ class PppoeController extends Controller
                     return $this->success($data, 'List data profile ppp');
                     break;
                 default:
-                   $data = Cache::rememberForever('pppoe_metadata', function () {
-                        $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/config/pppoe');
-                        if ($response->ok()) {
-                            return $response->json('metadata');
-                        }
-                        return [];
-                    });
+                try {
+                    $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/config/pppoe');
+                    if ($response->status() === 401) {
+                        session()->forget(['api_token', 'user_data']);
+                        $request->session()->invalidate();
+                        $request->session()->regenerate();
+                        return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+                    }
+                    $pppoe = $response->json('metadata');
 
                     // Lakukan filter manual jika request mengandung status
                     if ($request->has('status') && $request->status !== null) {
-                        $filtered = collect($data);
-                        $data = $filtered->where('status', $request->status);
+                        $filtered = collect($pppoe);
+                        $pppoe = $filtered->where('status', $request->status);
                     }
 
-                    return DataTables::of($data)
+                    return DataTables::of($pppoe)    
                     ->rawColumns(['action', 'status'])
                     ->make(true);
-                    // return view('wms.config.pppoe._data_pppoe', compact('data'));
+                } catch (\Throwable $th) {
+                    Log::error('Gagal saat mengambil data pppoe ' . $th->getMessage(), 500);
+                    return $this->error('Internal server error. Silakan hubungi Administrator', 500);
+                }
+                    
                 break;
             }
         }
@@ -89,6 +95,12 @@ class PppoeController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/pppoe/store', $data);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->created()) {
                 Cache::forget('pppoe_metadata');
                 return $this->success('', 'Pppoe berhasil ditambahkan', 201);
@@ -116,6 +128,12 @@ class PppoeController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/pppoe/update/' . $id,  $validator->validate());
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('pppoe_metadata');
                 return $this->success('', 'Pppoe berhasil diupdate', 200);
@@ -134,6 +152,12 @@ class PppoeController extends Controller
         $status = $request->status == 'active' ? 'suspend' : 'active';
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/pppoe/set_status/' . $id, ['status' => $status]);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('pppoe_metadata');
                 return $this->success('', 'Status pppoe berhasil diupdate', 200);
@@ -151,10 +175,16 @@ class PppoeController extends Controller
     }
 
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         try {
             $response = Http::withToken(session('api_token'))->delete(config('app.api_service') . '/config/pppoe/destroy/' . $id);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('pppoe_metadata');
                 return $this->success('','Pppoe berhasil dihapus', 200);

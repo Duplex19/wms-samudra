@@ -45,6 +45,12 @@ class SettingController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/config/schedule/'.$id, $validator->validate());
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->ok()) {
                 Cache::forget('schedule_metadata');
                 return $this->success('', 'Pengaturan penagihan berhasil diperbaharui', 200);
@@ -87,6 +93,12 @@ class SettingController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/config/billing/'.$id, $validator->validate());
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->ok()) {
                 Cache::forget('billing_metadata');
                 return $this->success('', 'Pengaturan penagihan berhasil diperbaharui', 200);
@@ -131,6 +143,12 @@ class SettingController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/registration/status', $validator->validate());
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->successful()) {
                 Cache::forget('registration_data');
                 return $this->success('', 'Pengaturan pendaftaran berhasil diperbaharui', 200);
@@ -154,6 +172,12 @@ class SettingController extends Controller
         $price = str_replace('.','', $request->price);
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/registration/price', ['price' => $price]);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->successful()) {
                 Cache::forget('registration_data');
                 return $this->success('', 'Pengaturan pendaftaran berhasil diperbaharui', 200);

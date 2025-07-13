@@ -47,6 +47,12 @@ class VPNController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/vpn/store', $validator->validate());
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->created()) {
                 Cache::forget('vpn_metadata');
                 return $this->success($response->json('metadata'), 'Akun VPN berhasil dibuat', 201);

@@ -48,6 +48,12 @@ class RouterController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/router/store', $validator->validate());
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->created()) {
                 Cache::forget('router_metadata');
                 return $this->success('', 'Router berhasil ditambahkan', 201);
@@ -80,6 +86,12 @@ class RouterController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/router/update/' . $id, $data);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('router_metadata');
                 return $this->success('', 'Router berhasil diupdate', 201);
@@ -92,10 +104,16 @@ class RouterController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         try {
             $response = Http::withToken(session('api_token'))->delete(config('app.api_service') . '/config/router/destroy/' . $id);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('router_metadata');
                 return $this->success('','Router berhasil dihapus', 200);
@@ -108,10 +126,16 @@ class RouterController extends Controller
         }
     }
 
-    public function ping($id)
+    public function ping(Request $request, $id)
     {
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/router/cek_koneksi', ['id' => $id]);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('router_metadata');
                 return $this->success('','Router berhasil terhubung', 200);

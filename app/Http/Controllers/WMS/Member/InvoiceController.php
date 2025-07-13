@@ -101,10 +101,16 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function sendReminder($id)
+    public function sendReminder(Request $request, $id)
     {
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/member/invoice/send_reminder/'.$id);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->successful()) {
                 // Cache::forget('billing_metadata');
                 return $this->success('', 'Pengaturan penagihan berhasil diperbaharui', 200);
@@ -127,6 +133,12 @@ class InvoiceController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/member/invoice/update_status/'.$id, $validator->validate());
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->successful()) {
                 Cache::forget('invoice_metadata');
                 return $this->success('', 'Pembayaran berhasil diperbaharui', 200);
@@ -150,6 +162,12 @@ class InvoiceController extends Controller
         $amount = str_replace('.', '', $request->amount);
         try {
             $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/member/invoice/'.$id, ['amount'=>$amount]);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->successful()) {
                 Cache::forget('invoice_metadata');
                 return $this->success('', 'Jumlah pembayaran berhasil diperbaharui', 200);
@@ -160,10 +178,16 @@ class InvoiceController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         try {
             $response = Http::withToken(session('api_token'))->delete(config('app.api_service') . '/member/invoice/'.$id);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if ($response->successful()) {
                 Cache::forget('invoice_metadata');
                 return $this->success('', 'Invoice berhasil dihapus', 200);

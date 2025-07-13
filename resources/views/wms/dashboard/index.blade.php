@@ -271,6 +271,18 @@
                 d.payment_method = $('#payment-method-filter').val();
                 d.date_from = $('#date-from').val();
                 d.date_to = $('#date-to').val();
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                if (xhr.status === 401) {
+                    swal({
+                        title: "Sesi habis",
+                        text: xhr.responseJSON.message,
+                        icon: 'error',
+                        timer: 3000,
+                    }).then(() => {
+                        window.location.href = '/';
+                    });
+                }
             }
         },
         columns: [

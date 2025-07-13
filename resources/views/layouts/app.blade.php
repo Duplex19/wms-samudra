@@ -166,7 +166,7 @@
             var method = form.attr('method') || 'POST';
 
             //config
-            var reloadDataTable = form.data('table') === "true";
+            var reloadDataTable = form.data('table') === true;
             var resetForm = form.data('resetForm');
 
             var param = {
@@ -205,7 +205,8 @@
                         console.error("Bad Request");
                         break;
                     case 401:
-                        console.error("Unauthorized - Silakan login kembali.");
+                        unauthorized(err);
+                        console.log("Unauthorized - Silakan login kembali.");
                         break;
                     case 403:
                         forbidden(err);
@@ -236,6 +237,18 @@
                         title: "Oops!",
                         text: response.message || "Bad Request - Permintaan tidak dapat diproses.",
                         icon: 'error',
+                    });
+                }
+
+                function  unauthorized(err)
+                {
+                    swal({
+                        title: "Sesi habis",
+                        text: err.responseJSON.message,
+                        icon: 'error',
+                        timer: 3000,
+                    }).then(() => {
+                        window.location.href = '/';
                     });
                 }
 

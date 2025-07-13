@@ -13,6 +13,14 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected function unauthorized(string $message = 'Error!', int $code = 401)
+    {
+        return response()->json([
+            'success'   => false,
+            'message'   => $message,
+        ], $code);
+    }
+
     protected function warning(string $message = 'Error!', int $code = Response::HTTP_INTERNAL_SERVER_ERROR)
     {
         return response()->json([

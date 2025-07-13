@@ -49,6 +49,12 @@ class ProfilePppController extends Controller
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/profile/store', $data);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->created()) {
                 Cache::forget('profileppp_metadata');
                 return $this->success('', 'Profil PPP berhasil ditambahkan', 201);
@@ -78,6 +84,12 @@ class ProfilePppController extends Controller
         
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/profile/update/' . $id, $data);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('profileppp_metadata');
                 return $this->success('', 'Profil PPP berhasil diupdate', 201);
@@ -90,10 +102,16 @@ class ProfilePppController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         try {
             $response = Http::withToken(session('api_token'))->delete(config('app.api_service') . '/config/profile/destroy/' . $id);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
             if($response->successful()) {
                 Cache::forget('profileppp_metadata');
                 return $this->success('','Profil PPP berhasil dihapus', 200);

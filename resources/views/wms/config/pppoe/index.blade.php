@@ -266,6 +266,18 @@
                 url: "{{ url()->current() }}",
                 data: function(d) {
                     d.status = $('#filterStatus').val();
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    if (xhr.status === 401) {
+                        swal({
+                            title: "Sesi habis",
+                            text: xhr.responseJSON.message,
+                            icon: 'error',
+                            timer: 3000,
+                        }).then(() => {
+                            window.location.href = '/';
+                        });
+                    }
                 }
             },
             columns: [
@@ -447,5 +459,9 @@
         $("#username").val(username);
         $("#password").val(password);
     }
+
+    setInterval(() => {
+        dataTable.ajax.reload(null, false);
+    }, 60000);
 </script>
 @endpush
