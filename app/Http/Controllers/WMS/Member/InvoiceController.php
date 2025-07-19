@@ -36,7 +36,7 @@ class InvoiceController extends Controller
                             <button class="btn btn-sm btn-primary view-btn" onclick="payment(`'.$row['id'].'`)">
                                 <i class="fas fa-credit-card"></i> Bayar
                             </button>
-                            <button class="btn btn-sm btn-warning view-btn" onclick="editData(`'.$row['id'].'`)">
+                             <button class="btn btn-sm btn-warning view-btn" onclick="editData(\'' . $row['id'] . '\', \'' . $row['amount'] . '\')">
                                 <i class="fas fa-pencil"></i> Edit
                             </button>
                             <button class="btn btn-sm btn-danger view-btn" onclick="hapus(`/wms/member/invoice/delete/'.$row['id'].'`)">
@@ -45,15 +45,7 @@ class InvoiceController extends Controller
                         ';
                     }else {
                         return '
-                            <button class="btn btn-sm btn-info view-btn" onclick="copyLink(`'.$row['inv_link'].'`)">
-                                <i class="fas fa-link"></i> Link pembayaran
-                            </button>
-                            <button class="btn btn-sm btn-warning view-btn" onclick="editData(\'' . $row['id'] . '\', \'' . $row['amount'] . '\')">
-                                <i class="fas fa-pencil"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger view-btn" onclick="hapus(`/wms/member/invoice/delete/'.$row['id'].'`)">
-                                <i class="fas fa-trash"></i> Hapus
-                            </button>
+                            -
                         ';
                     }
                     

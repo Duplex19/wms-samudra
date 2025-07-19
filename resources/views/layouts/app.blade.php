@@ -80,6 +80,12 @@
   </head>
 
   <body>
+     {{-- <script>
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+      </script> --}}
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -123,6 +129,8 @@
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
     <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>

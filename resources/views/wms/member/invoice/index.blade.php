@@ -190,9 +190,9 @@
                             <th>Status</th>
                             <th>Periode</th>
                             <th>Alamat</th>
-                            <th>WhatsApp</th>
-                            <th>Due Date</th>
-                            <th>Paid Date</th>
+                            <th>Nomor whatsApp</th>
+                            <th>Jatuh tempo</th>
+                            <th>Tanggal pembayaran</th>
                             <th>Metode pembayaran</th>
                             <th>Aksi</th>
                         </tr>

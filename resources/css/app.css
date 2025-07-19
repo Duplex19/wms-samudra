@@ -1,11 +1,60 @@
-@import 'tailwindcss';
+body.dark-mode {
+    background: #232b2b;
+    color: #8f82a5;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+body.dark-mode .layout-navbar {
+    background-color: #2b2c40 !important;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+body.dark-mode .app-brand-text {
+    color: #d5d5e2 !important;
+}
+
+body.dark-mode .bg-footer-theme {
+    background-color: #2b2c40 !important;
+}
+
+body.dark-mode .card {
+    background-color: #2b2c40 !important;
+}
+
+body.dark-mode .form-control {
+    background-color: #2b2c40 !important;
+}
+
+body.dark-mode .layout-menu {
+    background-color: #2b2c40 !important;
+}
+
+body.dark-mode .menu-link {
+    color: #d5d5e2 !important;
+}
+
+body.dark-mode h5 {
+    color: #d5d5e2 !important;
+}
+
+body.dark-mode label {
+    color: #d5d5e2 !important;
+}
+
+body.dark-mode .table-light {
+    background-color: #d5d5e2 !important;
+}
+
+body.dark-mode .alert-primary {
+    color: #d5d5e2 !important;
+}
+
+body.dark-mode th {
+    color: #d5d5e2 !important;
+}
+
+body.dark-mode .table {
+    color: #d5d5e2 !important;
+}
+
+body.dark-mode .dataTables_info {
+    color: #d5d5e2 !important;
 }
