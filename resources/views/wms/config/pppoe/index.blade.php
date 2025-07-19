@@ -262,6 +262,9 @@
             // processing: true,
             serverSide: true,
             responsive: true,
+            scrollX: true,
+            autoWidth: false,
+            responsive: false, // false agar scrollX aktif
             ajax: {
                 url: "{{ url()->current() }}",
                 data: function(d) {
