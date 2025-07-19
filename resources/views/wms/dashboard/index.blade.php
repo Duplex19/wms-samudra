@@ -213,7 +213,7 @@
                                 </div>
                             </h2>
                             <p class="card-label">Tagihan dibayar</p>
-                            <span class="fw-bold fs-6" id="paidCurrentMonth">Rp 0</span>
+                            <span class="fw-bold fs-6 paidCurrentMonth">Rp 0</span>
                         </div>
                     </div>
                 </div>
@@ -244,15 +244,15 @@
                 <div class="card-body card-content">
                     <div class="d-flex align-items-center">
                         <div class="icon-container">
-                            <i class="tf-icons bx bx-wallet"></i>
+                            <i class="tf-icons bx bx-dollar-circle"></i>
                         </div>
                         <div>
-                            <h2 class="card-number text-white estimatedMonthlyIncome">
+                            <h2 class="card-number text-white paidCurrentMonth">
                                 <div class="spinner-border spinner-border-sm" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Estimasi pendapatan bulan ini</p>
+                            <p class="card-label">Pendapatan bulan ini</p>
                         </div>
                     </div>
                 </div>
@@ -439,7 +439,7 @@
                 $("#paidInvoice").html(data.paid_invoices);
                 $("#overdueInvoice").html(data.overdue_invoices);
                 $(".estimatedMonthlyIncome").html(data.estimated_monthly_income);
-                $("#paidCurrentMonth").html(data.paid_current_month);
+                $(".paidCurrentMonth").html(data.paid_current_month);
                 $("#unpaidCurrentMonth").html(data.unpaid_current_month);
                 $("#countOverdueBilling").html(data.count_overdue_billing);
 
