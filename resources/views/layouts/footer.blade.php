@@ -7,7 +7,7 @@
         </script>
         , made with ❤️ by
         <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Samudra Wasesa | </a>
-        <span class="footer-link">Version 1.0.0</span>
+        <span class="footer-link">Version 2.0.0</span>
     </div>
     <div>
         <a
