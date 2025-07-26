@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
->
-  <head>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
+    data-assets-path="../assets/" data-template="vertical-menu-template-free">
+
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>Dashboard - Samudra Wasesa</title>
 
@@ -20,15 +13,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://samudrawasesa.co.id/assets/home/assets/img/samudra.png" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/samudra-wasesa.png') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
@@ -36,22 +28,25 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-         /* Belum dibuka */
+        /* Belum dibuka */
         table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
         table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
-            content: "\f0fe" !important; /* fa-plus-square */
-            font-family: "Font Awesome 6 Free"; /* sesuaikan dengan versimu */
+            content: "\f0fe" !important;
+            /* fa-plus-square */
+            font-family: "Font Awesome 6 Free";
+            /* sesuaikan dengan versimu */
             font-weight: 900;
         }
 
         /* Sudah dibuka */
         table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
         table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
-            content: "\f146" !important;  /* fa-minus-square */
+            content: "\f146" !important;
+            /* fa-minus-square */
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
         }
@@ -59,7 +54,8 @@
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
+        class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
@@ -76,11 +72,11 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     @stack('css')
-     @vite(['resources/css/app.css', 'resources/js/app.js'])
-  </head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 
-  <body>
-     {{-- <script>
+<body>
+    {{-- <script>
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             document.body.classList.add('dark-mode');
@@ -88,40 +84,40 @@
       </script> --}}
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
+        <div class="layout-container">
+            <!-- Menu -->
 
-        @include('layouts.sidebar')
-        <!-- / Menu -->
+            @include('layouts.sidebar')
+            <!-- / Menu -->
 
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
 
-          @include('layouts.navbar')
+                @include('layouts.navbar')
 
-          <!-- / Navbar -->
+                <!-- / Navbar -->
 
-          <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-            @yield('content')
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @yield('content')
+                    </div>
+                    <!-- Footer -->
+                    @include('layouts.footer')
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
             </div>
-            <!-- Footer -->
-            @include('layouts.footer')
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
+            <!-- / Layout page -->
         </div>
-        <!-- / Layout page -->
-      </div>
 
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
-      <x-loadingPopup />
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+        <x-loadingPopup />
     </div>
     <!-- / Layout wrapper -->
     <!-- Core JS -->
@@ -147,7 +143,7 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
     <!-- Page JS -->
-      <script type="text/javascript">
+    <script type="text/javascript">
         let dataTable = '';
         let btnSubmit = null;
         let btnLoading = null;
@@ -166,7 +162,7 @@
             return html
         }
 
-        $('form').on('submit', async function (e) {
+        $('form').on('submit', async function(e) {
             e.preventDefault();
             loading(true, btnSubmit, btnLoading);
             var form = $(this);
@@ -189,24 +185,24 @@
             await transAjax(param).then((result) => {
                 loading(false, btnSubmit, btnLoading);
                 $(".modal").modal('hide');
-                
-                swal({ 
+
+                swal({
                     title: 'Berhasil',
-                    text:  result.message, 
-                    icon: 'success', 
+                    text: result.message,
+                    icon: 'success',
                 });
-                
-                if(resetForm) {
+
+                if (resetForm) {
                     form.trigger('reset');
                 }
-                
-                if(reloadDataTable) {
+
+                if (reloadDataTable) {
                     dataTable.ajax.reload();
                 }
-                
+
             }).catch((err) => {
                 console.log(err.message);
-                
+
                 switch (err.status) {
                     case 400:
                         badRequest(err)
@@ -243,13 +239,13 @@
                     const response = err.responseJSON || '';
                     swal({
                         title: "Oops!",
-                        text: response.message || "Bad Request - Permintaan tidak dapat diproses.",
+                        text: response.message ||
+                            "Bad Request - Permintaan tidak dapat diproses.",
                         icon: 'error',
                     });
                 }
 
-                function  unauthorized(err)
-                {
+                function unauthorized(err) {
                     swal({
                         title: "Sesi habis",
                         text: err.responseJSON.message,
@@ -307,11 +303,11 @@
                 function internalServerError(err) {
                     const response = err.responseJSON || '';
                     const errors = response?.errors || '';
-                    
+
                     loading(false, btnSubmit, btnLoading);
                     swal({
                         title: "Mohon Maaf!",
-                        text:  response.message || 'Internal Server Error!' + '\n' + errors,
+                        text: response.message || 'Internal Server Error!' + '\n' + errors,
                         icon: 'error',
                     });
                 }
@@ -346,7 +342,7 @@
                 });
             }
         }
-        
+
         async function hapus(url, message = 'Data yang dihapus tidak dapat dikembalikan') {
             const willDelete = await swal({
                 title: "Hapus?",
@@ -414,19 +410,20 @@
         function loading(state, submit, loading, callback) {
 
             console.log(submit, loading);
-            
+
             btnSubmit = submit;
             btnLoading = loading;
-            
-            if(state) {
-                $('#'+btnSubmit).addClass('d-none');
-                $('#'+btnLoading).removeClass('d-none');
+
+            if (state) {
+                $('#' + btnSubmit).addClass('d-none');
+                $('#' + btnLoading).removeClass('d-none');
             } else {
-                $('#'+btnSubmit).removeClass('d-none');
-                $('#'+btnLoading).addClass('d-none');
+                $('#' + btnSubmit).removeClass('d-none');
+                $('#' + btnLoading).addClass('d-none');
             }
         }
     </script>
     @stack('js')
-  </body>
+</body>
+
 </html>
