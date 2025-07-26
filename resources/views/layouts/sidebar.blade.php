@@ -69,15 +69,15 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Keuangan</span>
         </li>
-        <li class="menu-item {{ Request::is('wms/member/invoice') ? 'active open' : '' }} {{ Request::is('wms/config/setting*') ? 'active open' : '' }}"
+        <li class="menu-item {{ Request::is('wms/member*') ? 'active open' : '' }} {{ Request::is('wms/config/setting*') ? 'active open' : '' }}"
             style="">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base bx bx-food-menu"></i>
                 <div data-i18n="Account Settings">Penagihan Bulanan</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{ Request::is('wms/member/customer') ? 'active' : '' }}">
+                    <a href="{{ route('wms.member.customer') }}" class="menu-link">
                         <div data-i18n="Account">Anggota</div>
                     </a>
                 </li>

@@ -79,6 +79,12 @@ Route::middleware(AuthApi::class)->group(function() {
                 Route::post('/invoice/update/{id}', 'paymentUpdate')->name('wms.member.invoice.paymentUpdate');
                 Route::delete('/invoice/delete/{id}', 'delete')->name('wms.member.invoice.delete');
             });
+
+            Route::controller(WMS\Member\CustomerController::class)->group(function() {
+                Route::get('/customer', 'index')->name('wms.member.customer');
+                Route::put('/customer/{id}', 'update')->name('wms.member.customer.update');
+            });
+
         });
 
         //route log aktivitas user
