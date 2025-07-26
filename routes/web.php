@@ -81,6 +81,9 @@ Route::middleware(AuthApi::class)->group(function() {
             });
         });
 
+        //route log aktivitas user
+        Route::get('/services/log', WMS\Services\LogController::class)->name('wms.log');
+
         //route untuk keluar aplikasi
         Route::post('/logout', [Auth\AuthController::class, 'logout'])->name('wms.logout');
     });

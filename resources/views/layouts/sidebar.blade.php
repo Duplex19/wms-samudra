@@ -108,75 +108,11 @@
                 <div data-i18n="Basic">Akun</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::is('wms/services/log') ? 'active' : '' }}">
+            <a href="{{ route('wms.log') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-list-ul"></i>
                 <div data-i18n="Basic">Log</div>
             </a>
         </li>
-        <!-- Layouts -->
-        {{-- <li class="menu-item {{ Request::is('wms/config/router') ? 'active' : '' }}">
-            <a href="{{ route('wms.router') }}" class="menu-link">
-                <i class='bx  bx-grid-circle-diagonal-left'></i>
-                <i class="menu-icon tf-icons bx bx-directions"></i>
-                <div data-i18n="Basic">Router</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Request::is('wms/config/profile_ppp') ? 'active' : '' }}">
-            <a href="{{ route('wms.profile_ppp') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Basic">Profil PPP</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Request::is('wms/config/pppoe') ? 'active' : '' }}">
-            <a href="{{ route('wms.pppoe') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-vector"></i>
-                <div data-i18n="Basic">Pppoe</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Request::is('wms/config/vpn') ? 'active' : '' }}">
-            <a href="{{ route('wms.vpn') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-server"></i>
-                <div data-i18n="Basic">VPN Server</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Request::is('wms/config/template_whatsapp') ? 'active' : '' }}">
-            <a href="{{ route('wms.templateWhatsapp') }}" class="menu-link">
-                <i class='menu-icon bx  bx-message-detail'></i>
-                <div data-i18n="Basic">Template WhatsApp</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Request::is('wms/member/invoice') ? 'active' : '' }}">
-            <a href="{{ route('wms.member.invoice') }}" class="menu-link">
-                <i class="menu-icon icon-base bx bx-food-menu"></i>
-                <div data-i18n="Basic">Penagihan</div>
-            </a>
-        </li>
-        <li class="menu-item {{ Request::is('wms/config/setting*') ? 'active' : '' }}">
-            <a href="{{ route('wms.sechedule') }}" class="menu-link">
-                <i class="menu-icon icon-base bx bx-cog"></i>
-                <div data-i18n="Basic">Pengaturan</div>
-            </a>
-        </li> --}}
-
-
-        {{-- <li class="menu-header small text-uppercase">
-        <span class="menu-header-text">Anggota</span>
-    </li>
-     <li class="menu-item">
-        <a href="#" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-group"></i>
-        <div data-i18n="Basic">Anggota</div>
-        </a>
-    </li>
-    <li class="menu-header small text-uppercase">
-        <span class="menu-header-text">Kegunaan</span>
-    </li>
-     <li class="menu-item">
-        <a href="#" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-map"></i>
-        <div data-i18n="Basic">Map</div>
-        </a>
-    </li> --}}
     </ul>
 </aside>
