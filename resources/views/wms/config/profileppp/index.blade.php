@@ -43,8 +43,8 @@
                             <div class="form-group mb-3">
                                 <label for="">Tampilkan*</label>
                                 <select name="show" class="form-select" id="show">
-                                    <option value="true">Ya</option>
-                                    <option value="false">Tidak</option>
+                                    <option value="1">Ya</option>
+                                    <option value="0">Tidak</option>
                                 </select>
                             </div>
                             <span class="text-danger" id="error-show"></span>
@@ -67,6 +67,7 @@
                                 <th scope="col">Nama</th>
                                 <th scope="col">Grup</th>
                                 <th scope="col">Harga</th>
+                                <th scope="col">Ditampilkan</th>
                                 <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -84,9 +85,11 @@
     <script>
         $(document).ready(function() {
              dataTable = $('#dataTable').DataTable({
-                // processing: true,
                 serverSide: true,
                 responsive: true,
+                scrollX: true,
+                autoWidth: false,
+                responsive: false,
                 ajax: {
                     url: "{{ url()->current() }}",
                     data: function(d) {
@@ -104,6 +107,13 @@
                     {data: 'name', name: 'name'},
                     {data: 'group', name: 'group'},
                     {data: 'price', name: 'price'}, 
+                    {data: 'show', name: 'show', render: function(data,type,row) {
+                        if(row.show === 1) {
+                            return `<span class="badge bg-success rounded-pill">Ya</span>`
+                        }else {
+                            return `<span class="badge bg-warning rounded-pill">Tidak</span>`
+                        } 
+                    }}, 
                     {
                         data: null,
                         name: 'aksi',
@@ -155,7 +165,7 @@
         
         function edit(data)
         {
-            let {id, name, group, price} = data;
+            let {id, name, group, price, show} = data;
             
             $("#formAction").attr('action','/wms/config/profile_ppp/update/' + id);
             $("#textHeader").text('Update profil pppp');
@@ -163,6 +173,7 @@
             $("input[name=name]").val(name);
             $("input[name=group]").val(group);
             $("input[name=price]").val(price.replace(/Rp\s?/i, '').trim());
+            $("#show").val(show);
              
             $("#btnSubmit").text('Upadate');
         }

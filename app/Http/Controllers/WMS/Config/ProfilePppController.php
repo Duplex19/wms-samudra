@@ -73,6 +73,7 @@ class ProfilePppController extends Controller
             'name'  => 'required',
             'group'  => 'required',
             'price'  => 'required',
+            'show'  => 'required',
         ]);
 
         if($validator->fails()) {
