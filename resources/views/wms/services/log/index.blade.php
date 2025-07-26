@@ -52,6 +52,8 @@
                     {data: 'user', name: 'user', render: function(data, type, row,meta) {
                         if(row.user == '') {
                             return 'Tdk diketahui'
+                        }else {
+                            return row.user;
                         }
                     }},
                     {data: 'activity', name: 'activity'},

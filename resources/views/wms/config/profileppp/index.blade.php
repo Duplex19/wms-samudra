@@ -39,6 +39,16 @@
                             </div>
                             <span class="text-danger" id="error-price"></span>
                         </div>
+                        <div class="col">
+                            <div class="form-group mb-3">
+                                <label for="">Tampilkan*</label>
+                                <select name="show" class="form-select" id="show">
+                                    <option value="true">Ya</option>
+                                    <option value="false">Tidak</option>
+                                </select>
+                            </div>
+                            <span class="text-danger" id="error-show"></span>
+                        </div>
                         <x-btnLoading id="btnLoading" />
                         <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />
                     </form>
