@@ -14,7 +14,7 @@ class ProfilePppController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->ajax()) {
+        if ($request->ajax()) {
             $data = Cache::rememberForever('profileppp_metadata', function () {
                 $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/config/profile');
                 if ($response->ok()) {
@@ -22,9 +22,9 @@ class ProfilePppController extends Controller
                 }
                 return [];
             });
-           return DataTables::of($data)
-            ->rawColumns(['action', 'status'])
-            ->make(true);
+            return DataTables::of($data)
+                ->rawColumns(['action', 'status'])
+                ->make(true);
         }
 
         return view('wms.config.profileppp.index', [
@@ -32,20 +32,21 @@ class ProfilePppController extends Controller
         ]);
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
-            'group'  => 'required',
-            'price'  => 'required',
+            'name' => 'required',
+            'group' => 'required',
+            'price' => 'required',
+            'show' => 'required',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $this->error('Data tidak dapat diproses', $validator->errors(), 422);
         }
 
         $data = $validator->validate();
-        $data['price'] = str_replace('.', '',$request->price);
+        $data['price'] = str_replace('.', '', $request->price);
 
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/profile/store', $data);
@@ -55,10 +56,10 @@ class ProfilePppController extends Controller
                 $request->session()->regenerate();
                 return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
             }
-            if($response->created()) {
+            if ($response->created()) {
                 Cache::forget('profileppp_metadata');
                 return $this->success('', 'Profil PPP berhasil ditambahkan', 201);
-            }else {
+            } else {
                 return $this->error($response->json('message'), 500);
             }
         } catch (\Throwable $th) {
@@ -67,22 +68,22 @@ class ProfilePppController extends Controller
         }
     }
 
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
-            'group'  => 'required',
-            'price'  => 'required',
-            'show'  => 'required',
+            'name' => 'required',
+            'group' => 'required',
+            'price' => 'required',
+            'show' => 'required',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $this->error('Data tidak dapat diproses', $validator->errors(), 422);
         }
 
         $data = $validator->validate();
-        $data['price'] = str_replace('.', '',$request->price);
-        
+        $data['price'] = str_replace('.', '', $request->price);
+
         try {
             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/config/profile/update/' . $id, $data);
             if ($response->status() === 401) {
@@ -91,10 +92,10 @@ class ProfilePppController extends Controller
                 $request->session()->regenerate();
                 return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
             }
-            if($response->successful()) {
+            if ($response->successful()) {
                 Cache::forget('profileppp_metadata');
                 return $this->success('', 'Profil PPP berhasil diupdate', 201);
-            }else {
+            } else {
                 return $this->error($response->json('message'), 500);
             }
         } catch (\Throwable $th) {
@@ -113,10 +114,10 @@ class ProfilePppController extends Controller
                 $request->session()->regenerate();
                 return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
             }
-            if($response->successful()) {
+            if ($response->successful()) {
                 Cache::forget('profileppp_metadata');
-                return $this->success('','Profil PPP berhasil dihapus', 200);
-            }else {
+                return $this->success('', 'Profil PPP berhasil dihapus', 200);
+            } else {
                 return $this->error($response->json('message'), 500);
             }
         } catch (\Throwable $th) {
