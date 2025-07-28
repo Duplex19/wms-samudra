@@ -38,9 +38,8 @@
             dataTable = $('#dataTable').DataTable({
                 serverSide: true,
                 responsive: true,
-                scrollX: true,
-                autoWidth: false,
-                responsive: false,
+                // scrollX: true,
+                // autoWidth: false,
                 ajax: {
                     url: "{{ url()->current() }}",
                     data: function(d) {

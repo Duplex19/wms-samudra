@@ -95,7 +95,7 @@
         </li>
         <li class="menu-item">
             <a href="#" class="menu-link">
-                <i class="menu-icon icon-base bx bx-edit-alt"></i>
+                <i class="menu-icon icon-base bx bx-edit"></i>
                 <div data-i18n="Basic">Penagihan Manual</div>
             </a>
         </li>
