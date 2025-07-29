@@ -116,7 +116,11 @@
                         <i class="tf-icons bx bx-food-menu"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">850</h2>
+                        <h2 class="card-number text-white" id="total_invoices">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h2>
                         <p class="card-label">Total penagihan</p>
                     </div>
                 </div>
@@ -131,7 +135,11 @@
                         <i class="tf-icons bx bx-user-check"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">800</h2>
+                        <h2 class="card-number text-white" id="paid_invoices">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h2>
                         <p class="card-label">Dibayar</p>
                     </div>
                 </div>
@@ -146,7 +154,11 @@
                         <i class="tf-icons bx bx-user-x"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">30</h2>
+                        <h2 class="card-number text-white" id="unpaid_invoices">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h2>
                         <p class="card-label">Belum dibayar</p>
                     </div>
                 </div>
@@ -161,7 +173,11 @@
                         <i class="tf-icons bx bx-alarm"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white">20</h2>
+                        <h2 class="card-number text-white" id="overdue_invoices">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h2>
                         <p class="card-label">Jatuh tempo</p>
                     </div>
                 </div>
@@ -246,6 +262,33 @@
 @push('js')
     <script type="text/javascript">
     $(document).ready(function() {
+        getInvSummary();
+    });
+
+    async function getInvSummary()
+    {
+        let param = {
+            url: "{{ url()->current() }}",
+            method: "GET",
+            data: {
+                'category': 'inv_summary'
+            }
+        };
+
+        await transAjax(param).then((result) => {
+            $("#total_invoices").html(result.metadata.total_invoices);
+            $("#unpaid_invoices").html(result.metadata.unpaid_invoices);
+            $("#paid_invoices").html(result.metadata.paid_invoices);
+            $("#overdue_invoices").html(result.metadata.overdue_invoices);
+        }).catch((err) => {
+            return alert('Gagal mengambil data summary');
+        });
+
+        getDataTable();
+    }
+
+    function  getDataTable()
+    {
         dataTable = $('#invoice-table').DataTable({
         processing: true,
         serverSide: true,
@@ -306,7 +349,7 @@
         responsive: true,
         autoWidth: false,
         });
-    })
+    }
 
 
     // Filter button event

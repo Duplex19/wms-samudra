@@ -14,6 +14,24 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
          if ($request->ajax()) {
+             //get data summary invoice
+            if($request->category == 'inv_summary') {
+                try {
+                    $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/member/invoice/summary');
+                    if ($response->status() === 401) {
+                        session()->forget(['api_token', 'user_data']);
+                        $request->session()->invalidate();
+                        $request->session()->regenerate();
+                        return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+                    }
+                    return $this->success($response->json('metadata'), 'Data dashboard summery');
+                } catch (\Throwable $th) {
+                    Log::error('Error pada saat mengambil data summary dashbaord ' . $th->getMessage());
+                    return $this->error('Error pada saat mengambil data summary dashbaord', 500);
+                }
+            }
+            
+            //get dataTable inv
             $data = Cache::rememberForever('invoice_metadata', function () {
                 $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/member/invoice');
                 if ($response->ok()) {
