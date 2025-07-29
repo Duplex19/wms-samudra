@@ -29,6 +29,86 @@
             </table>
         </div>
     </div>
+
+        <div class="modal fade" id="editPppoe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit data anggota</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="formUpdate" action="#" data-table="true" method="POST" data-table="true">
+                        @method('PUT')
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Nama*</label>
+                                    <input type="text" class="form-control" id="name" name="name">
+                                    <span class="text-danger" id="error-name"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">WhatsApp*</label>
+                                    <input type="text" class="form-control" id="whatsapp" name="whatsapp">
+                                    <span class="text-danger" id="error-whatsapp"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Tanggal aktif*</label>
+                                    <input type="date" class="form-control" id="active_date" name="active_date">
+                                    <span class="text-danger" id="error-active_date"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Alamat*</label>
+                                    <input type="text" class="form-control" id="address" name="address">
+                                    <span class="text-danger" id="error-address"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Tipe pembayaran*</label>
+                                    <select name="payment_type" id="payment_type" class="form-select">
+                                        <option value="postpaid">Postpaid</option>
+                                        <option value="prepaid">Prepaid</option>
+                                    </select>
+                                    <span class="text-danger" id="error-payment_type"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="">Diskon*</label>
+                                    <input type="text" class="form-control" id="discount" name="discount">
+                                    <span class="text-danger" id="error-discount"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="note">Catatan</label>
+                            <textarea type="text" class="form-control" name="note"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <x-btnLoading id="btnUpdateLoading" />
+                    <x-btnSubmit id="btnSubmitLoading" onclick="loading(true, 'btnSubmitLoading', 'btnUpdateLoading', true)" />
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </div>
 @endsection
@@ -102,7 +182,7 @@
                         searchable: false,
                         render: function(data, type, row) {
                             return `
-                                <span class="btn btn-warning btn-sm" onclick="editData('${row.id}', '${row.username}', '${row.password}')"><i class='bx bx-edit'></i></span>
+                                <span class="btn btn-warning btn-sm" onclick='editData(${JSON.stringify(row)})'><i class='bx bx-edit'></i></span>
                             `;
                         }
                     }
@@ -129,5 +209,20 @@
                 }
             });
         });
+
+        function editData(data)
+        {
+            let {id, name,whatsapp,active_date,address,payment_type,discount,note} = data;
+            $("#formUpdate").attr('action', `/wms/member/customer/${id}`);
+            $("#name").val(name);
+            $("#whatsapp").val(whatsapp);
+            $("#active_date").val(active_date);
+            $("#address").val(address);
+            $("#payment_type").val(payment_type);
+            $("#discount").val(discount);
+            $("#note").val(note);
+            $('#editPppoe').modal('show');
+        }
+
     </script>
 @endpush
