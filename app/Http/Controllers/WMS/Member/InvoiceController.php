@@ -216,7 +216,7 @@ class InvoiceController extends Controller
         }
 
         try {
-             $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/member/invoice/',[
+             $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/member/invoice/',[
                 'pppoe_id' => $request->pppoe_id,
                 'periode'   => Carbon::parse($request->periode)->format('Y-m')
              ]);
