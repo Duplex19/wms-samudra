@@ -1,4 +1,15 @@
 @extends('layouts.app')
+@push('css')
+    <style>
+        .dtr-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px !important;
+            margin: 10px 0;
+            width: 100% !important;
+        }
+    </style>
+@endpush
 @section('content')
 <div class="col-md-12">
     <div class="card">
