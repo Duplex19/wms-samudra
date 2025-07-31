@@ -233,7 +233,7 @@
                         <span class="text-read" id="error-pppoe_id"></span>
                         <div class="form-group my-3">
                             <label for="">Periode</label>
-                            <input type="date" name="periode" class="form-control">
+                            <input type="month" name="periode" class="form-control">
                             <span class="text-danger" id="error-periode"></span>
                         </div>
                         <x-btnLoading id="btnLoading" />
