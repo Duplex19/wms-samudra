@@ -105,6 +105,8 @@
         }
 
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 @endpush
 @section('content')
 <div class="row">
@@ -185,6 +187,7 @@
         </div>
     </div>
 </div>
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createInvoice">Buat tagihan manual</button>
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -213,23 +216,28 @@
                 </table>
             </div>
     </div>
-    <div class="modal fade" id="payment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal fade" id="createInvoice" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Pilih metode pembayaran</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Buat tagihan manual</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="formPayment" action="" method="POST" data-table="true">
+                <form id="formCreateInvoice" action="{{ route('wms.member.invoice.create') }}" method="POST" data-table="true">
                     @csrf
                     <div class="modal-body">
-                        <select name="payment_method" id="payment-method" class="form-select mb-3">
-                            <option value="cash">Tunai</option>
-                            <option value="bank transfer">Transer Bank</option>
+                        <label for="">PPPoE</label>
+                        <select name="pppoe_id" id="listPppoe" class="form-select mb-3 select2">
+                            {{-- render data here --}}
                         </select>
-                        <span class="text-read" id="error-payment_method"></span>
+                        <span class="text-read" id="error-pppoe_id"></span>
+                        <div class="form-group my-3">
+                            <label for="">Periode</label>
+                            <input type="date" name="periode" class="form-control">
+                            <span class="text-danger" id="error-periode"></span>
+                        </div>
                         <x-btnLoading id="btnLoading" />
-                        <x-btnSubmit id="btnSubmit" text="Bayar sekarang"  onclick="loading(true, 'btnSubmit','btnLoading')" />
+                        <x-btnSubmit id="btnSubmit" text="Buat tagihan"  onclick="loading(true, 'btnSubmit','btnLoading')" />
                     </div>
                 </form>
             </div>
@@ -260,9 +268,15 @@
 </div>
 @endsection
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         getInvSummary();
+
+        $('.select2').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $('#createInvoice')
+        });
     });
 
     async function getInvSummary()
@@ -349,6 +363,29 @@
         responsive: true,
         autoWidth: false,
         });
+
+        getPPPoE();
+    }
+
+    async function getPPPoE()
+    {
+        let param = {
+            url: "{{ url()->current() }}",
+            method: "GET",
+            data: {
+                "category": "list_pppoe"
+            }
+        }
+
+        await transAjax(param).then((result) => {
+            let html = '';
+            result.metadata.forEach(item => {
+                html += `<option value="${item.id}">${item.name}</option>`
+            });
+            $("#listPppoe").html(html);
+        }).catch((err) => {
+            alert('Gagal mengambil data lisr pppoe');
+        })
     }
 
 

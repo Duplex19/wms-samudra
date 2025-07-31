@@ -77,6 +77,7 @@ Route::middleware(AuthApi::class)->group(function() {
                 Route::post('/invoice/send_reminder/{id}', 'sendReminder')->name('wms.member.invoice.send_reminder');
                 Route::post('/invoice/payment/{id}', 'payment')->name('wms.member.invoice.payment');
                 Route::post('/invoice/update/{id}', 'paymentUpdate')->name('wms.member.invoice.paymentUpdate');
+                Route::post('/invoice/create_invoice', 'createInvoice')->name('wms.member.invoice.create');
                 Route::delete('/invoice/delete/{id}', 'delete')->name('wms.member.invoice.delete');
             });
 
