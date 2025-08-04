@@ -66,15 +66,7 @@
             </ul>
         </li>
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Manajemen tim</span>
-        </li>
-        <li class="menu-item {{ Request::is('wms/users') ? 'active' : '' }}">
-            <a href="{{ route('wms.users.index') }}" class="menu-link">
-                <i class="menu-icon icon-base bx bx-user"></i>
-                <div data-i18n="Basic">User</div>
-            </a>
-        </li>
+
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Keuangan</span>
         </li>
@@ -109,13 +101,16 @@
             </a>
         </li>
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">System</span>
+            <span class="menu-header-text">Manajemen tim</span>
         </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
+        <li class="menu-item {{ Request::is('wms/users') ? 'active' : '' }}">
+            <a href="{{ route('wms.users.index') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-user"></i>
-                <div data-i18n="Basic">Akun</div>
+                <div data-i18n="Basic">User</div>
             </a>
+        </li>
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">System</span>
         </li>
         <li class="menu-item {{ Request::is('wms/services/log') ? 'active' : '' }}">
             <a href="{{ route('wms.log') }}" class="menu-link">
