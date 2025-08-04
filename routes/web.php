@@ -88,6 +88,13 @@ Route::middleware(AuthApi::class)->group(function() {
 
         });
 
+        //route for employee
+        Route::prefix('users')->group(function() {
+            Route::controller(WMS\Users\UserController::class)->group(function() {
+                Route::get('/', 'index')->name('wms.users.index');
+            });
+        });
+
         //route log aktivitas user
         Route::get('/services/log', WMS\Services\LogController::class)->name('wms.log');
 

@@ -244,7 +244,7 @@
         </div>
     </div>
     <div class="modal fade" id="editData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit jumlah pembayaran</h1>
@@ -380,7 +380,7 @@
         await transAjax(param).then((result) => {
             let html = '';
             result.metadata.forEach(item => {
-                html += `<option value="${item.id}">${item.name}</option>`
+                html += `<option value="${item.id}">${item.name} | ${item.username} | ${item.whatsapp}</option>`
             });
             $("#listPppoe").html(html);
         }).catch((err) => {
