@@ -15,9 +15,9 @@
 @forelse ($users as $item)
     <div class="col-md-6 col-lg-4">
         <div class="card mb-3">
-            <div style="max-height: 350px; align-items: center; display: flex; justify-content: center;">
+            <div style="max-height: 350px; align-items: center; display: flex; justify-content: center; padding: 10px;">
                 <img class="card-img-top" src="{{ $item['foto'] }}" alt="Card image cap"
-                    style="width: 230px; height: 230px; object-fit: cover; border-radius: 50%;">
+                    style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
             </div>
             <ul class="list-group list-group-flush">
                 <div class="section-header">
@@ -66,8 +66,8 @@
                 </li>
             </ul>
             <div class="card-body">
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Hapus</button>
+                <button class="btn btn-warning btn-sm" onclick='editUser(@json($item))'>Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="hapus('/wms/users/delete/{{ $item['id'] }}')">Hapus</button>
             </div>
         </div>
     </div>

@@ -56,6 +56,85 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form action="" id="updateUser" enctype="multipart/form-data">
+        @method('PUT')
+        @csrf
+      <div class="modal-body">
+        <div class="form-group mb-3">
+            <label for="">Manjemen tim</label>
+            <select class="form-select" name="team_management_id">
+            </select>
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Nama tim</label>
+            <input type="text" class="form-control" name="team">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Nama</label>
+            <input type="text" class="form-control" name="name">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Email</label>
+            <input type="text" class="form-control" name="email">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Nomor WhatsApp</label>
+            <input type="text" class="form-control" name="whatsapp">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Password</label>
+            <input type="text" class="form-control" name="password">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Jabatan</label>
+            <input type="text" class="form-control" name="jabatan">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Foto</label>
+            <input type="file" class="form-control" name="foto">
+        </div>
+        <div class="form-group">
+            <label for="">Role</label>
+            <select class="form-select" name="role">
+                <option value="admin">admin</option>
+                <option value="management">management</option>
+                <option value="teknisi">teknisi</option>
+            </select>
+        </div>
+        <hr>
+        <label for="" class="fw-bold mb-2">Akun bank</label>
+        <div class="form-group mb-3">
+            <label for="">Nama</label>
+            <input type="text" class="form-control" id="namaPemilikRekening">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Nama bank</label>
+            <input type="text" class="form-control" name="bank_code">
+        </div>
+        <div class="form-group mb-3">
+            <label for="">Nomor rekening</label>
+            <input type="text" class="form-control" name="norek">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <x-btnLoading id="btnLoading" />
+        <x-btnSubmit text="Perbaharui" id="btnSubmit" onclick="loading(true, 'btnSubmit','btnLoading')" />
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 @endsection
 @push('js')
     <script>
@@ -74,5 +153,24 @@
                 console.log(err);
             });
         });
+
+        function editUser(user)
+        {
+            $("#updateUser").attr('action', '/wms/users/update/'+user.id);
+            $("input[name=name]").val(user.name)
+            $("input[name=email]").val(user.email)
+            $("input[name=role]").val(user.role)
+            $("input[name=whatsapp]").val(user.whatsapp)
+            $("input[name=jabatan]").val(user.jabatan)
+            $("input[name=team]").val(user.team)
+            $("input[name=team]").val(user.team)
+            $("input[name=team]").val(user.team)
+            $("input[name=team]").val(user.team)
+            //akun bank
+            $("#namaPemilikRekening").val(user.bank.name)
+            $("input[name=bank_code]").val(user.bank.bank_code)
+            $("input[name=norek]").val(user.bank.norek)
+            $("#editUser").modal('show');
+        }
     </script>
 @endpush

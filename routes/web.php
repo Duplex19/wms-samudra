@@ -92,6 +92,8 @@ Route::middleware(AuthApi::class)->group(function() {
         Route::prefix('users')->group(function() {
             Route::controller(WMS\Users\UserController::class)->group(function() {
                 Route::get('/', 'index')->name('wms.users.index');
+                Route::put('/update/{id}', 'update')->name('wms.users.update');
+                Route::delete('/delete/{id}', 'delete')->name('wms.users.delete');
             });
         });
 

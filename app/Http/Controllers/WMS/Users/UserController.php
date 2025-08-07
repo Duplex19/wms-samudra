@@ -4,7 +4,6 @@ namespace App\Http\Controllers\WMS\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
@@ -30,26 +29,64 @@ class UserController extends Controller
 
     public function update(Request $request, $id) 
     {
+
+    // "id": "c5b19d20-6ae8-4231-a59c-7abc9b041cdc",
+    // "name": "Robyansyah",
+    // "email": "robiyansyah664@gmail.com",
+    // "role": "teknisi",
+    // "whatsapp": "6285832772114",
+    // "jabatan": "TEKNISI",
+    // "foto": "https://api.samudrawasesa.co.id/stream/user/profile/FtNB4oOnYiatgiKhhJ8wdRssckXaVcFU9Ndx1j8G.jpg",
+    // "team": "Team Ian",
+    // "bank": {
+    //     "name": "ROBI",
+    //     "bank_code": "BRI",
+    //     "norek": "188301007012530"
+    // }
+
         $validator = Validator::make($request->all(), [
             "name" => "required",
+            "email" => "required",
+            "role" => "required",
             "whatsapp" => "required",
-            "active_date" => "required",
-            "address" => "required",
-            "payment_type" => "required",
-            "discount"  => 'required'
+            "jabatan" => "required",
+            "foto"  => 'image|max:2048:mimes:jpg,jpeg,png',
+            "team" => "required",
+            "bank_code" => "required",
+            "norek" => "required",
         ]);
-
-        $data =  $validator->validate();
-        if($request->note) {
-            $data['note'] = $request->note;
-        };
 
         if($validator->fails()) {
             return $this->error('Data tidak dapat diproses', $validator->errors(), 422);
         }
 
+        $data = $validator->validate();
+        $data['team_management_id'] = $request->team_management_id ?? null;
         try {
-            $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/member/customer/' . $id,  $data);
+            $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/admin/users/update/' . $id,  $data);
+            if ($response->status() === 401) {
+                session()->forget(['api_token', 'user_data']);
+                $request->session()->invalidate();
+                $request->session()->regenerate();
+                return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
+            }
+            dd($response->body());
+            if($response->successful()) {
+                Cache::forget('users_metadata');
+                return $this->success('', 'Data anggota berhasil diupdate', 200);
+            }else {
+                return $this->error($response->json('message'), 500);
+            }
+        } catch (\Throwable $th) {
+            Log::error('Data user gagal diupdate ' . $th->getMessage());
+            return $this->error('Internal Server Error. Silakan hubungi Administrator', 500);
+        }
+    }
+
+    public function delete(Request $request, $id)
+    {
+        try {
+            $response = Http::withToken(session('api_token'))->delete(config('app.api_service') . '/admin/users/' . $id);
             if ($response->status() === 401) {
                 session()->forget(['api_token', 'user_data']);
                 $request->session()->invalidate();
@@ -57,14 +94,14 @@ class UserController extends Controller
                 return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
             }
             if($response->successful()) {
-                Cache::forget('customer_metadata');
-                return $this->success('', 'Data anggota berhasil diupdate', 200);
+                Cache::forget('users_metadata');
+                return $this->success('','User berhasil dihapus', 200);
             }else {
                 return $this->error($response->json('message'), 500);
             }
         } catch (\Throwable $th) {
-            Log::error('Data anggota gagal diupdate ' . $th->getMessage());
-            return $this->error('Internal Server Error. Silakan hubungi Administrator', 500);
+            Log::error('Gagal saat menghapus user ' . $th->getMessage());
+            return $this->error('Silakan hubungi Administrator', 500);
         }
     }
 }
