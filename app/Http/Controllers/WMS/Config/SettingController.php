@@ -16,12 +16,18 @@ class SettingController extends Controller
     public function sechedule(Request $request)
     {
         if($request->ajax()) {
-            $data = Cache::rememberForever('schedule_metadata', function () {
+            $data = Cache::rememberForever('schedule_metadata', function () use ($request) {
                 $response = Http::withToken(session('api_token'))->get(config('app.api_service') . '/config/schedule');
-                if ($response->ok()) {
-                    return $response->json('metadata');
+                    if ($response->status() === 401) {
+                    session()->forget(['api_token', 'user_data']);
+                    $request->session()->invalidate();
+                    $request->session()->regenerate();
+                    return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
                 }
-                return [];
+                if ($response->ok()) {
+                    Cache::forget('schedule_metadata');
+                    return $this->success('', 'Pengaturan penagihan berhasil diperbaharui', 200);
+                }
             });
 
             return DataTables::of($data)
