@@ -175,7 +175,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <form id="formUpdate" action="#" data-table="true" method="POST" data-table="true">
+                    <form id="formUpdate" action="#" method="POST" data-table="true">
                         @csrf
                         <div class="row g-3">
                             <div class="col">
@@ -330,8 +330,6 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row) {
-                        console.log(data);
-                        
                         return `
                             <span class="btn btn-warning btn-sm" onclick="editData('${row.id}', '${row.username}', '${row.password}')"><i class='bx bx-edit'></i></span>
                             <span class="btn btn-danger btn-sm" onclick="hapus('/wms/config/pppoe/delete/${row.id}')"><i class='bx bx-trash'></i></span>

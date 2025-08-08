@@ -51,7 +51,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit jadwal konfigurasi</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="formUpdate" action="" method="POST">
+            <form id="formUpdate" action="" method="POST" data-table="true">
                 @csrf
                 <div class="modal-body">
                     <input type="time" name="time" class="form-control mb-3">
@@ -66,10 +66,10 @@
 @push('js')
 <script type="text/javascript">
     $(document).ready(function() {
-        dataTable();
+        getData();
     });
 
-    function dataTable()
+    function getData()
     {
         dataTable = $('#dataTable').DataTable({
             // processing: true,
