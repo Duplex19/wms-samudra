@@ -66,10 +66,10 @@
 @push('js')
 <script type="text/javascript">
     $(document).ready(function() {
-        getData();
+        dataTable();
     });
 
-    function getData()
+    function dataTable()
     {
         dataTable = $('#dataTable').DataTable({
             // processing: true,
