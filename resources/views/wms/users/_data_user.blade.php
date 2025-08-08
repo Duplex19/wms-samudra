@@ -54,11 +54,11 @@
                 </div>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Nama pemilik
-                    <span>{{ $item['bank']['name'] }}</span>
+                    <span>{{ $item['bank']['account_name'] }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Nomor rekening
-                    <span>{{ $item['bank']['norek'] }}</span>
+                    <span>{{ $item['bank']['account_number'] }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Nama bank
@@ -67,7 +67,8 @@
             </ul>
             <div class="card-body">
                 <button class="btn btn-warning btn-sm" onclick='editUser(@json($item))'>Edit</button>
-                <button class="btn btn-danger btn-sm" onclick="hapus('/wms/users/delete/{{ $item['id'] }}')">Hapus</button>
+                <button class="btn btn-danger btn-sm"
+                    onclick="hapus('/wms/users/delete/{{ $item['id'] }}')">Hapus</button>
             </div>
         </div>
     </div>
