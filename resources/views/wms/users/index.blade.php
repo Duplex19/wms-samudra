@@ -138,7 +138,12 @@
 @endsection
 @push('js')
     <script>
-        $(document).ready(async function() {
+        $(document).ready(function() {
+            getData();
+        });
+
+        async function getData()
+        {
             let param = {
                 url: "{{ url()->current() }}",
                 method: "GET",
@@ -152,7 +157,7 @@
             }).catch((err) => {
                 console.log(err);
             });
-        });
+        }
 
         function editUser(user)
         {
