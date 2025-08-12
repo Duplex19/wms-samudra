@@ -23,13 +23,21 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nama</th>
+                                <th scope="col">Alamat</th>
                                 <th scope="col">No WhatsApp</th>
-                                <th scope="col">Foto lokasi</th>
-                                <th scope="col">Foto selfi</th>
                                 <th scope="col">Tgl pendaftaran</th>
+                                <th scope="col">Tgl Update</th>
+                                <th scope="col">Diproses oleh</th>
                                 <th scope="col">Status Pemasangan</th>
                                 <th scope="col">Status Pembayaran</th>
-                                <th scope="col">Alamat</th>
+                                <th scope="col">NIK</th>
+                                <th scope="col">NPWP</th>
+                                <th scope="col">Foto NPWP</th>
+                                <th scope="col">Kategori</th>
+                                <th scope="col">External link</th>
+                                <th scope="col">Link pembayaran</th>
+                                <th scope="col">Foto Lokasi</th>
+                                <th scope="col">Foto Selfi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,6 +78,21 @@
                                 <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />
                             </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="locationModalTitle">Alamat dan lokasi pelanggan</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="address"></p>
+                        <hr>
+                        <div style="width:100%; height:400px;" id="location"></div>
                     </div>
                 </div>
             </div>
@@ -125,6 +148,13 @@
                         name: 'nama_lengkap'
                     },
                     {
+                        data: null,
+                        name: 'alamat',
+                        render: function(row) {
+                            return `<span class="badge bg-info rounded-pill cursor-pointer" onclick="getLocation('${row.alamat}', '${row.location}')">lihat di google maps</span>`
+                        }
+                    },
+                    {
                         data: 'no_whatsapp',
                         name: 'no_whatsapp',
                         render: function(data) {
@@ -133,39 +163,38 @@
                         }
                     },
                     {
-                        data: 'foto_lokasi',
-                        name: 'foto_lokasi',
-                        render: function(data) {
-                            return `<span class="badge bg-info rounded-pill cursor-pointer" onclick="showPhoto('${data}','Foto lokasi')">lihat foto</span>`
-                        }
-                    },
-                    {
-                        data: 'foto_selvie',
-                        name: 'foto_selvie',
-                        render: function(data) {
-                            return `<span class="badge bg-info rounded-pill cursor-pointer" onclick="showPhoto('${data}','Foto selfi')">lihat foto</span>`
-                        }
-                    },
-                    {
                         data: 'created_at',
                         name: 'created_at',
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at',
                     },
                     {
                         data: 'latestStatus',
                         name: 'latestStatus',
                         render: function(data) {
+                            return data.user ? data.user : '<span class="text-danger">belum diproses</span>';
+                        }
+                    },
+                    {
+                        data: 'latestStatus',
+                        name: 'latestStatus',
+                        render: function(data) {
+                            if (!data) return '-';
+
                             let badgeClass = 'bg-danger'; 
                             if (data.status.toLowerCase() === 'done') {
                                 badgeClass = 'bg-primary';
                             } else if (data.status.toLowerCase() === 'approve') {
                                 badgeClass = 'bg-success';
-                            }else if(data.status.toLowerCase() === 'waiting') {
+                            } else if (data.status.toLowerCase() === 'waiting') {
                                 badgeClass = 'bg-warning';
                             }
-                            return `
-                                <span class="badge ${badgeClass} rounded-pill cursor-pointer">${data.status.toLowerCase()}</span>
-                            `;
-                            return data.status;
+
+                            return `<span class="badge ${badgeClass} rounded-pill cursor-pointer">
+                                        ${data.status.toLowerCase()}
+                                    </span>`;
                         }
                     },
                     {
@@ -187,8 +216,42 @@
                         }
                     },
                     {
-                        data: 'alamat',
-                        name: 'alamat',
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'npwp',
+                        name: 'npwp',
+                    },
+                    {
+                        data: 'foto_npwp',
+                        name: 'foto_npwp',
+                    },
+                    {
+                        data: 'category',
+                        name: 'category',
+                    },
+                    {
+                        data: 'external_id',
+                        name: 'external_id',
+                    },
+                    {
+                        data: 'checkout_link',
+                        name: 'checkout_link',
+                    },
+                    {
+                        data: 'foto_lokasi',
+                        name: 'foto_lokasi',
+                        render: function(data) {
+                            return `<span class="badge bg-info rounded-pill cursor-pointer" onclick="showPhoto('${data}','Foto lokasi')">lihat foto</span>`
+                        }
+                    },
+                    {
+                        data: 'foto_selvie',
+                        name: 'foto_selvie',
+                        render: function(data) {
+                            return `<span class="badge bg-info rounded-pill cursor-pointer" onclick="showPhoto('${data}','Foto selfi')">lihat foto</span>`
+                        }
                     },
                 ],
                 order: [
@@ -219,6 +282,23 @@
             });
         });
 
+        function getLocation(address, location)
+        {
+            $("#locationModal").modal("show");
+            $("#address").html(`<span class="fw-bold">Alamat</span>: ${address}`);
+            $("#location").html(
+                `
+                <iframe 
+                    src="https://www.google.com/maps?q=-4.4883292,105.2453111&hl=es;z=14&output=embed"
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen 
+                    loading="lazy">
+                </iframe>
+                `
+            )
+        }
         function showPhoto(url, title)
         {
             $("#photoModalTitle").html(title);            
