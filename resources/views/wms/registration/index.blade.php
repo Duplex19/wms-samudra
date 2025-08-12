@@ -8,6 +8,11 @@
             margin: 10px 0;
             width: 100% !important;
         }
+
+        .modal-body {
+            max-height: 50vh;
+            overflow-y: auto;
+        }
     </style>
 @endpush
 @section('content')
@@ -60,19 +65,75 @@
                             <form action="{{ route('wms.vpn.store') }}" method="POST" data-table="true">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    <label for="">Nama</label>
-                                    <input type="text" class="form-control" name="name">
-                                    <span class="text-danger" id="error-name"></span>
+                                    <label for="">Kategori</label>
+                                    <select name="category" id="category" class="form-select">
+                                        <option value="retail">Retail</option>
+                                        <option value="corporate">Corprate</option>
+                                    </select>
+                                    <span class="text-danger" id="error-category"></span>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="">Nama pengguna</label>
-                                    <input type="text" class="form-control" name="username">
-                                    <span class="text-danger" id="error-username"></span>
+                                    <label for="">Profil PPPoE</label>
+                                    <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
+                                        <option value="retail">Retail</option>
+                                        <option value="corporate">Corprate</option>
+                                    </select>
+                                    <span class="text-danger" id="error-profile_ppp_id"></span>   
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="">Password</label>
-                                    <input type="text" class="form-control" name="password">
-                                    <span class="text-danger" id="error-password"></span>
+                                    <label for="">Nama lengkap</label>
+                                    <input type="text" class="form-control" name="nama_lengkap">
+                                    <span class="text-danger" id="error-nama_lengkap"></span>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="">Alamat</label>
+                                    <textarea name="alamat" id="alamat" class="form-control"></textarea>
+                                    <span class="text-danger" id="error-alamat"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">Nomor whatsapp</label>
+                                    <input type="text" class="form-control" name="no_whatsapp">
+                                    <span class="text-danger" id="error-no_whatsapp"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">NIK</label>
+                                    <input type="text" class="form-control" name="nik">
+                                    <span class="text-danger" id="error-nik"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">NPWP</label>
+                                    <input type="text" class="form-control" name="npwp">
+                                    <span class="text-danger" id="error-npwp"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">Foto NPWP</label>
+                                    <input type="file" class="form-control" name="foto_npwp">
+                                    <span class="text-danger" id="error-foto_npwp"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">Foto Selfi</label>
+                                    <input type="file" class="form-control" name="foto_selvie">
+                                    <span class="text-danger" id="error-foto_selvie"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">Foto KTP</label>
+                                    <input type="file" class="form-control" name="foto_ktp">
+                                    <span class="text-danger" id="error-foto_ktp"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">Foto lokasi</label>
+                                    <input type="file" class="form-control" name="foto_lokasi">
+                                    <span class="text-danger" id="error-foto_lokasi"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">Latitude</label>
+                                    <input type="text" class="form-control" name="latitude">
+                                    <span class="text-danger" id="error-latitude"></span>
+                                </div>
+                                 <div class="form-group mb-3">
+                                    <label for="">Longitude</label>
+                                    <input type="text" class="form-control" name="longitude">
+                                    <span class="text-danger" id="error-longitude"></span>
                                 </div>
                                 <x-btnLoading id="btnLoading" />
                                 <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />

@@ -24,9 +24,11 @@ class SettingController extends Controller
                     $request->session()->regenerate();
                     return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
                 }
-                if ($response->ok()) {
+                if (!$response->ok()) {
                     Cache::forget('schedule_metadata');
-                    return $this->success('', 'Pengaturan penagihan berhasil diperbaharui', 200);
+                    return $this->error('', 'Internal Server Error', 500);
+                }else {
+                    return $response->json('metadata');
                 }
             });
 
