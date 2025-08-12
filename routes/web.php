@@ -97,6 +97,13 @@ Route::middleware(AuthApi::class)->group(function() {
             });
         });
 
+        //route for users registration
+        Route::prefix('registration')->group(function() {
+            Route::controller(WMS\RegistrationController::class)->group(function() {
+                Route::get('/', 'index')->name('wms.registration');
+            });
+        });
+
         //route log aktivitas user
         Route::get('/services/log', WMS\Services\LogController::class)->name('wms.log');
 

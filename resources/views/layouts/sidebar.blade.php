@@ -109,6 +109,12 @@
                 <div data-i18n="Basic">User</div>
             </a>
         </li>
+        <li class="menu-item {{ Request::is('wms/registration') ? 'active' : '' }}">
+            <a href="{{ route('wms.registration') }}" class="menu-link">
+                <i class="menu-icon icon-base bx bx-user-plus"></i>
+                <div data-i18n="Basic">Registrasi</div>
+            </a>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">System</span>
         </li>
