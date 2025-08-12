@@ -100,7 +100,7 @@ Route::middleware(AuthApi::class)->group(function() {
         //route for users registration
         Route::prefix('registration')->group(function() {
             Route::controller(WMS\RegistrationController::class)->group(function() {
-                Route::get('/', 'index')->name('wms.registration');
+                Route::get('/', 'index')->name('wms.registrationx');
             });
         });
 

@@ -110,7 +110,7 @@
             </a>
         </li>
         <li class="menu-item {{ Request::is('wms/registration') ? 'active' : '' }}">
-            <a href="{{ route('wms.registration') }}" class="menu-link">
+            <a href="{{ route('wms.registrationx') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-user-plus"></i>
                 <div data-i18n="Basic">Registrasi</div>
             </a>
