@@ -20,7 +20,15 @@
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
-
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Pendaftaran</span>
+        </li>
+        <li class="menu-item {{ Request::is('wms/registration') ? 'active' : '' }}">
+            <a href="{{ route('wms.registrationx') }}" class="menu-link">
+                <i class="menu-icon icon-base bx bx-user-plus"></i>
+                <div data-i18n="Basic">Registrasi Pelanggan</div>
+            </a>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Jaringan</span>
         </li>
@@ -109,12 +117,12 @@
                 <div data-i18n="Basic">User</div>
             </a>
         </li>
-        <li class="menu-item {{ Request::is('wms/registration') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ Request::is('wms/registration') ? 'active' : '' }}">
             <a href="{{ route('wms.registrationx') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-user-plus"></i>
                 <div data-i18n="Basic">Registrasi</div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">System</span>
         </li>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('css')
-     <style>
+    <style>
         .dtr-details {
             background: #f8f9fa;
             border-radius: 8px;
@@ -16,7 +16,8 @@
     </style>
 @endpush
 @section('content')
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addVpnServer"><i class="menu-icon icon-base bx bx-user-plus"></i>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addVpnServer"><i
+            class="menu-icon icon-base bx bx-user-plus"></i>
         Formulir pendaftaran</button>
     <div class="col-md-12">
         <div class="card">
@@ -62,7 +63,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <form action="{{ route('wms.registration.store') }}" method="POST" data-table="true" enctype="multipart/form-data">
+                            <form action="{{ route('wms.registration.store') }}" method="POST" data-table="true"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group mb-3">
                                     <label for="">Kategori</label>
@@ -75,9 +77,9 @@
                                 <div class="form-group mb-3">
                                     <label for="">Profil PPPoE</label>
                                     <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
-                                        
+
                                     </select>
-                                    <span class="text-danger" id="error-profile_ppp_id"></span>   
+                                    <span class="text-danger" id="error-profile_ppp_id"></span>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="">Nama lengkap</label>
@@ -89,53 +91,54 @@
                                     <textarea name="alamat" id="alamat" class="form-control"></textarea>
                                     <span class="text-danger" id="error-alamat"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">Nomor whatsapp</label>
                                     <input type="text" class="form-control" name="no_whatsapp">
                                     <span class="text-danger" id="error-no_whatsapp"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">NIK</label>
                                     <input type="text" class="form-control" name="nik">
                                     <span class="text-danger" id="error-nik"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">NPWP</label>
                                     <input type="text" class="form-control" name="npwp">
                                     <span class="text-danger" id="error-npwp"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">Foto NPWP</label>
                                     <input type="file" class="form-control" name="foto_npwp">
                                     <span class="text-danger" id="error-foto_npwp"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">Foto Selfi</label>
                                     <input type="file" class="form-control" name="foto_selvie">
                                     <span class="text-danger" id="error-foto_selvie"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">Foto KTP</label>
                                     <input type="file" class="form-control" name="foto_ktp">
                                     <span class="text-danger" id="error-foto_ktp"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">Foto lokasi</label>
                                     <input type="file" class="form-control" name="foto_lokasi">
                                     <span class="text-danger" id="error-foto_lokasi"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">Latitude</label>
                                     <input type="text" class="form-control" name="latitude">
                                     <span class="text-danger" id="error-latitude"></span>
                                 </div>
-                                 <div class="form-group mb-3">
+                                <div class="form-group mb-3">
                                     <label for="">Longitude</label>
                                     <input type="text" class="form-control" name="longitude">
                                     <span class="text-danger" id="error-longitude"></span>
                                 </div>
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input" name="disclaimer" type="checkbox" value="1" id="flexCheckChecked" checked>
+                                    <input class="form-check-input" name="disclaimer" type="checkbox" value="1"
+                                        id="flexCheckChecked" checked>
                                     <label class="form-check-label" for="flexCheckChecked">
                                         Disclaimer
                                     </label>
@@ -148,7 +151,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -173,14 +177,14 @@
                     <div class="modal-body">
                         <picture id="photoRegistrasi">
                             <h5 class="card-title placeholder-glow">
-                            <span class="placeholder col-6"></span>
+                                <span class="placeholder col-6"></span>
                             </h5>
                             <p class="card-text placeholder-glow">
-                            <span class="placeholder col-7"></span>
-                            <span class="placeholder col-4"></span>
-                            <span class="placeholder col-4"></span>
-                            <span class="placeholder col-6"></span>
-                            <span class="placeholder col-8"></span>
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-8"></span>
                             </p>
                         </picture>
                     </div>
@@ -241,7 +245,8 @@
                         data: 'latestStatus',
                         name: 'latestStatus',
                         render: function(data) {
-                            return data.user ? data.user : '<span class="text-danger">belum diproses</span>';
+                            return data.user ? data.user :
+                                '<span class="text-danger">belum diproses</span>';
                         }
                     },
                     {
@@ -250,7 +255,7 @@
                         render: function(data) {
                             if (!data) return '-';
 
-                            let badgeClass = 'bg-danger'; 
+                            let badgeClass = 'bg-danger';
                             if (data.status.toLowerCase() === 'done') {
                                 badgeClass = 'bg-primary';
                             } else if (data.status.toLowerCase() === 'approve') {
@@ -268,12 +273,13 @@
                         data: 'status_pay',
                         name: 'status_pay',
                         render: function(data) {
-                            let badgeClass = 'bg-danger'; 
-                            if (data.toLowerCase() === 'paid') {
+                            let badgeClass = 'bg-danger';
+                            if (data.toLowerCase() === 'paid' || data.toLowerCase() === 'settled') {
                                 badgeClass = 'bg-primary';
                             } else if (data.toLowerCase() === 'approve') {
                                 badgeClass = 'bg-success';
-                            }else if(data.toLowerCase() === 'waiting') {
+                            } else if (data.toLowerCase() === 'waiting' || data.toLowerCase() ===
+                                'pending') {
                                 badgeClass = 'bg-warning';
                             }
                             return `
@@ -349,8 +355,7 @@
             });
         });
 
-        async function getProfilePppoe()
-        {
+        async function getProfilePppoe() {
             let param = {
                 url: "/wms/config/profile_ppp",
                 method: "GET"
@@ -361,35 +366,34 @@
                 let html = "";
                 dataArray.forEach(element => {
                     html += `
-                        <option value="${element.id}">${element.name}</option>
+                        <option value="${element.id}">${element.name} | ${element.price}</option>
                     `
-                });           
+                });
                 $("#profile_ppp_id").html(html);
             }).catch((err) => {
                 console.log(err);
             });
         }
 
-        function getLocation(address, location)
-        {
+        function getLocation(address, location) {
             $("#locationModal").modal("show");
             $("#address").html(`<span class="fw-bold">Alamat</span>: ${address}`);
             $("#location").html(
                 `
-                <iframe 
+                <iframe
                     src="https://www.google.com/maps?q=-4.4883292,105.2453111&hl=es;z=14&output=embed"
-                    width="100%" 
-                    height="100%" 
-                    style="border:0;" 
-                    allowfullscreen 
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen
                     loading="lazy">
                 </iframe>
                 `
             )
         }
-        function showPhoto(url, title)
-        {
-            $("#photoModalTitle").html(title);            
+
+        function showPhoto(url, title) {
+            $("#photoModalTitle").html(title);
             $("#photoModal").modal("show");
             $("#photoRegistrasi").html(`<img src="${url}" alt="photo">`)
         }
