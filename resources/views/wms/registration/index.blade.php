@@ -9,7 +9,7 @@
             width: 100% !important;
         }
 
-        .modal-body {
+        .form-body {
             max-height: 50vh;
             overflow-y: auto;
         }
@@ -37,9 +37,9 @@
                                 <th scope="col">Status Pemasangan</th>
                                 <th scope="col">Status Pembayaran</th>
                                 <th scope="col">NIK</th>
+                                <th scope="col">Kategori</th>
                                 <th scope="col">NPWP</th>
                                 <th scope="col">Foto NPWP</th>
-                                <th scope="col">Kategori</th>
                                 <th scope="col">External link</th>
                                 <th scope="col">Link pembayaran</th>
                                 <th scope="col">Foto Lokasi</th>
@@ -61,7 +61,7 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Registrasi pelanggan</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body form-body">
                         <div class="row">
                             <form action="{{ route('wms.registration.store') }}" method="POST" data-table="true"
                                 enctype="multipart/form-data">
@@ -245,8 +245,11 @@
                         data: 'latestStatus',
                         name: 'latestStatus',
                         render: function(data) {
-                            return data.user ? data.user :
-                                '<span class="text-danger">belum diproses</span>';
+                            if (!data.user) return '<span class="badge bg-danger rounded-pill">belum diproses</span>';
+                            return `<span class="badge bg-primary rounded-pill cursor-pointer">
+                                        ${data.user}
+                                    </span>`;
+
                         }
                     },
                     {
@@ -293,24 +296,39 @@
                         name: 'nik',
                     },
                     {
-                        data: 'npwp',
-                        name: 'npwp',
-                    },
-                    {
-                        data: 'foto_npwp',
-                        name: 'foto_npwp',
-                    },
-                    {
                         data: 'category',
                         name: 'category',
                     },
                     {
+                        data: 'npwp',
+                        name: 'npwp',
+                        render: function(data) {
+                            if(!data) return '-';
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'foto_npwp',
+                        name: 'foto_npwp',
+                        render: function(data) {
+                            return `<span class="badge bg-info rounded-pill cursor-pointer" onclick="showPhoto('${data}','Foto lokasi')">lihat foto</span>`
+                        }
+                    },
+                    {
                         data: 'external_id',
                         name: 'external_id',
+                        render: function(data) {
+                            if(!data) return '-';
+                            return data;
+                        }
                     },
                     {
                         data: 'checkout_link',
                         name: 'checkout_link',
+                        render: function(data) {
+                            if(!data) return '-';
+                            return data;
+                        }
                     },
                     {
                         data: 'foto_lokasi',
@@ -381,7 +399,7 @@
             $("#location").html(
                 `
                 <iframe
-                    src="https://www.google.com/maps?q=-4.4883292,105.2453111&hl=es;z=14&output=embed"
+                    src="${location}&hl=es;z=14&output=embed"
                     width="100%"
                     height="100%"
                     style="border:0;"
