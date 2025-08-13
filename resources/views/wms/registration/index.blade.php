@@ -75,7 +75,7 @@
                                 <div class="form-group mb-3">
                                     <label for="">Profil PPPoE</label>
                                     <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
-                                        <option value="01984eb4-5dfd-71c9-88e6-9f1ace28a195">PAKET DOUBLE COMBO</option>
+                                        
                                     </select>
                                     <span class="text-danger" id="error-profile_ppp_id"></span>   
                                 </div>
@@ -192,6 +192,7 @@
 @push('js')
     <script>
         $(document).ready(function() {
+            getProfilePppoe();
             dataTable = $('#dataTable').DataTable({
                 // processing: true,
                 serverSide: true,
@@ -347,6 +348,27 @@
                 }
             });
         });
+
+        async function getProfilePppoe()
+        {
+            let param = {
+                url: "/wms/config/profile_ppp",
+                method: "GET"
+            }
+
+            await transAjax(param).then((result) => {
+                const dataArray = result.data;
+                let html = "";
+                dataArray.forEach(element => {
+                    html += `
+                        <option value="${element.id}">${element.name}</option>
+                    `
+                });           
+                $("#profile_ppp_id").html(html);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
 
         function getLocation(address, location)
         {
