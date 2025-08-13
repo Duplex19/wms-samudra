@@ -101,6 +101,7 @@ Route::middleware(AuthApi::class)->group(function() {
         Route::prefix('registration')->group(function() {
             Route::controller(WMS\RegistrationController::class)->group(function() {
                 Route::get('/', 'index')->name('wms.registrationx');
+                Route::post('/store', 'store')->name('wms.registration.store');
             });
         });
 

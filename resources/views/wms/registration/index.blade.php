@@ -62,7 +62,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <form action="{{ route('wms.vpn.store') }}" method="POST" data-table="true">
+                            <form action="{{ route('wms.registration.store') }}" method="POST" data-table="true" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group mb-3">
                                     <label for="">Kategori</label>
@@ -75,8 +75,7 @@
                                 <div class="form-group mb-3">
                                     <label for="">Profil PPPoE</label>
                                     <select name="profile_ppp_id" id="profile_ppp_id" class="form-select">
-                                        <option value="retail">Retail</option>
-                                        <option value="corporate">Corprate</option>
+                                        <option value="01984eb4-5dfd-71c9-88e6-9f1ace28a195">PAKET DOUBLE COMBO</option>
                                     </select>
                                     <span class="text-danger" id="error-profile_ppp_id"></span>   
                                 </div>
@@ -134,6 +133,12 @@
                                     <label for="">Longitude</label>
                                     <input type="text" class="form-control" name="longitude">
                                     <span class="text-danger" id="error-longitude"></span>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" name="disclaimer" type="checkbox" value="1" id="flexCheckChecked" checked>
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        Disclaimer
+                                    </label>
                                 </div>
                                 <x-btnLoading id="btnLoading" />
                                 <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading', true)" />
