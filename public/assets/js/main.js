@@ -238,6 +238,7 @@ function bindThemeEvents() {
             updateActiveButton(theme);
 
             console.log(`Theme set to: ${theme} (actual: ${actualTheme})`);
+            window.location.reload();
         });
     });
 }
@@ -270,8 +271,6 @@ function toggleTheme() {
 
 // Initialize saat DOM ready
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Initializing dark mode...");
-
     // Set tema awal
     initTheme();
 
@@ -280,8 +279,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Monitor sistem tema
     watchSystemTheme();
-
-    console.log("Dark mode initialized successfully!");
 });
 
 // Export functions ke window untuk akses global

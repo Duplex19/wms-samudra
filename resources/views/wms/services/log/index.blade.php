@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table id="dataTable" class="table table-sm">
-                    <thead class="table-light">
+                    <thead>
                         <tr>
                         <th scope="col">No</th>
                         <th scope="col">Pengguna</th>

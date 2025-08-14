@@ -31,17 +31,12 @@ id="layout-navbar"
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-theme-text">
             <li>
               <button type="button" class="dropdown-item align-items-center active" data-bs-theme-value="light" aria-pressed="false">
-                <span><i class="icon-base bx bx-sun icon-md me-3" data-icon="sun"></i>Light</span>
+                <span><i class="icon-base bx bx-sun icon-md me-3" id="lightIcon" data-icon="sun"></i>Light</span>
               </button>
             </li>
             <li>
               <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="dark" aria-pressed="true">
-                <span><i class="icon-base bx bx-moon icon-md me-3" data-icon="moon"></i>Dark</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="system" aria-pressed="false">
-                <span><i class="icon-base bx bx-desktop icon-md me-3" data-icon="desktop"></i>System</span>
+                <span><i class="icon-base bx bx-moon icon-md me-3" id="darkIcon" data-icon="moon"></i>Dark</span>
               </button>
             </li>
           </ul>

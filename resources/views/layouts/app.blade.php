@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
-    data-assets-path="../assets/" data-template="vertical-menu-template-free">
+    data-assets-path="../assets/" data-template="vertical-menu-template-free" data-bs-theme="light">
 
 <head>
     <meta charset="utf-8" />
@@ -76,12 +76,12 @@
 </head>
 
 <body>
-    {{-- <script>
+    <script>
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             document.body.classList.add('dark-mode');
         }
-      </script> --}}
+      </script>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
