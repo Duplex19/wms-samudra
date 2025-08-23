@@ -1,4 +1,5 @@
 <?
+
 return [
     //sidebar
     'sidebar_setting'   => 'Setting',
