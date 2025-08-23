@@ -21,16 +21,16 @@
             </a>
         </li>
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pendaftaran</span>
+            <span class="menu-header-text">{{ __('cms.sidebar_registration') }}</span>
         </li>
         <li class="menu-item {{ Request::is('wms/registration') ? 'active' : '' }}">
             <a href="{{ route('wms.registrationx') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-user-plus"></i>
-                <div data-i18n="Basic">Registrasi Pelanggan</div>
+                <div data-i18n="Basic">{{ __('cms.sidebar_customer_registration') }}</div>
             </a>
         </li>
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Jaringan</span>
+            <span class="menu-header-text">{{ __('cms.sidebar_network') }}</span>
         </li>
 
         <li class="menu-item {{ Request::is('wms/config/pppoe') ? 'active open' : '' }} {{ Request::is('wms/config/profile_ppp') ? 'active open' : '' }}"
@@ -43,12 +43,12 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ Request::is('wms/config/pppoe') ? 'active' : '' }}">
                     <a href="{{ route('wms.pppoe') }}" class="menu-link">
-                        <div data-i18n="Account">Pengguna</div>
+                        <div data-i18n="Account">{{ __('cms.sidebar_user') }}</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Request::is('wms/config/profile_ppp') ? 'active' : '' }}">
                     <a href="{{ route('wms.profile_ppp') }}" class="menu-link">
-                        <div data-i18n="Notifications">Profil</div>
+                        <div data-i18n="Notifications">{{ __('cms.sidebar_profile') }}</div>
                     </a>
                 </li>
             </ul>
@@ -58,7 +58,7 @@
             style="">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base bx bx-cog"></i>
-                <div data-i18n="Account Settings">Pengaturan</div>
+                <div data-i18n="Account Settings">{{ __('cms.sidebar_setting') }}</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ Request::is('wms/config/vpn') ? 'active' : '' }}">
@@ -76,28 +76,34 @@
 
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Keuangan</span>
+            <span class="menu-header-text">{{ __('cms.sidebar_finance') }}</span>
+        </li>
+        <li class="menu-item {{ Request::is('wms/balance') ? 'active' : '' }}">
+            <a href="{{ route('finance.balance') }}" class="menu-link">
+                <i class="menu-icon icon-base bx bx-wallet-alt"></i>
+                <div data-i18n="Basic">{{ __('cms.sidebar_balance') }}</div>
+            </a>
         </li>
         <li class="menu-item {{ Request::is('wms/member*') ? 'active open' : '' }} {{ Request::is('wms/config/setting*') ? 'active open' : '' }}"
             style="">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base bx bx-food-menu"></i>
-                <div data-i18n="Account Settings">Penagihan Bulanan</div>
+                <div data-i18n="Account Settings">{{ __('cms.sidebar_monthly_billing') }}</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ Request::is('wms/member/customer') ? 'active' : '' }}">
                     <a href="{{ route('wms.member.customer') }}" class="menu-link">
-                        <div data-i18n="Account">Anggota</div>
+                        <div data-i18n="Account">{{ __('cms.sidebar_member') }}</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Request::is('wms/member/invoice') ? 'active' : '' }}">
                     <a href="{{ route('wms.member.invoice') }}" class="menu-link">
-                        <div data-i18n="Notifications">Penagihan</div>
+                        <div data-i18n="Notifications">{{ __('cms.sidebar_billing') }}</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Request::is('wms/config/setting*') ? 'active' : '' }}">
                     <a href="{{ route('wms.sechedule') }}" class="menu-link">
-                        <div data-i18n="Notifications">Pengaturan</div>
+                        <div data-i18n="Notifications">{{ __('cms.sidebar_setting') }}</div>
                     </a>
                 </li>
             </ul>
@@ -105,11 +111,11 @@
         <li class="menu-item">
             <a href="#" class="menu-link">
                 <i class="menu-icon icon-base bx bx-edit"></i>
-                <div data-i18n="Basic">Penagihan Manual</div>
+                <div data-i18n="Basic">{{ __('cms.sidebar_manual_billing') }}</div>
             </a>
         </li>
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Manajemen tim</span>
+            <span class="menu-header-text">{{ __('cms.sidebar_tim_management') }}</span>
         </li>
         <li class="menu-item {{ Request::is('wms/users') ? 'active' : '' }}">
             <a href="{{ route('wms.users.index') }}" class="menu-link">

@@ -105,12 +105,27 @@ Route::middleware(AuthApi::class)->group(function() {
             });
         });
 
+        //router for finance
+        Route::controller(WMS\Finance\BalanceController::class)->group(function() {
+            Route::get('/balance', 'index')->name('finance.balance');
+        });
+
         //route log aktivitas user
         Route::get('/services/log', WMS\Services\LogController::class)->name('wms.log');
 
         //route untuk keluar aplikasi
         Route::post('/logout', [Auth\AuthController::class, 'logout'])->name('wms.logout');
     });
+
+    //route for change language
+    Route::get('lang/{locale}', function ($locale) {
+        if (in_array($locale, ['en', 'id'])) {
+            session(['locale' => $locale]);
+            app()->setLocale($locale);
+        }
+        return redirect()->back();
+    })->name('cms.language');
+
 });
 
 

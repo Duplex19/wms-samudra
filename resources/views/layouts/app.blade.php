@@ -422,6 +422,11 @@
                 $('#' + btnLoading).addClass('d-none');
             }
         }
+
+        function setLang(lang)
+        {
+            localStorage.setItem("locale", lang);
+        }
     </script>
     @stack('js')
 </body>

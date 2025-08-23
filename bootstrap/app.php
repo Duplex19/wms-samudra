@@ -17,7 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'apiGuest'  => ApiGuest::class,
             'authApi' => AuthApi::class,
+            'setLocale' => \App\Http\Middleware\SetLocale::class,
         ]);
+        $middleware->appendToGroup('web', \App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

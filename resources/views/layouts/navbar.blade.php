@@ -23,7 +23,30 @@ id="layout-navbar"
     <!-- /Search -->
 
     <ul class="navbar-nav flex-row align-items-center ms-auto">
-        <li class="nav-item dropdown me-2 me-xl-0">
+      <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+      <!-- Language -->
+      <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="icon-base bx bx-globe icon-md"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a onclick="setLang('id')" class="dropdown-item {{ app()->getLocale() === 'id' ? 'active' : '' }}" href="{{ route('cms.language', ['locale' =>'id']) }}" data-language="fr" data-text-direction="ltr">
+              <span>Indonesia</span>
+            </a>
+          </li>
+          <li>
+            <a onclick="setLang('en')" class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}" href="{{ route('cms.language', ['locale' => 'en']) }}" data-language="en" data-text-direction="ltr">
+              <span>English</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!--/ Language -->
+
+      
+        <!-- Style Switcher -->
+         <li class="nav-item dropdown me-2 me-xl-0">
           <a class="nav-link dropdown-toggle hide-arrow" id="nav-theme" href="javascript:void(0);" data-bs-toggle="dropdown">
             <i class="icon-base bx bx-sun icon-md theme-icon-active"></i>
             <span class="d-none ms-2" id="nav-theme-text">Toggle theme</span>
@@ -41,7 +64,37 @@ id="layout-navbar"
             </li>
           </ul>
         </li>
+        <!-- / Style Switcher-->
 
+      <!-- Notification -->
+      <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          <span class="position-relative">
+            <i class="icon-base bx bx-bell icon-md"></i>
+            <span class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span>
+          </span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end p-0">
+          <li class="dropdown-menu-header border-bottom">
+            <div class="dropdown-header d-flex align-items-center py-3">
+              <h6 class="mb-0 me-auto">Notification</h6>
+              <div class="d-flex align-items-center h6 mb-0">
+                <span class="badge bg-label-primary me-2">8 New</span>
+              </div>
+            </div>
+          </li>
+          
+          <li class="border-top">
+            <div class="d-grid p-4">
+              <a class="btn btn-primary btn-sm d-flex" href="javascript:void(0);">
+                <small class="align-middle">View all notifications</small>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <!--/ Notification -->
+  </ul>
     <!-- User -->
     <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
