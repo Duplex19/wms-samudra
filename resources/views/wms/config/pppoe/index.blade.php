@@ -24,28 +24,28 @@
 @section('content')
     <div class="col-md-12">
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPppoe"><i
-                class="tf-icons bx bx-user-plus"></i> Tambah pppoe</button>
+                class="tf-icons bx bx-user-plus"></i>{{ __('cms.add_ppoe') }}</button>
         <button class="btn btn-primary mb-3"><i class="tf-icons bx bx-cog"></i></button>
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i
                 class="tf-icons bx bx-slider"></i></button>
         <button class="btn btn-primary mb-3"><i class="tf-icons bx bx-trash"></i></button>
         <div class="card">
-            <h5 class="card-header">List data pppe</h5>
+            <h5 class="card-header">List data pppoe</h5>
             <div class="card-body">
                 <div class="table-responsive mt-2">
                     <table id="dataTable" class="table table-sm text-nowrap">
                         <thead class="filter-section">
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Nama pengguna</th>
+                                <th scope="col">{{ __('cms.name') }}</th>
+                                <th scope="col"{{ __('cms.username') }}</th>
                                 <th scope="col">Password</th>
-                                <th scope="col">Profil</th>
+                                <th scope="col">{{ __('cms.sidebar_profile') }}</th>
                                 <th scope="col">Router</th>
                                 <th scope="col">IP</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Internet</th>
-                                <th scope="col">Aksi</th>
+                                <th scope="col">{{ __('cms.action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -258,6 +258,30 @@
 @endsection
 @push('js')
     <script>
+        let currentLang = localStorage.getItem("locale") || "id";
+
+        let langOptions = {};
+
+        if (currentLang === "id") {
+            langOptions = {
+                processing: "Sedang memproses...",
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                infoFiltered: "(disaring dari _MAX_ total data)",
+                loadingRecords: "Memuat data...",
+                zeroRecords: "Tidak ada data yang ditemukan",
+                emptyTable: "Tidak ada data yang tersedia",
+                paginate: {
+                    first: "Pertama",
+                    previous: "Sebelumnya",
+                    next: "Selanjutnya",
+                    last: "Terakhir"
+                }
+            };
+        } 
+
         $(document).ready(function() {
             getData();
             getRouter();
@@ -373,23 +397,7 @@
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
                 ],
-                language: {
-                    processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
-                    search: "Cari:",
-                    lengthMenu: "Tampilkan _MENU_ data per halaman",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
-                    infoFiltered: "(disaring dari _MAX_ total data)",
-                    loadingRecords: "Memuat data...",
-                    zeroRecords: "Tidak ada data yang ditemukan",
-                    emptyTable: "Tidak ada data yang tersedia",
-                    paginate: {
-                        first: '<i class="fas fa-angle-double-left"></i>',
-                        previous: '<i class="fas fa-angle-left"></i>',
-                        next: '<i class="fas fa-angle-right"></i>',
-                        last: '<i class="fas fa-angle-double-right"></i>'
-                    }
-                }
+                language: langOptions,
             });
 
             // Filter functionality

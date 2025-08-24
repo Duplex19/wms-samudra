@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card">
-                <h5 class="card-header" id="textHeader">Tambah profil ppp</h5>
+                <h5 class="card-header" id="textHeader">{{ __('cms.add_profile_ppp') }}</h5>
                 <div class="card-body">
                     <div class="alert alert-primary" role="alert">
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -17,22 +17,22 @@
                             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                         </symbol>
                         </svg>
-                    <p><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>Pastikan Grup sama dengan nama Profil di router</p>
+                    <p><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>{{ __('cms.group_match_profile') }}</p>
                     </div>
                     <form id="formAction" action="{{ route('wms.profile_ppp.store') }}" method="POST" data-table="true">
                         @csrf
                         <div class="form-group mb-3">
-                        <label for="">Nama*</label>
+                        <label for="">{{ __('cms.name') }}*</label>
                         <input type="text" class="form-control" name="name">
                         <span class="text-danger" id="error-name"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Grup*</label>
+                            <label for="">{{ __('cms.group') }}*</label>
                             <input type="text" class="form-control" name="group">
                              <span class="text-danger" id="error-group"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Harga*</label>
+                            <label for="">{{ __('cms.price') }}*</label>
                             <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Rp.</span>
                             <input type="text" class="form-control" name="price" id="priceInput">
@@ -41,10 +41,10 @@
                         </div>
                         <div class="col">
                             <div class="form-group mb-3">
-                                <label for="">Tampilkan*</label>
+                                <label for="">{{ __('cms.showing') }}*</label>
                                 <select name="show" class="form-select" id="show">
-                                    <option value="1">Ya</option>
-                                    <option value="0">Tidak</option>
+                                    <option value="1">Y</option>
+                                    <option value="0">N</option>
                                 </select>
                             </div>
                             <span class="text-danger" id="error-show"></span>
@@ -57,18 +57,18 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <h5 class="card-header">List data profil ppp</h5>
+                <h5 class="card-header">{{ __('cms.list_data_profile_ppp') }}</h5>
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">
                         <table id="dataTable" class="table table-sm">
                             <thead>
                                 <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Grup</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Ditampilkan</th>
-                                <th scope="col">Aksi</th>
+                                <th scope="col">{{ __('cms.name') }}</th>
+                                <th scope="col">{{ __('cms.group') }}</th>
+                                <th scope="col">{{ __('cms.price') }}</th>
+                                <th scope="col">{{ __('cms.showing') }}</th>
+                                <th scope="col">{{ __('cms.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -83,6 +83,29 @@
 @endsection
 @push('js')
     <script>
+        let currentLang = localStorage.getItem("locale") || "id";
+
+        let langOptions = {};
+
+        if (currentLang === "id") {
+            langOptions = {
+                processing: "Sedang memproses...",
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                infoFiltered: "(disaring dari _MAX_ total data)",
+                loadingRecords: "Memuat data...",
+                zeroRecords: "Tidak ada data yang ditemukan",
+                emptyTable: "Tidak ada data yang tersedia",
+                paginate: {
+                    first: "Pertama",
+                    previous: "Sebelumnya",
+                    next: "Selanjutnya",
+                    last: "Terakhir"
+                }
+            };
+        } 
         $(document).ready(function() {
              dataTable = $('#dataTable').DataTable({
                 serverSide: true,
@@ -128,23 +151,7 @@
                 order: [[0, 'asc']],
                 pageLength: 10,
                 lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-                language: {
-                    processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
-                    search: "Cari:",
-                    lengthMenu: "Tampilkan _MENU_ data per halaman",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
-                    infoFiltered: "(disaring dari _MAX_ total data)",
-                    loadingRecords: "Memuat data...",
-                    zeroRecords: "Tidak ada data yang ditemukan",
-                    emptyTable: "Tidak ada data yang tersedia",
-                    paginate: {
-                        first: '<i class="fas fa-angle-double-left"></i>',
-                        previous: '<i class="fas fa-angle-left"></i>',
-                        next: '<i class="fas fa-angle-right"></i>',
-                        last: '<i class="fas fa-angle-double-right"></i>'
-                    }
-                }
+                language: langOptions,
             });
         });
 

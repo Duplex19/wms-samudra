@@ -17,6 +17,7 @@ return [
     'sidebar_tim_management'  => 'TIM Management',
     //end sidebar
 
+
     //page balance
     'balance_xendit' => 'Total balance',
     'balance_registrasi' => 'Registration balance',
@@ -27,8 +28,72 @@ return [
     //page balance
 
     //general
-    'name'  => 'Name',
-    'balance'   => 'Balance',
-    'action'    => 'Action'
+    'name'                  => 'Name',
+    'username'                  => 'Username',
+    'address'               => 'Address',
+    'whatsapp_number'       => 'WhatsApp Number',
+    'registration_date' => 'Registration date',
+    'update_date'       => 'Update date',
+    'processed_by'      => 'Processed by',
+    'balance'               => 'Balance',
+    'action'                => 'Action',
+    'total_users'           => 'Total users',
+    'active_users'          => 'Active users',
+    'online_users'          => 'Online users',
+    'suspended_users'       => 'Suspended users',
+    'total_invoices'        => 'Total invoices',
+    'unpaid_invoices'       => 'Unpaid invoices',
+    'paid_invoices'         => 'Paid invoices',
+    'overdue_invoices'      => 'Overdue invoices',
+    'revenue_this_month'    => 'Revenue this month',
+
+    'company_revenue_growth'   => 'Company revenue growth',
+    'latest_payments_this_month' => 'Latest payments this month',
+    'customer_registration_list' => 'Customer registration data list',
+    'registration_form'        => 'Registration form',
+    'ppp_profile_list'          => 'PPP profile data list',
+    'vpn_account_usage'        => 'Use VPN account to create L2TP Client (Without IpSec Secret) on Mikrotik to be used',
+    'member_list'              => 'Member data list',
+    'configuration_schedule'   => 'Configuration schedule',
+    'billing_settings'         => 'Billing settings',
+    'registration_settings'    => 'Registration settings',
+    'user_activity_list'       => 'User activity data list',
+    'form_registration' => 'Form registration',
+
+    'installation_status' => 'Installation Status',
+    'payment_status'      => 'Payment Status',
+    'nik'                 => 'National ID (NIK)',
+    'category'            => 'Category',
+    'npwp'                => 'Tax ID (NPWP)',
+    'npwp_photo'          => 'Tax ID Photo',
+    'external_link'       => 'External Link',
+    'payment_link'        => 'Payment Link',
+    'location_photo'      => 'Location Photo',
+    'selfie_photo'        => 'Selfie Photo',
+
+    'group_match_profile' => 'Make sure the Group is the same as the Profile name in the router',
+    'add_profile_ppp'   => 'Add profil ppp',
+    'list_data_profile_ppp'   => 'List data profil ppp',
+    'group'   => 'Gruop',
+    'price' => 'Price',
+    'showing'   => 'Showing',
+    'submit'    => 'Submit',
+
+    'add_vpn_account'      => 'Add VPN server account',
+    'list_vpn_server'      => 'List of VPN Server data',
+    'use_vpn_account'      => 'Use VPN Account to Create L2TP Client (Without IpSec Secret) on the Mikrotik to be used',
+    'add_router'           => 'Add router',
+    'list_router'          => 'List of router data',
+    'active_date'          => 'Active date',
+    'payment_type'         => 'Payment type',
+    'amount'               => 'Amount',
+    'discount'             => 'Discount',
+    'router'               => 'Router',
+    'note'                 => 'Note',
+    'position'             => 'Position',
+    'team'                 => 'Team',
+    'bank_account'         => 'Bank account',
+    'edit'                 => 'Edit',
+    'delete'               => 'Delete',
     //end general
 ];

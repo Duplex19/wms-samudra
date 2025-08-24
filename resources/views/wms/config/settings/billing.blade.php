@@ -4,7 +4,7 @@
 <a href="{{ route('wms.billing') }}" class="btn {{ Request::is('wms/config/setting/billing') ? 'btn-primary' : ' btn-outline-primary' }} mb-3">Pengaturan penagihan</a>
 <a href="{{ route('wms.registration') }}" class="btn {{ Request::is('wms/config/setting/registration') ? 'btn-primary' : ' btn-outline-primary' }} mb-3">Pengaturan pendaftaran</a>
 <div class="card">
-    <h5 class="card-header">Pengaturan Penagihan</h5>
+    <h5 class="card-header">{{ __('cms.billing_settings') }}</h5>
     <div class="card-body">
         <form id="formUpdate" action="" method="POST" data-table="false" data-resetForm="false">
             @method('PUT')

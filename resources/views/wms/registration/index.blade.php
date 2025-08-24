@@ -18,32 +18,32 @@
 @section('content')
     <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addVpnServer"><i
             class="menu-icon icon-base bx bx-user-plus"></i>
-        Formulir pendaftaran</button>
+        {{ __('cms.form_registration') }}</button>
     <div class="col-md-12">
         <div class="card">
-            <h5 class="card-header">List data registrasi pelanggan</h5>
+            <h5 class="card-header">{{ __('cms.customer_registration_list') }}</h5>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
                     <table id="dataTable" class="table table-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">No WhatsApp</th>
-                                <th scope="col">Tgl pendaftaran</th>
-                                <th scope="col">Tgl Update</th>
-                                <th scope="col">Diproses oleh</th>
-                                <th scope="col">Status Pemasangan</th>
-                                <th scope="col">Status Pembayaran</th>
-                                <th scope="col">NIK</th>
-                                <th scope="col">Kategori</th>
-                                <th scope="col">NPWP</th>
-                                <th scope="col">Foto NPWP</th>
-                                <th scope="col">External link</th>
-                                <th scope="col">Link pembayaran</th>
-                                <th scope="col">Foto Lokasi</th>
-                                <th scope="col">Foto Selfi</th>
+                                <th scope="col">{{ __('cms.name') }}</th>
+                                <th scope="col">{{ __('cms.address') }}</th>
+                                <th scope="col">{{ __('cms.whatsapp_number') }}</th>
+                                <th scope="col">{{ __('cms.registration_date') }}</th>
+                                <th scope="col">{{ __('cms.update_date') }}</th>
+                                <th scope="col">{{ __('cms.processed_by') }}</th>
+                                <th scope="col">{{ __('cms.installation_status') }}</th>
+                                <th scope="col">{{ __('cms.payment_status') }}</th>
+                                <th scope="col">{{ __('cms.nik') }}</th>
+                                <th scope="col">{{ __('cms.category') }}</th>
+                                <th scope="col">{{ __('cms.npwp') }}</th>
+                                <th scope="col">{{ __('cms.npwp_photo') }}</th>
+                                <th scope="col">{{ __('cms.external_link') }}</th>
+                                <th scope="col">{{ __('cms.payment_link') }}</th>
+                                <th scope="col">{{ __('cms.location_photo') }}</th>
+                                <th scope="col">{{ __('cms.selfie_photo') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -195,6 +195,29 @@
 @endsection
 @push('js')
     <script>
+        let currentLang = localStorage.getItem("locale") || "id";
+
+        let langOptions = {};
+
+        if (currentLang === "id") {
+            langOptions = {
+                processing: "Sedang memproses...",
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                infoFiltered: "(disaring dari _MAX_ total data)",
+                loadingRecords: "Memuat data...",
+                zeroRecords: "Tidak ada data yang ditemukan",
+                emptyTable: "Tidak ada data yang tersedia",
+                paginate: {
+                    first: "Pertama",
+                    previous: "Sebelumnya",
+                    next: "Selanjutnya",
+                    last: "Terakhir"
+                }
+            };
+        } 
         $(document).ready(function() {
             getProfilePppoe();
             dataTable = $('#dataTable').DataTable({
@@ -353,23 +376,7 @@
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
                 ],
-                language: {
-                    processing: '<i class="fas fa-spinner fa-spin"></i> Loading...',
-                    search: "Cari:",
-                    lengthMenu: "Tampilkan _MENU_ data per halaman",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
-                    infoFiltered: "(disaring dari _MAX_ total data)",
-                    loadingRecords: "Memuat data...",
-                    zeroRecords: "Tidak ada data yang ditemukan",
-                    emptyTable: "Tidak ada data yang tersedia",
-                    paginate: {
-                        first: '<i class="fas fa-angle-double-left"></i>',
-                        previous: '<i class="fas fa-angle-left"></i>',
-                        next: '<i class="fas fa-angle-right"></i>',
-                        last: '<i class="fas fa-angle-double-right"></i>'
-                    }
-                }
+                language: langOptions,
             });
         });
 
@@ -413,7 +420,7 @@
         function showPhoto(url, title) {
             $("#photoModalTitle").html(title);
             $("#photoModal").modal("show");
-            $("#photoRegistrasi").html(`<img src="${url}" alt="photo">`)
+            $("#photoRegistrasi").html(`<img src="${url}" alt="photo" width="100%">`)
         }
     </script>
 @endpush

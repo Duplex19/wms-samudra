@@ -96,7 +96,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Total pengguna</p>
+                            <p class="card-label">{{ __('cms.total_users') }}</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Pengguna aktif</p>
+                            <p class="card-label">{{ __('cms.active_users') }}</p>
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Pengguna ditangguhkan</p>
+                            <p class="card-label">{{ __('cms.suspended_users') }}</p>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Pengguna online</p>
+                            <p class="card-label">{{ __('cms.online_users') }}</p>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Total tagihan</p>
+                            <p class="card-label">{{ __('cms.total_invoices') }}</p>
                             <span class="fw-bold fs-6 estimatedMonthlyIncome">Rp 0</span>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Tagihan belum dibayar</p>
+                            <p class="card-label">{{ __('cms.unpaid_invoices') }}</p>
                             <span class="fw-bold fs-6" id="unpaidCurrentMonth">Rp 250.000</span>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Tagihan dibayar</p>
+                            <p class="card-label">{{ __('cms.paid_invoices') }}</p>
                             <span class="fw-bold fs-6 paidCurrentMonth">Rp 0</span>
                         </div>
                     </div>
@@ -232,7 +232,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Tagihan jatuh tempo</p>
+                            <p class="card-label">{{ __('cms.overdue_invoices') }}</p>
                             <span class="fw-bold fs-6" id="countOverdueBilling">Rp 0</span>
                         </div>
                     </div>
@@ -252,7 +252,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </h2>
-                            <p class="card-label">Pendapatan bulan ini</p>
+                            <p class="card-label">{{ __('cms.revenue_this_month') }}</p>
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
         <div class="col-md-8 col-lg-8 order-1 mb-4">
             <div class="card h-100">
                 <div class="card-header">
-                    <h5 class="card-title m-0 me-2">Pertumbuhan pendapatan perusahaan tahun 2025</h5>
+                    <h5 class="card-title m-0 me-2">{{ __('cms.company_revenue_growth') }} 2025</h5>
                 </div>
                 <div class="card-body px-0">
                     <div class="tab-content p-0">
@@ -280,7 +280,7 @@
         <div class="col-md-6 col-lg-4 order-2 mb-4">
             <div class="card h-100">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-title m-0 me-2">Pembayaran terbaru bulan ini</h5>
+                    <h5 class="card-title m-0 me-2">{{ __('cms.latest_payments_this_month') }}</h5>
                     <div class="dropdown">
                         <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
