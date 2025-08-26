@@ -208,7 +208,7 @@
                 showForSingleSeries: true,
                 customLegendItems: ["Actual", "Expected"],
                 markers: {
-                    fillColors: ["#2563eb", "#775DD0"],
+                    fillColors: ["#ffab00", "#2563eb"],
                 },
             },
         };

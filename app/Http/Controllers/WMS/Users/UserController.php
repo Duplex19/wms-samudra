@@ -14,13 +14,18 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $data = Cache::remember('users_metadata', now()->addMinute(), function () {
-                $response = Http::withToken(session('api_token'))->get(config('app.api_service') .'/admin/users');
-                if ($response->ok()) {
-                    return $response->json('metadata');
-                }
-                return [];
-            });
+            if($request->category == 'team') {
+                $response =  Http::withToken(session('api_token'))->get(config('app.api_service') .'/admin/team');
+                return $this->success($response->json('metadata'), 'List data team', 200);
+            }else {
+                $data = Cache::remember('users_metadata', now()->addMinute(), function () {
+                    $response = Http::withToken(session('api_token'))->get(config('app.api_service') .'/admin/users');
+                    if ($response->ok()) {
+                        return $response->json('metadata');
+                    }
+                    return [];
+                });
+            }
 
             return view('wms.users._data_user', ['users' => $data]);
         }
@@ -30,28 +35,14 @@ class UserController extends Controller
     public function update(Request $request, $id) 
     {
 
-    // "id": "c5b19d20-6ae8-4231-a59c-7abc9b041cdc",
-    // "name": "Robyansyah",
-    // "email": "robiyansyah664@gmail.com",
-    // "role": "teknisi",
-    // "whatsapp": "6285832772114",
-    // "jabatan": "TEKNISI",
-    // "foto": "https://api.samudrawasesa.co.id/stream/user/profile/FtNB4oOnYiatgiKhhJ8wdRssckXaVcFU9Ndx1j8G.jpg",
-    // "team": "Team Ian",
-    // "bank": {
-    //     "name": "ROBI",
-    //     "bank_code": "BRI",
-    //     "norek": "188301007012530"
-    // }
-
         $validator = Validator::make($request->all(), [
             "name" => "required",
             "email" => "required",
             "role" => "required",
             "whatsapp" => "required",
             "jabatan" => "required",
-            "foto"  => 'image|max:2048:mimes:jpg,jpeg,png',
-            "team" => "required",
+            "foto"  => 'image|max:2048|mimes:jpg,jpeg,png',
+            "nama_team" => "required",
             "bank_code" => "required",
             "norek" => "required",
         ]);
@@ -62,15 +53,28 @@ class UserController extends Controller
 
         $data = $validator->validate();
         $data['team_management_id'] = $request->team_management_id ?? null;
+        $data['password'] = $request->password ?? '';
+        
         try {
-            $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/admin/users/update/' . $id,  $data);
+            $requestHttp = Http::withToken(session('api_token'));
+
+            if ($request->hasFile('foto')) {
+                $requestHttp = $requestHttp->attach(
+                    'foto',
+                    fopen($request->file('foto')->getRealPath(), 'r'),
+                    $request->file('foto')->getClientOriginalName()
+                );
+            }
+
+            $response = $requestHttp->post(config('app.api_service') . '/admin/users/update/' . $id, $data);
+
+            // $response = Http::withToken(session('api_token'))->post(config('app.api_service') . '/admin/users/update/' . $id,  $data);
             if ($response->status() === 401) {
                 session()->forget(['api_token', 'user_data']);
                 $request->session()->invalidate();
                 $request->session()->regenerate();
                 return $this->unauthorized('Sesi Anda telah habis. Silakan login kembali.', 401);
             }
-            dd($response->body());
             if($response->successful()) {
                 Cache::forget('users_metadata');
                 return $this->success('', 'Data anggota berhasil diupdate', 200);
