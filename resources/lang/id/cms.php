@@ -96,6 +96,14 @@ return [
     'bank_account'         => 'Akun bank',
     'edit'                 => 'Edit',
     'delete'               => 'Hapus',
+
+    'total_billing'     => 'Total penagihan',
+    'paid'              => 'Dibayar',
+    'unpaid'            => 'Belum dibayar',
+    'due_date'          => 'Jatuh tempo',
+    'create_manual_bill'=> 'Buat tagihan manual',
+    'payment_date'      => 'Tanggal pembayaran',
+    'payment_method'    => 'Metode pembayaran',
     //end general
 
 

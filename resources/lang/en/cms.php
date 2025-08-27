@@ -95,5 +95,13 @@ return [
     'bank_account'         => 'Bank account',
     'edit'                 => 'Edit',
     'delete'               => 'Delete',
+
+    'total_billing'     => 'Total billing',
+    'paid'              => 'Paid',
+    'unpaid'            => 'Unpaid',
+    'due_date'          => 'Due date',
+    'create_manual_bill'=> 'Create manual bill',
+    'payment_date'      => 'Payment date',
+    'payment_method'    => 'Payment method',
     //end general
 ];

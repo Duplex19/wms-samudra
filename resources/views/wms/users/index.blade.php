@@ -405,10 +405,10 @@
             $("input[name=bank_code]").val(user.bank.bank_code)
             $("input[name=norek]").val(user.bank.account_number)
             $("#editUser").modal('show');
-            getTeam(user.id);
+            getTeam(user.team_id);
         }
 
-        async function getTeam(userId)
+        async function getTeam(teamId)
         {
             let param = {
                 url: "{{ url()->current() }}",
@@ -424,7 +424,7 @@
 
             data.forEach((item) => {
                 html += `
-                <option value="${item.id}" ${item.id == userId ? 'selected' : ''}>${item.nama_team}</option>
+                <option value="${item.id}" ${item.id == teamId ? 'selected' : ''}>${item.nama_team}</option>
                 `
             });
             $('#team_management_id').html(html);
