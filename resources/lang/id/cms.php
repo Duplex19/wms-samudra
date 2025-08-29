@@ -28,6 +28,7 @@ return [
     'description'    => 'Deskripsi',
     'link'           => 'Tautan',
     'amount'         => 'Jumlah',
+    'final_amount'   => 'Jumlah Akhir',
     'payment_method' => 'Metode Pembayaran',
     'contact'        => 'Kontak',
     'status'         => 'Status',

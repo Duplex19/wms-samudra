@@ -28,6 +28,7 @@ return [
     'description'    => 'Description',
     'link'           => 'Link',
     'amount'         => 'Amount',
+    'final_amount'   => 'Final Amount',
     'payment_method' => 'Payment Method',
     'contact'        => 'Contact',
     'status'         => 'Status',

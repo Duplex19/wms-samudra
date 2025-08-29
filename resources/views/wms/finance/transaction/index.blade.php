@@ -179,6 +179,7 @@
                             <th>{{ __('cms.ref_id') }}</th>
                             <th>{{ __('cms.type') }}</th>
                             <th>{{ __('cms.amount') }}</th>
+                            <th>{{ __('cms.final_amount') }}</th>
                             <th>{{ __('cms.payment_method') }}</th>
                             <th>{{ __('cms.status') }}</th>
                             <th>{{ __('cms.date') }}</th>
@@ -282,6 +283,7 @@
                 return `<span class="badge ${badgeClass} rounded">${data}</span>`;
             }},
             { data: 'amount', name: 'amount'},
+            { data: 'final_amount', name: 'final_amount'},
             { data: 'payment_method', name: 'payment_method', render: function(data) {
                 return data ? data : 'Tidak diketahui';
             }},
