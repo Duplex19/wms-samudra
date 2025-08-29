@@ -64,7 +64,23 @@
                     Nama bank
                     <span>{{ $item['bank']['bank_code'] }}</span>
                 </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Nama bank
+                    <span>{{ $item['bank']['bank_code'] }}</span>
+                </li>
+                <div class="section-header">
+                    Fee dan Saldo
+                </div>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Fee
+                    <span>{{ formatRupiah($item['fee']['nominal_fee']) }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Saldo
+                    <span>{{ $item['balance'] }}</span>
+                </li>
             </ul>
+            <hr>
             <div class="card-body">
                 <button class="btn btn-warning btn-sm" onclick='editUser(@json($item))'>Edit</button>
                 <button class="btn btn-danger btn-sm"

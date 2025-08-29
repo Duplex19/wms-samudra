@@ -78,12 +78,12 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">{{ __('cms.sidebar_finance') }}</span>
         </li>
-        <li class="menu-item {{ Request::is('wms/balance') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ Request::is('wms/balance') ? 'active' : '' }}">
             <a href="{{ route('finance.balance') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-wallet-alt"></i>
                 <div data-i18n="Basic">{{ __('cms.sidebar_balance') }}</div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-item {{ request()->routeIs('finance.transaction') ? 'active' : '' }}">
             <a href="{{ route('finance.transaction') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-dollar-circle"></i>

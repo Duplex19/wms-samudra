@@ -100,6 +100,10 @@ table.dataTable.dtr-inline.collapsed
     width: 100% !important;
 }
 
+.list-group-item {
+    color: #f0f0f5 !important;
+}
+
 body.dark-mode .dtr-details {
     background: #232333 !important;
     border-radius: 8px;
