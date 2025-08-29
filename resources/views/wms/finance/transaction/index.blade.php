@@ -198,8 +198,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>{{ __('cms.category') }}</th>
                             <th>{{ __('cms.ref_id') }}</th>
+                            <th>{{ __('cms.category') }}</th>
                             <th>{{ __('cms.type') }}</th>
                             <th>{{ __('cms.amount') }}</th>
                             <th>{{ __('cms.final_amount') }}</th>
@@ -295,8 +295,8 @@
                 return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            { data: 'category', category: 'category' },
             { data: 'ref_id', ref_id: 'name' },
+            { data: 'category', category: 'category' },
             { data: 'type', name: 'type', render: function(data) {
                 let badgeClass = 'bg-secondary'; 
                 if (data.toLowerCase() === 'in') {
