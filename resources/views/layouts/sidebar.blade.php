@@ -84,6 +84,12 @@
                 <div data-i18n="Basic">{{ __('cms.sidebar_balance') }}</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->routeIs('finance.transaction') ? 'active' : '' }}">
+            <a href="{{ route('finance.transaction') }}" class="menu-link">
+                <i class="menu-icon icon-base bx bx-dollar-circle"></i>
+                <div data-i18n="Basic">{{ __('cms.sidebar_transaction') }}</div>
+            </a>
+        </li>
         <li class="menu-item {{ Request::is('wms/member*') ? 'active open' : '' }} {{ Request::is('wms/config/setting*') ? 'active open' : '' }}"
             style="">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

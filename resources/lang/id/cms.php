@@ -4,6 +4,7 @@ return [
     //sidbear
     'sidebar_setting'   => 'Pengaturan',
     'sidebar_balance'   => 'Saldo',
+    'sidebar_transaction'   => 'Transaksi',
     'sidebar_registration'   => 'Pendaftaran',
     'sidebar_customer_registration'   => 'Registrasi Pelanggan',
     'sidebar_user'  => 'Pengguna',
@@ -17,6 +18,22 @@ return [
     'sidebar_tim_management'  => 'Manajemen TIM',
     //end sidebar
 
+    //transaksi
+    'total_transaction' => 'Total transaksi',
+    'transaction_in'    => 'Transaksi masuk',
+    'transaction_out'   => 'Transaksi keluar',
+    'id'             => 'ID',
+    'ref_id'         => 'ID Referensi',
+    'type'           => 'Tipe',
+    'description'    => 'Deskripsi',
+    'link'           => 'Tautan',
+    'amount'         => 'Jumlah',
+    'payment_method' => 'Metode Pembayaran',
+    'contact'        => 'Kontak',
+    'status'         => 'Status',
+    'date'           => 'Tanggal',
+    //end transaksi
+    
     //page balance
     'balance_xendit' => 'Total saldo',
     'balance_invoice' => 'Total saldo bulan ini',

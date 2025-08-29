@@ -192,7 +192,7 @@
     <div class="card-body">
         <div class="table-responsive">
                 <table class="table table-sm text-nowrap" id="invoice-table">
-                    <thead class="table-light">
+                    <thead>
                         <tr>
                             <th>No</th>
                             <th>Ref ID</th>

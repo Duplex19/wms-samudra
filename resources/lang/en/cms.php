@@ -4,6 +4,7 @@ return [
     //sidebar
     'sidebar_setting'   => 'Setting',
     'sidebar_balance'   => 'Balance',
+    'sidebar_transaction'   => 'Transaction',
     'sidebar_registration'   => 'Registration',
     'sidebar_customer_registration'   => 'Customer registration',
     'sidebar_user'  => 'User',
@@ -17,6 +18,21 @@ return [
     'sidebar_tim_management'  => 'TIM Management',
     //end sidebar
 
+    //transaction
+    'total_transaction' => 'Total transaction',
+    'transaction_in'    => 'Incoming transaction',
+    'transaction_out'   => 'Outgoing transaction',
+    'id'             => 'ID',
+    'ref_id'         => 'Reference ID',
+    'type'           => 'Type',
+    'description'    => 'Description',
+    'link'           => 'Link',
+    'amount'         => 'Amount',
+    'payment_method' => 'Payment Method',
+    'contact'        => 'Contact',
+    'status'         => 'Status',
+    'date'           => 'Date',
+    //end transaction
 
     //page balance
     'balance_xendit' => 'Total balance',

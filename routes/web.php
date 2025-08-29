@@ -110,6 +110,10 @@ Route::middleware(AuthApi::class)->group(function() {
             Route::get('/balance', 'index')->name('finance.balance');
         });
 
+        Route::controller(WMS\Finance\TransactionController::class)->group(function() {
+            Route::get('/transaction', 'index')->name('finance.transaction');
+        });
+
         //route log aktivitas user
         Route::get('/services/log', WMS\Services\LogController::class)->name('wms.log');
 
