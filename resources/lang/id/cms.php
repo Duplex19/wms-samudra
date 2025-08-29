@@ -33,6 +33,13 @@ return [
     'contact'        => 'Kontak',
     'status'         => 'Status',
     'date'           => 'Tanggal',
+
+    'xendit_balance'       => 'Saldo Xendit',
+    'registration_balance' => 'Saldo Registrasi',
+    'billing_balance'      => 'Saldo Tagihan Bulanan',
+    'expense'              => 'Pengeluaran',
+    'team_balance'         => 'Saldo Tim',
+    'withdrawable_balance' => 'Saldo Dapat di Withdraw',
     //end transaksi
     
     //page balance

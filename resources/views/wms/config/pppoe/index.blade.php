@@ -34,7 +34,7 @@
             <div class="card-body">
                 <div class="table-responsive mt-2">
                     <table id="dataTable" class="table table-sm text-nowrap">
-                        <thead class="filter-section">
+                        <thead>
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">{{ __('cms.name') }}</th>

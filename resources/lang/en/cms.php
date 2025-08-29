@@ -33,6 +33,13 @@ return [
     'contact'        => 'Contact',
     'status'         => 'Status',
     'date'           => 'Date',
+
+    'xendit_balance'       => 'Xendit Balance',
+    'registration_balance' => 'Registration Balance',
+    'billing_balance'      => 'Monthly Billing Balance',
+    'expense'              => 'Expense',
+    'team_balance'         => 'Team Balance',
+    'withdrawable_balance' => 'Withdrawable Balance',
     //end transaction
 
     //page balance

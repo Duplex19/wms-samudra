@@ -4,7 +4,7 @@ body.dark-mode {
 }
 /* start css general */
 body.dark-mode h6 {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode .bg-menu-theme .menu-inner-shadow {
@@ -24,7 +24,7 @@ body.dark-mode .layout-navbar {
 }
 
 body.dark-mode .app-brand-text {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode .bg-footer-theme {
@@ -48,35 +48,84 @@ body.dark-mode .layout-menu {
 }
 
 body.dark-mode .menu-link {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode h5 {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode label {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
+}
+
+.filter-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Belum dibuka */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+    content: "\f0fe" !important; /* fa-plus-square */
+    font-family: "Font Awesome 6 Free"; /* sesuaikan dengan versimu */
+    font-weight: 900;
+}
+
+/* Sudah dibuka */
+table.dataTable.dtr-inline.collapsed
+    > tbody
+    > tr.parent
+    > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed
+    > tbody
+    > tr.parent
+    > th.dtr-control:before {
+    content: "\f146" !important; /* fa-minus-square */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.dtr-details {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px !important;
+    margin: 10px 0;
+    width: 100% !important;
+}
+
+body.dark-mode .dtr-details {
+    background: #232333 !important;
+    border-radius: 8px;
+    padding: 15px !important;
+    margin: 10px 0;
+    width: 100% !important;
 }
 
 body.dark-mode .table-light {
-    background-color: #d5d5e2 !important;
+    background-color: #f0f0f5 !important;
 }
 
 body.dark-mode .alert-primary {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode th {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode .table {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode .dataTables_info {
-    color: #d5d5e2 !important;
+    color: #f0f0f5 !important;
 }
 
 body.dark-mode .form-select {

@@ -169,7 +169,7 @@
     </div>
 </div>
 <div class="card">
-    <h4 class="card-header">{{ __('cms.balance_employes') }}</h4>
+    <h5 class="card-header">{{ __('cms.balance_employes') }}</h5>
     <div class="card-body">
         <div class="table-responsive">
                 <table class="table table-sm text-nowrap" id="employeeBalance">

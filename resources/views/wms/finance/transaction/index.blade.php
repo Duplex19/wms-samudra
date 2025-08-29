@@ -69,41 +69,6 @@
             margin-bottom: 0;
         }
 
-        .filter-section {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .table-responsive {
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        /* Belum dibuka */
-        table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
-        table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
-            content: "\f0fe" !important; /* fa-plus-square */
-            font-family: "Font Awesome 6 Free"; /* sesuaikan dengan versimu */
-            font-weight: 900;
-        }
-
-        /* Sudah dibuka */
-        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
-        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
-            content: "\f146" !important;  /* fa-minus-square */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-        }
-
-        .dtr-details {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px !important;
-            margin: 10px 0;
-            width: 100% !important;
-        }
-
     </style>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
@@ -118,12 +83,12 @@
                         <i class="tf-icons bx bx-dollar-circle"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white" id="totalTransaction">
+                        <h2 class="card-number text-white" id="xendit_balance">
                             <div class="spinner-border spinner-border-sm" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </h2>
-                        <p class="card-label">{{ __('cms.total_transaction') }}</p>
+                        <p class="card-label">{{ __('cms.xendit_balance') }}</p>
                     </div>
                 </div>
             </div>
@@ -137,12 +102,12 @@
                         <i class="tf-icons bx bx-dollar-circle"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white" id="totalTransactionIn">
+                        <h2 class="card-number text-white" id="registration_balance">
                             <div class="spinner-border spinner-border-sm" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </h2>
-                        <p class="card-label">{{ __('cms.transaction_in') }}</p>
+                        <p class="card-label">{{ __('cms.registration_balance') }}</p>
                     </div>
                 </div>
             </div>
@@ -156,12 +121,69 @@
                         <i class="tf-icons bx bx-dollar-circle"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white" id="totalTransactionOut">
+                        <h2 class="card-number text-white" id="invoice_balance">
                             <div class="spinner-border spinner-border-sm" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </h2>
-                        <p class="card-label">{{ __('cms.transaction_out') }}</p>
+                        <p class="card-label">{{ __('cms.billing_balance') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-12 mb-4">
+        <div class="card gradient-card">
+            <div class="card-body card-content">
+                <div class="d-flex align-items-center">
+                    <div class="icon-container">
+                        <i class="tf-icons bx bx-dollar-circle"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-number text-white" id="outgoing_balance">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h2>
+                        <p class="card-label">{{ __('cms.expense') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="col-lg-4 col-md-4 col-12 mb-4">
+        <div class="card gradient-card">
+            <div class="card-body card-content">
+                <div class="d-flex align-items-center">
+                    <div class="icon-container">
+                        <i class="tf-icons bx bx-dollar-circle"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-number text-white" id="team_balance">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h2>
+                        <p class="card-label">{{ __('cms.team_balance') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-12 mb-4">
+        <div class="card gradient-card">
+            <div class="card-body card-content">
+                <div class="d-flex align-items-center">
+                    <div class="icon-container">
+                        <i class="tf-icons bx bx-dollar-circle"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-number text-white" id="withdrawable_balance">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h2>
+                        <p class="card-label">{{ __('cms.withdrawable_balance') }}</p>
                     </div>
                 </div>
             </div>
@@ -169,13 +191,14 @@
     </div>
 </div>
 <div class="card">
-    <h4 class="card-header">{{ __('cms.sidebar_transaction') }}</h4>
+    <h5 class="card-header">{{ __('cms.sidebar_transaction') }}</h5>
     <div class="card-body">
         <div class="table-responsive">
                 <table class="table table-sm text-nowrap" id="employeeBalance">
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>{{ __('cms.category') }}</th>
                             <th>{{ __('cms.ref_id') }}</th>
                             <th>{{ __('cms.type') }}</th>
                             <th>{{ __('cms.amount') }}</th>
@@ -201,6 +224,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
         getInvSummary();
+        getDataTable();
     });
 
     async function getInvSummary()
@@ -209,21 +233,20 @@
             url: "{{ url()->current() }}",
             method: "GET",
             data: {
-                'category': 'balance_summary'
+                'category': 'financial_summary'
             }
         };
 
         await transAjax(param).then((result) => {
-            setTimeout(() => {
-                $("#totalTransaction").html('Rp 500.000.000');
-                $("#totalTransactionIn").html('Rp 470.000.000');
-                $("#totalTransactionOut").html('Rp 130.000.000');
-            }, 1000);
+                $("#xendit_balance").html(result.metadata.xendit_balance);
+                $("#registration_balance").html(result.metadata.registration_balance);
+                $("#invoice_balance").html(result.metadata.invoice_balance);
+                $("#outgoing_balance").html(result.metadata.outgoing_balance);
+                $("#team_balance").html(result.metadata.team_balance);
+                $("#withdrawable_balance").html(result.metadata.withdrawable_balance);
         }).catch((err) => {
             return alert('Gagal mengambil data summary');
         });
-
-        getDataTable();
     }
 
     function  getDataTable()
@@ -272,6 +295,7 @@
                 return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
+            { data: 'category', category: 'category' },
             { data: 'ref_id', ref_id: 'name' },
             { data: 'type', name: 'type', render: function(data) {
                 let badgeClass = 'bg-secondary'; 
