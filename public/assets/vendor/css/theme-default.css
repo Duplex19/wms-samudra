@@ -787,9 +787,9 @@ a:hover {
 .bg-menu-theme .menu-item.active > .menu-link {
     color: #566a7f;
 }
-.bg-menu-theme .menu-item.active > .menu-link:not(.menu-toggle) {
+/* .bg-menu-theme .menu-item.active > .menu-link:not(.menu-toggle) {
     background-color: #fff;
-}
+} */
 .bg-menu-theme.menu-horizontal
     .menu-sub
     > .menu-item.active

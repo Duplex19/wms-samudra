@@ -7,6 +7,14 @@ body.dark-mode h6 {
     color: #d5d5e2 !important;
 }
 
+body.dark-mode .bg-menu-theme .menu-inner-shadow {
+    background: linear-gradient(
+        #2b2c40 41%,
+        /* warna dasar */ rgba(43, 44, 64, 0.6) 95%,
+        /* versi transparan */ rgba(43, 44, 64, 0) /* fade out */
+    ) !important;
+}
+
 body.dark-mode .text-muted {
     color: #fff !important;
 }
