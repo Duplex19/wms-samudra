@@ -95,42 +95,46 @@
         </div>
     </div>
      <div class="col-lg-4 col-md-4 col-12 mb-4">
-        <div class="card gradient-card">
-            <div class="card-body card-content">
-                <div class="d-flex align-items-center">
-                    <div class="icon-container">
-                        <i class="tf-icons bx bx-dollar-circle"></i>
-                    </div>
-                    <div>
-                        <h2 class="card-number text-white" id="registration_balance">
-                            <div class="spinner-border spinner-border-sm" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </h2>
-                        <p class="card-label">{{ __('cms.registration_balance') }}</p>
+        <a href="{{ route('wms.registrationx') }}">
+            <div class="card gradient-card">
+                <div class="card-body card-content">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-container">
+                            <i class="tf-icons bx bx-dollar-circle"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-number text-white" id="registration_balance">
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </h2>
+                            <p class="card-label">{{ __('cms.registration_balance') }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-lg-4 col-md-4 col-12 mb-4">
-        <div class="card gradient-card">
-            <div class="card-body card-content">
-                <div class="d-flex align-items-center">
-                    <div class="icon-container">
-                        <i class="tf-icons bx bx-dollar-circle"></i>
-                    </div>
-                    <div>
-                        <h2 class="card-number text-white" id="invoice_balance">
-                            <div class="spinner-border spinner-border-sm" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </h2>
-                        <p class="card-label">{{ __('cms.billing_balance') }}</p>
+        <a href="{{ route('wms.member.invoice') }}">
+            <div class="card gradient-card">
+                <div class="card-body card-content">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-container">
+                            <i class="tf-icons bx bx-dollar-circle"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-number text-white" id="invoice_balance">
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </h2>
+                            <p class="card-label">{{ __('cms.billing_balance') }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-lg-4 col-md-4 col-12 mb-4">
         <div class="card gradient-card">
@@ -152,23 +156,25 @@
         </div>
     </div>
      <div class="col-lg-4 col-md-4 col-12 mb-4">
-        <div class="card gradient-card">
-            <div class="card-body card-content">
-                <div class="d-flex align-items-center">
-                    <div class="icon-container">
-                        <i class="tf-icons bx bx-dollar-circle"></i>
-                    </div>
-                    <div>
-                        <h2 class="card-number text-white" id="team_balance">
-                            <div class="spinner-border spinner-border-sm" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </h2>
-                        <p class="card-label">{{ __('cms.team_balance') }}</p>
+        <a href="{{ route('wms.users.index') }}">
+            <div class="card gradient-card">
+                <div class="card-body card-content">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-container">
+                            <i class="tf-icons bx bx-dollar-circle"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-number text-white" id="team_balance">
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </h2>
+                            <p class="card-label">{{ __('cms.team_balance') }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-lg-4 col-md-4 col-12 mb-4">
         <div class="card gradient-card">
