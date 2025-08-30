@@ -210,6 +210,18 @@
                 markers: {
                     fillColors: ["#ffab00", "#2563eb"],
                 },
+                labels: {
+                    colors: currentTheme === "dark" ? "#fff" : "#566a7f", // warna teks legend
+                },
+            },
+            xaxis: {
+                labels: {
+                    style: {
+                        colors: Array(12).fill(
+                            currentTheme === "dark" ? "#fff" : "#566a7f"
+                        ),
+                    },
+                },
             },
         };
     if (

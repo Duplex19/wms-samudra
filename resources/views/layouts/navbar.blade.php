@@ -113,7 +113,7 @@ id="layout-navbar"
                 </div>
                 <div class="flex-grow-1">
                 <span class="fw-semibold d-block">{{ session('user_data.name') }}</span>
-                <small class="text-muted">{{ session('user_data.role') }}</small>
+                <small>{{ session('user_data.role') }}</small>
                 </div>
             </div>
             </a>

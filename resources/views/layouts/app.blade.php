@@ -427,6 +427,11 @@
         {
             localStorage.setItem("locale", lang);
         }
+
+        function setDarkMode(color)
+        {
+            localStorage.setItem("locale", color);
+        }
     </script>
     @stack('js')
 </body>
