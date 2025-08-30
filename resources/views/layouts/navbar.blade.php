@@ -108,12 +108,12 @@ id="layout-navbar"
             <div class="d-flex">
                 <div class="flex-shrink-0 me-3">
                 <div class="avatar avatar-online">
-                    <img src="https://ui-avatars.com/api/?background=2563eb&name=Dev KH&color=fff" alt class="w-px-40 h-auto rounded-circle" />
+                    <img src="https://ui-avatars.com/api/?background=2563eb&name={{ session('user_data.name') }}&color=fff" alt class="w-px-40 h-auto rounded-circle" />
                 </div>
                 </div>
                 <div class="flex-grow-1">
-                <span class="fw-semibold d-block">Devkh</span>
-                <small class="text-muted">Admin</small>
+                <span class="fw-semibold d-block">{{ session('user_data.name') }}</span>
+                <small class="text-muted">{{ session('user_data.role') }}</small>
                 </div>
             </div>
             </a>

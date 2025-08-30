@@ -100,7 +100,7 @@ table.dataTable.dtr-inline.collapsed
     width: 100% !important;
 }
 
-.list-group-item {
+body.dark-mode .list-group-item {
     color: #f0f0f5 !important;
 }
 
