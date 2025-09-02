@@ -128,9 +128,9 @@
         $(document).ready(function() {
             dataTable = $('#dataTable').DataTable({
                 serverSide: true,
-                responsive: true,
-                // scrollX: true,
-                // autoWidth: false,
+                scrollX: true,
+                autoWidth: false,
+                responsive: false,
                 ajax: {
                     url: "{{ url()->current() }}",
                     data: function(d) {
