@@ -11,6 +11,7 @@ return [
     'sidebar_profile'  => 'Profil',
     'sidebar_monthly_billing'  => 'Penagihan bulanan',
     'sidebar_manual_billing'  => 'Penagihan manual',
+    'salary'  => 'Gaji',
     'sidebar_member'  => 'Anggota',
     'sidebar_billing'  => 'Penagihan',
     'sidebar_network'  => 'Jaringan',
@@ -39,6 +40,7 @@ return [
     'billing_balance'      => 'Saldo Tagihan Bulanan',
     'expense'              => 'Pengeluaran',
     'team_balance'         => 'Saldo Tim',
+    'team_salary'          => 'Total gaji Tim',
     'withdrawable_balance' => 'Saldo Dapat di Withdraw',
     //end transaksi
     

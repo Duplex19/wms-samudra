@@ -1,26 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    {{-- <div class="alert alert-primary" role="alert">
-    <h4 class="alert-heading">Informasi</h4>
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item fw-semibold">Tanggal Pembuatan Invoice</li>
-                <li class="list-group-item fw-semibold">Tanggal Pengingat</li>
-                <li class="list-group-item fw-semibold">Tanggal Jatuh Tempo</li>
-                <li class="list-group-item fw-semibold">Tanggal Penangguhan</li>
-            </ul>
-        </div>
-        <div class="col-md-9">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Tanggal pembuatan tagihan setiap bulan</li>
-                <li class="list-group-item">Tanggal pengiriman pengingat tagihan pelanggan jika belum melakukan pembayaran </li>
-                <li class="list-group-item">Tanggal jatuh tempo tagihan pembayaran</li>
-                <li class="list-group-item">Tanggal penangguhan ( isolir ) jika belum melakukan pembayaran</li>
-            </ul>
-        </div>
-    </div>
-    </div> --}}
+
 <a href="{{ route('wms.sechedule') }}" class="btn {{ Request::is('wms/config/setting/sechedule') ? 'btn-primary' : ' btn-outline-primary' }}  mb-3">Jadwal konfigurasi</a>
 <a href="{{ route('wms.billing') }}" class="btn btn-outline-primary mb-3">Pengaturan penagihan</a>
 <a href="{{ route('wms.registration') }}" class="btn {{ Request::is('wms/config/setting/registration') ? 'btn-primary' : ' btn-outline-primary' }} mb-3">Pengaturan pendaftaran</a>
@@ -28,7 +8,7 @@
     <div class="card-body">
         <div class="table-responsive mt-2">
                 <table id="dataTable" class="table table-sm text-nowrap">
-                    <thead class="filter-section">
+                    <thead>
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama konfigurasi</th>

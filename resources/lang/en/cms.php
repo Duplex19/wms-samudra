@@ -11,6 +11,7 @@ return [
     'sidebar_profile'  => 'Profile',
     'sidebar_monthly_billing'  => 'Monthly billing',
     'sidebar_manual_billing'  => 'Manual billing',
+     'salary'  => 'Salary',
     'sidebar_member'  => 'Member',
     'sidebar_billing'  => 'Billing',
     'sidebar_network'  => 'Network',
@@ -39,6 +40,7 @@ return [
     'billing_balance'      => 'Monthly Billing Balance',
     'expense'              => 'Expense',
     'team_balance'         => 'Team Balance',
+     'team_salary'          => 'Total salary Tim',
     'withdrawable_balance' => 'Withdrawable Balance',
     //end transaction
 

@@ -110,6 +110,11 @@ Route::middleware(AuthApi::class)->group(function() {
             Route::get('/balance', 'index')->name('finance.balance');
         });
 
+        //salary
+        Route::controller(WMS\Finance\SalaryController::class)->group(function() {
+            Route::get('/salary', 'index')->name('finance.salary');
+        });
+
         Route::controller(WMS\Finance\TransactionController::class)->group(function() {
             Route::get('/transaction', 'index')->name('finance.transaction');
         });

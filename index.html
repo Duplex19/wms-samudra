@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Modal Input PIN</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            .pin-input {
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                font-size: 1.5rem;
+                font-weight: bold;
+                border: 2px solid #dee2e6;
+                border-radius: 8px;
+                margin: 0 5px;
+                transition: all 0.3s ease;
+            }
+
+            .pin-input:focus {
+                border-color: #0d6efd;
+                box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+                outline: none;
+            }
+
+            .pin-input.filled {
+                border-color: #198754;
+                background-color: #f8f9fa;
+            }
+
+            .pin-input.error {
+                border-color: #dc3545;
+                background-color: #fff5f5;
+            }
+
+            .pin-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                margin: 20px 0;
+            }
+
+            .modal-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border-radius: 0.5rem 0.5rem 0 0;
+            }
+
+            .modal-header .btn-close {
+                filter: invert(1);
+            }
+
+            .pin-dots {
+                display: none;
+            }
+
+            .show-dots .pin-input {
+                color: transparent;
+            }
+
+            .show-dots .pin-input.filled::before {
+                content: "●";
+                color: #495057;
+                font-size: 1.2rem;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .show-dots .pin-input {
+                position: relative;
+            }
+
+            .toggle-visibility {
+                background: none;
+                border: none;
+                color: #6c757d;
+                font-size: 1.1rem;
+                padding: 5px;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .toggle-visibility:hover {
+                color: #495057;
+            }
+
+            .error-message {
+                color: #dc3545;
+                font-size: 0.875rem;
+                margin-top: 10px;
+                text-align: center;
+            }
+
+            .success-message {
+                color: #0d46b4;
+                font-size: 0.875rem;
+                margin-top: 10px;
+                text-align: center;
+            }
+
+            @media (max-width: 576px) {
+                .pin-input {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 1.2rem;
+                    margin: 0 3px;
+                }
+
+                .pin-container {
+                    gap: 5px;
+                }
+            }
+        </style>
+    </head>
+    <body class="bg-light">
+        <div class="container mt-5">
+            <div class="text-center">
+                <button
+                    type="button"
+                    class="btn btn-primary btn-lg"
+                    data-bs-toggle="modal"
+                    data-bs-target="#pinModal"
+                >
+                    <i class="fas fa-lock me-2"></i>Buka Modal PIN
+                </button>
+            </div>
+        </div>
+
+        <!-- PIN Modal -->
+        <div
+            class="modal fade"
+            id="pinModal"
+            tabindex="-1"
+            aria-labelledby="pinModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pinModalLabel">
+                            <i class="fas fa-shield-alt me-2"></i>Masukkan PIN
+                            Anda
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body text-center py-4">
+                        <p class="text-muted mb-4">
+                            Silakan masukkan 6 digit PIN untuk melanjutkan
+                        </p>
+
+                        <div class="pin-container" id="pinContainer">
+                            <input
+                                type="password"
+                                class="form-control pin-input"
+                                maxlength="1"
+                                data-index="0"
+                                inputmode="numeric"
+                            />
+                            <input
+                                type="password"
+                                class="form-control pin-input"
+                                maxlength="1"
+                                data-index="1"
+                                inputmode="numeric"
+                            />
+                            <input
+                                type="password"
+                                class="form-control pin-input"
+                                maxlength="1"
+                                data-index="2"
+                                inputmode="numeric"
+                            />
+                            <input
+                                type="password"
+                                class="form-control pin-input"
+                                maxlength="1"
+                                data-index="3"
+                                inputmode="numeric"
+                            />
+                            <input
+                                type="password"
+                                class="form-control pin-input"
+                                maxlength="1"
+                                data-index="4"
+                                inputmode="numeric"
+                            />
+                            <input
+                                type="password"
+                                class="form-control pin-input"
+                                maxlength="1"
+                                data-index="5"
+                                inputmode="numeric"
+                            />
+                            <button
+                                class="toggle-visibility ms-2"
+                                type="button"
+                                onclick="togglePinVisibility()"
+                                title="Tampilkan/Sembunyikan PIN"
+                            >
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+
+                        <div id="messageContainer"></div>
+
+                        <div class="mt-4">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                PIN harus terdiri dari 6 digit angka
+                            </small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            <i class="fas fa-times me-2"></i>Batal
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-success"
+                            onclick="verifyPin()"
+                            id="verifyBtn"
+                            disabled
+                        >
+                            <i class="fas fa-check me-2"></i>Verifikasi PIN
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-outline-primary"
+                            onclick="clearPin()"
+                        >
+                            <i class="fas fa-redo me-2"></i>Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+        <script>
+            let currentPin = "";
+            let isVisible = false;
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const pinInputs = document.querySelectorAll(".pin-input");
+
+                pinInputs.forEach((input, index) => {
+                    input.addEventListener("input", function (e) {
+                        handlePinInput(e, index);
+                    });
+
+                    input.addEventListener("keydown", function (e) {
+                        handleKeyDown(e, index);
+                    });
+
+                    input.addEventListener("paste", function (e) {
+                        handlePaste(e);
+                    });
+                });
+            });
+
+            function handlePinInput(e, index) {
+                const value = e.target.value;
+                const pinInputs = document.querySelectorAll(".pin-input");
+
+                // Hanya izinkan angka
+                if (!/^\d*$/.test(value)) {
+                    e.target.value = "";
+                    return;
+                }
+
+                if (value.length === 1) {
+                    e.target.classList.add("filled");
+                    e.target.classList.remove("error");
+
+                    // Pindah ke input berikutnya
+                    if (index < 5) {
+                        pinInputs[index + 1].focus();
+                    }
+                } else if (value.length === 0) {
+                    e.target.classList.remove("filled", "error");
+                }
+
+                updatePin();
+            }
+
+            function handleKeyDown(e, index) {
+                const pinInputs = document.querySelectorAll(".pin-input");
+
+                if (
+                    e.key === "Backspace" &&
+                    e.target.value === "" &&
+                    index > 0
+                ) {
+                    pinInputs[index - 1].focus();
+                    pinInputs[index - 1].value = "";
+                    pinInputs[index - 1].classList.remove("filled", "error");
+                    updatePin();
+                } else if (e.key === "ArrowLeft" && index > 0) {
+                    pinInputs[index - 1].focus();
+                } else if (e.key === "ArrowRight" && index < 5) {
+                    pinInputs[index + 1].focus();
+                }
+            }
+
+            function handlePaste(e) {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData("text");
+                const numbers = pastedData.replace(/\D/g, "").slice(0, 6);
+
+                if (numbers.length > 0) {
+                    const pinInputs = document.querySelectorAll(".pin-input");
+                    for (let i = 0; i < numbers.length; i++) {
+                        if (pinInputs[i]) {
+                            pinInputs[i].value = numbers[i];
+                            pinInputs[i].classList.add("filled");
+                            pinInputs[i].classList.remove("error");
+                        }
+                    }
+                    if (numbers.length < 6) {
+                        pinInputs[numbers.length].focus();
+                    }
+                    updatePin();
+                }
+            }
+
+            function updatePin() {
+                const pinInputs = document.querySelectorAll(".pin-input");
+                currentPin = "";
+
+                pinInputs.forEach((input) => {
+                    currentPin += input.value || "";
+                });
+
+                const verifyBtn = document.getElementById("verifyBtn");
+                verifyBtn.disabled = currentPin.length !== 6;
+
+                clearMessage();
+            }
+
+            function togglePinVisibility() {
+                const pinInputs = document.querySelectorAll(".pin-input");
+                const toggleIcon = document.getElementById("toggleIcon");
+                const container = document.getElementById("pinContainer");
+
+                isVisible = !isVisible;
+
+                if (isVisible) {
+                    pinInputs.forEach((input) => {
+                        input.type = "text";
+                    });
+                    toggleIcon.className = "fas fa-eye-slash";
+                    container.classList.remove("show-dots");
+                } else {
+                    pinInputs.forEach((input) => {
+                        input.type = "password";
+                    });
+                    toggleIcon.className = "fas fa-eye";
+                    container.classList.add("show-dots");
+                }
+            }
+
+            function verifyPin() {
+                const messageContainer =
+                    document.getElementById("messageContainer");
+                const pinInputs = document.querySelectorAll(".pin-input");
+
+                // Simulasi verifikasi PIN (ganti dengan logika sebenarnya)
+                const correctPin = "123456"; // PIN demo
+
+                if (currentPin === correctPin) {
+                    messageContainer.innerHTML =
+                        '<div class="success-message"><i class="fas fa-check-circle me-1"></i>PIN berhasil diverifikasi!</div>';
+
+                    // Tutup modal setelah 1.5 detik
+                    setTimeout(() => {
+                        const modal = bootstrap.Modal.getInstance(
+                            document.getElementById("pinModal")
+                        );
+                        modal.hide();
+                        clearPin();
+                    }, 1500);
+                } else {
+                    messageContainer.innerHTML =
+                        '<div class="error-message"><i class="fas fa-exclamation-triangle me-1"></i>PIN yang Anda masukkan salah!</div>';
+                    pinInputs.forEach((input) => {
+                        input.classList.add("error");
+                    });
+
+                    // Fokus ke input pertama
+                    setTimeout(() => {
+                        pinInputs[0].focus();
+                    }, 100);
+                }
+            }
+
+            function clearPin() {
+                const pinInputs = document.querySelectorAll(".pin-input");
+                const verifyBtn = document.getElementById("verifyBtn");
+
+                pinInputs.forEach((input) => {
+                    input.value = "";
+                    input.classList.remove("filled", "error");
+                });
+
+                currentPin = "";
+                verifyBtn.disabled = true;
+                clearMessage();
+                pinInputs[0].focus();
+            }
+
+            function clearMessage() {
+                const messageContainer =
+                    document.getElementById("messageContainer");
+                messageContainer.innerHTML = "";
+            }
+
+            // Reset PIN ketika modal dibuka
+            document
+                .getElementById("pinModal")
+                .addEventListener("shown.bs.modal", function () {
+                    clearPin();
+                });
+        </script>
+    </body>
+</html>
