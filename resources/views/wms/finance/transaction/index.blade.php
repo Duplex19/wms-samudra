@@ -342,7 +342,7 @@
                 return `<a href="https://wa.me/${data}" class="badge bg-info cursor-pointer">${data}</a>`
             }},
         ],
-        order: [[1, 'asc']], // Order by ref_id desc
+        order: [[1, 'desc']], // Order by ref_id desc
         pageLength: 10,
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
         language:langOptions,
