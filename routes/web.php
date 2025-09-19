@@ -118,6 +118,7 @@ Route::middleware(AuthApi::class)->group(function() {
         //salary
         Route::controller(WMS\Finance\SalaryController::class)->group(function() {
             Route::get('/salary', 'index')->name('finance.salary');
+            Route::post('/salary-blast', 'salaryBlast')->name('wms.finance.salary');
         });
 
         Route::controller(WMS\Finance\TransactionController::class)->group(function() {

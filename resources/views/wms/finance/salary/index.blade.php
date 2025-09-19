@@ -445,104 +445,112 @@
     aria-hidden="true"
 >
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body text-center py-4">
-                <h5 class="modal-title" id="pinModalLabel">
-                    <i class="fas fa-shield-alt me-2"></i>Masukkan PIN
-                    Anda
-                </h5>
-                <p class="text-muted mb-4">
-                    Silakan masukkan 6 digit PIN untuk melanjutkan
-                </p>
-
-                <div class="pin-container" id="pinContainer">
-                    <input
-                        type="password"
-                        class="form-control pin-input"
-                        maxlength="1"
-                        data-index="0"
-                        inputmode="numeric"
-                    />
-                    <input
-                        type="password"
-                        class="form-control pin-input"
-                        maxlength="1"
-                        data-index="1"
-                        inputmode="numeric"
-                    />
-                    <input
-                        type="password"
-                        class="form-control pin-input"
-                        maxlength="1"
-                        data-index="2"
-                        inputmode="numeric"
-                    />
-                    <input
-                        type="password"
-                        class="form-control pin-input"
-                        maxlength="1"
-                        data-index="3"
-                        inputmode="numeric"
-                    />
-                    <input
-                        type="password"
-                        class="form-control pin-input"
-                        maxlength="1"
-                        data-index="4"
-                        inputmode="numeric"
-                    />
-                    <input
-                        type="password"
-                        class="form-control pin-input"
-                        maxlength="1"
-                        data-index="5"
-                        inputmode="numeric"
-                    />
+        <form action="{{ route('wms.finance.salary') }}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
                 </div>
+                <div class="modal-body text-center py-4">
+                    <h5 class="modal-title" id="pinModalLabel">
+                        <i class="fas fa-shield-alt me-2"></i>Masukkan PIN
+                        Anda
+                    </h5>
+                    <p class="text-muted mb-4">
+                        Silakan masukkan 6 digit PIN untuk melanjutkan
+                    </p>
 
-                <div id="messageContainer"></div>
+                    <div class="pin-container" id="pinContainer">
+                        <input
+                            type="password"
+                            class="form-control pin-input"
+                            maxlength="1"
+                            data-index="0"
+                            inputmode="numeric"
+                            name="pin[]"
+                        />
+                        <input
+                            type="password"
+                            class="form-control pin-input"
+                            maxlength="1"
+                            data-index="1"
+                            inputmode="numeric"
+                            name="pin[]"
+                        />
+                        <input
+                            type="password"
+                            class="form-control pin-input"
+                            maxlength="1"
+                            data-index="2"
+                            inputmode="numeric"
+                            name="pin[]"
+                        />
+                        <input
+                            type="password"
+                            class="form-control pin-input"
+                            maxlength="1"
+                            data-index="3"
+                            inputmode="numeric"
+                            name="pin[]"
+                        />
+                        <input
+                            type="password"
+                            class="form-control pin-input"
+                            maxlength="1"
+                            data-index="4"
+                            inputmode="numeric"
+                            name="pin[]"
+                        />
+                        <input
+                            type="password"
+                            class="form-control pin-input"
+                            maxlength="1"
+                            data-index="5"
+                            inputmode="numeric"
+                            name="pin[]"
+                        />
+                    </div>
 
-                <div class="mt-4">
-                    <small class="text-muted">
-                        <i class="fas fa-info-circle me-1"></i>
-                        PIN harus terdiri dari 6 digit angka
-                    </small>
+                    <div id="messageContainer"></div>
+
+                    <div class="mt-4">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1"></i>
+                            PIN harus terdiri dari 6 digit angka
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-warning"
+                        data-bs-dismiss="modal"
+                    >
+                        <i class="fas fa-times me-2"></i>Batal
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="verifyBtn"
+                        disabled
+                    >
+                        <i class="fas fa-check me-2"></i>Verifikasi PIN
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        onclick="clearPin()"
+                    >
+                        <i class="fas fa-redo me-2"></i>Reset
+                    </button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-warning"
-                    data-bs-dismiss="modal"
-                >
-                    <i class="fas fa-times me-2"></i>Batal
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="verifyPin()"
-                    id="verifyBtn"
-                    disabled
-                >
-                    <i class="fas fa-check me-2"></i>Verifikasi PIN
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-outline-primary"
-                    onclick="clearPin()"
-                >
-                    <i class="fas fa-redo me-2"></i>Reset
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection
