@@ -69,6 +69,45 @@
             margin-bottom: 0;
         }
 
+        /* set pin */
+        .set-pin-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .set-pin-input:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+            outline: none;
+        }
+
+        .set-pin-input.filled {
+            border-color: #0D46B4;
+            background-color: #f8f9fa;
+        }
+
+        .set-pin-input.error {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+        .set-pin-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        /* end set pin */
+
         .pin-input {
                 width: 50px;
                 height: 50px;
@@ -234,7 +273,7 @@
     </div>
 </div>
 <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="{{ $user_pin == 'active' ? '#pinModal' : '#pinInfoCreateModal' }}">Bayar gaji</button>
-<button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#pinModal">Manajemen gaji karyawan <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+<button class="btn btn-primary my-3" onclick="confirm('Sedang dalam pengembangan')">Manajemen gaji karyawan <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
 <div class="card">
     <h5 class="card-header">Gaji karyawan</h5>
     <div class="card-body">
@@ -310,7 +349,7 @@
                 <div class="pin-container" id="pinContainer">
                     <input
                         type="text"
-                        class="form-control pin-input"
+                        class="form-control set-pin-input"
                         maxlength="1"
                         data-index="0"
                         inputmode="numeric"
@@ -318,7 +357,7 @@
                     />
                     <input
                         type="text"
-                        class="form-control pin-input"
+                        class="form-control set-pin-input"
                         maxlength="1"
                         data-index="1"
                         inputmode="numeric"
@@ -326,7 +365,7 @@
                     />
                     <input
                         type="text"
-                        class="form-control pin-input"
+                        class="form-control set-pin-input"
                         maxlength="1"
                         data-index="2"
                         inputmode="numeric"
@@ -334,7 +373,7 @@
                     />
                     <input
                         type="text"
-                        class="form-control pin-input"
+                        class="form-control set-pin-input"
                         maxlength="1"
                         data-index="3"
                         inputmode="numeric"
@@ -342,7 +381,7 @@
                     />
                     <input
                         type="text"
-                        class="form-control pin-input"
+                        class="form-control set-pin-input"
                         maxlength="1"
                         data-index="4"
                         inputmode="numeric"
@@ -350,7 +389,7 @@
                     />
                     <input
                         type="text"
-                        class="form-control pin-input"
+                        class="form-control set-pin-input"
                         maxlength="1"
                         data-index="5"
                         inputmode="numeric"
@@ -379,9 +418,9 @@
                 <button
                     type="submit"
                     class="btn btn-primary"
-                    id="verifyBtn"
+                    id="createPinBtn"
                     disabled
-                    onclick="loading(true, 'verifyBtn', 'btnLoading', true)"
+                    onclick="loading(true, 'createPinBtn', 'btnLoading', true)"
                 >
                     <i class="fas fa-check me-2"></i>Buat PIN
                 </button>
@@ -595,7 +634,24 @@
             let isVisible = false;
 
             document.addEventListener("DOMContentLoaded", function () {
+                const setPinInputs = document.querySelectorAll(".set-pin-input");
                 const pinInputs = document.querySelectorAll(".pin-input");
+
+                //SET PIN INPUT
+                setPinInputs.forEach((input, index) => {
+                    input.addEventListener("input", function (e) {
+                        handleSetPinInput(e, index);
+                    });
+
+                    input.addEventListener("keydown", function (e) {
+                        handleKeyDown(e, index);
+                    });
+
+                    input.addEventListener("paste", function (e) {
+                        handlePaste(e);
+                    });
+                });
+                //END SE PIN INPUT
 
                 pinInputs.forEach((input, index) => {
                     input.addEventListener("input", function (e) {
@@ -611,6 +667,33 @@
                     });
                 });
             });
+
+            //HANDLE SET PIN INPUT
+            function handleSetPinInput(e, index) {
+                const value = e.target.value;
+                const pinInputs = document.querySelectorAll(".set-pin-input");
+
+                // Hanya izinkan angka
+                if (!/^\d*$/.test(value)) {
+                    e.target.value = "";
+                    return;
+                }
+
+                if (value.length === 1) {
+                    e.target.classList.add("filled");
+                    e.target.classList.remove("error");
+
+                    // Pindah ke input berikutnya
+                    if (index < 5) {
+                        pinInputs[index + 1].focus();
+                    }
+                } else if (value.length === 0) {
+                    e.target.classList.remove("filled", "error");
+                }
+
+                updateSetPin();
+            }
+            //END SET PIN INPUT
 
             function handlePinInput(e, index) {
                 const value = e.target.value;
@@ -636,6 +719,27 @@
 
                 updatePin();
             }
+
+            //HANDLE KEY DOWN SET PIN INPUT
+            function handleKeyDownSetInput(e, index) {
+                const pinInputs = document.querySelectorAll(".set-pin-input");
+
+                if (
+                    e.key === "Backspace" &&
+                    e.target.value === "" &&
+                    index > 0
+                ) {
+                    pinInputs[index - 1].focus();
+                    pinInputs[index - 1].value = "";
+                    pinInputs[index - 1].classList.remove("filled", "error");
+                    updatePin();
+                } else if (e.key === "ArrowLeft" && index > 0) {
+                    pinInputs[index - 1].focus();
+                } else if (e.key === "ArrowRight" && index < 5) {
+                    pinInputs[index + 1].focus();
+                }
+            }
+            //END HANDLE KEY DOWN SET INPUT
 
             function handleKeyDown(e, index) {
                 const pinInputs = document.querySelectorAll(".pin-input");
@@ -677,6 +781,22 @@
                 }
             }
 
+            //HANLDE UPDATE SET PIN
+             function updateSetPin() {
+                const pinInputs = document.querySelectorAll(".set-pin-input");
+                currentPin = "";
+
+                pinInputs.forEach((input) => {
+                    currentPin += input.value || "";
+                });
+
+                const createPinBtn = document.getElementById("createPinBtn");
+                createPinBtn.disabled = currentPin.length !== 6;
+
+                clearMessage();
+            }
+            //END HANDLE UPDATE PIN
+
             function updatePin() {
                 const pinInputs = document.querySelectorAll(".pin-input");
                 currentPin = "";
@@ -714,8 +834,19 @@
             }
 
             function clearPin() {
+                const setPinInputs = document.querySelectorAll(".set-pin-input");
                 const pinInputs = document.querySelectorAll(".pin-input");
                 const verifyBtn = document.getElementById("verifyBtn");
+
+                setPinInputs.forEach((input) => {
+                    input.value = "";
+                    input.classList.remove("filled", "error");
+                });
+
+                currentPin = "";
+                verifyBtn.disabled = true;
+                clearMessage();
+                setPinInputs[0].focus();
 
                 pinInputs.forEach((input) => {
                     input.value = "";
