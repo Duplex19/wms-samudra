@@ -22,14 +22,15 @@ class SalaryController extends Controller
                 }
                 return $this->success($response->json('metadata'), 'Data summary finance', 200);
             }else {
-                $response = Http::withToken(session('api_token'))->get(config('app.api_service') .'/users/gaji');
+                $response = Http::withToken(session('api_token'))->get(config('app.api_service') .'/sallary');
                 return DataTables::of($response->json('metadata'))
                 ->make(true);
             }
         }
         
         return view('wms.finance.salary.index', [
-            'title' => 'Employes Salary'
+            'title' => 'Employes Salary',
+            'user_pin'  => session('user_pin.blast_sallary') ? 'active' : 'inactive',
         ]);
     }
 }

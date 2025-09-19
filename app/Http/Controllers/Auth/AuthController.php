@@ -22,12 +22,13 @@ class AuthController extends Controller
         }
 
         try {
-            $response = Http::post(config('app.api_service') . '/login-admin', $credentials->validate());
+            $response = Http::post(config('app.api_service') . '/login', $credentials->validate());
             if ($response->ok()) {
                 $data = $response->json('metadata');
                 session([
                     'api_token' => $data['token'],
                     'user_data' => $data['user'],
+                    'user_pin' => $data['pin'],
                 ]);
 
                 return $this->success('', 'Berhasil login, Anda akan diarahkan...');

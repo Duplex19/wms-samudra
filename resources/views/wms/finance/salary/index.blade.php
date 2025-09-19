@@ -233,7 +233,7 @@
         </div>
     </div>
 </div>
-<button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#pinModal">Bayar gaji</button>
+<button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="{{ $user_pin == 'active' ? '#pinModal' : '#pinInfoCreateModal' }}">Bayar gaji</button>
 <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#pinModal">Manajemen gaji karyawan <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
 <div class="card">
     <h5 class="card-header">Gaji karyawan</h5>
@@ -253,6 +253,148 @@
                     </tbody>
                 </table>
             </div>
+    </div>
+</div>
+
+
+<!-- Modal konfirmasi pembuatan PIN -->
+<div class="modal fade" id="pinInfoCreateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <picture>
+            <img src="{{ asset('assets/img/illustrations/pin.png') }}" alt="pin create" width="100%">
+        </picture>
+        <div class="text-center">
+            <h5>Buat PIN Anda!</h5>
+            <p>Untuk menjaga kemanan, Anda wajib membuat PIN terlebih dahulu</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pinCreateModal">Buat PIN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+     <!-- PIN Modal -->
+<div
+    class="modal fade"
+    id="pinCreateModal"
+    tabindex="-1"
+    aria-labelledby="pinModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <form action="{{ route('wms.set-pin') }}" method="POST" data-table="false">
+            <div class="modal-body text-center py-4">
+                <h5 class="modal-title" id="pinModalLabel">
+                    <i class="fas fa-shield-alt me-2"></i>Buat PIN
+                    Anda 
+                </h5>
+                <p class="text-muted mb-4">
+                    Silakan masukkan 6 digit PIN untuk melanjutkan
+                </p>
+
+                <div class="pin-container" id="pinContainer">
+                    <input
+                        type="text"
+                        class="form-control pin-input"
+                        maxlength="1"
+                        data-index="0"
+                        inputmode="numeric"
+                        name="pin[]"
+                    />
+                    <input
+                        type="text"
+                        class="form-control pin-input"
+                        maxlength="1"
+                        data-index="1"
+                        inputmode="numeric"
+                        name="pin[]"
+                    />
+                    <input
+                        type="text"
+                        class="form-control pin-input"
+                        maxlength="1"
+                        data-index="2"
+                        inputmode="numeric"
+                        name="pin[]"
+                    />
+                    <input
+                        type="text"
+                        class="form-control pin-input"
+                        maxlength="1"
+                        data-index="3"
+                        inputmode="numeric"
+                        name="pin[]"
+                    />
+                    <input
+                        type="text"
+                        class="form-control pin-input"
+                        maxlength="1"
+                        data-index="4"
+                        inputmode="numeric"
+                        name="pin[]"
+                    />
+                    <input
+                        type="text"
+                        class="form-control pin-input"
+                        maxlength="1"
+                        data-index="5"
+                        inputmode="numeric"
+                        name="pin[]"
+                    />
+                </div>
+
+                <div id="messageContainer"></div>
+
+                <div class="mt-4">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        PIN harus terdiri dari 6 digit angka
+                    </small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-warning"
+                    data-bs-dismiss="modal"
+                >
+                    <i class="fas fa-times me-2"></i>Batal
+                </button>
+                   <x-btnLoading id="btnLoading" />
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="verifyBtn"
+                    disabled
+                    onclick="loading(true, 'verifyBtn', 'btnLoading', true)"
+                >
+                    <i class="fas fa-check me-2"></i>Buat PIN
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    onclick="clearPin()"
+                >
+                    <i class="fas fa-redo me-2"></i>Reset
+                </button>
+            </div>
+            </form>
+        </div>
     </div>
 </div>
      <!-- PIN Modal -->
@@ -568,40 +710,6 @@
                     });
                     toggleIcon.className = "fas fa-eye";
                     container.classList.add("show-dots");
-                }
-            }
-
-            function verifyPin() {
-                const messageContainer =
-                    document.getElementById("messageContainer");
-                const pinInputs = document.querySelectorAll(".pin-input");
-
-                // Simulasi verifikasi PIN (ganti dengan logika sebenarnya)
-                const correctPin = "123456"; // PIN demo
-
-                if (currentPin === correctPin) {
-                    messageContainer.innerHTML =
-                        '<div class="success-message"><i class="fas fa-check-circle me-1"></i>PIN berhasil diverifikasi!</div>';
-
-                    // Tutup modal setelah 1.5 detik
-                    setTimeout(() => {
-                        const modal = bootstrap.Modal.getInstance(
-                            document.getElementById("pinModal")
-                        );
-                        modal.hide();
-                        clearPin();
-                    }, 1500);
-                } else {
-                    messageContainer.innerHTML =
-                        '<div class="error-message"><i class="fas fa-exclamation-triangle me-1"></i>PIN yang Anda masukkan salah!</div>';
-                    pinInputs.forEach((input) => {
-                        input.classList.add("error");
-                    });
-
-                    // Fokus ke input pertama
-                    setTimeout(() => {
-                        pinInputs[0].focus();
-                    }, 100);
                 }
             }
 

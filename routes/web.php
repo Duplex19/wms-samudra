@@ -110,6 +110,11 @@ Route::middleware(AuthApi::class)->group(function() {
             Route::get('/balance', 'index')->name('finance.balance');
         });
 
+        //pin
+        Route::controller(WMS\Pin\PinController::class)->group(function() {
+            Route::post('/set-pin', 'setPin')->name('wms.set-pin');
+        });
+
         //salary
         Route::controller(WMS\Finance\SalaryController::class)->group(function() {
             Route::get('/salary', 'index')->name('finance.salary');
