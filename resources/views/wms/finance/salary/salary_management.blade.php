@@ -195,7 +195,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div> --}}
                             </h2>
-                            <p class="card-label">Gaji Terbayar</p>
+                            <p class="card-label">Total Gaji Terbayar</p>
                         </div>
                     </div>
                 </div>
