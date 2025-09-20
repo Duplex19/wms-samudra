@@ -137,7 +137,7 @@
 @endpush
 @section('content')
         <!-- Statistics Cards -->
-        <div class="row mb-4">
+        <div class="row mb-2">
             <div class="col-lg-4 col-md-4 col-12 mb-4">
         <div class="card gradient-card">
             <div class="card-body card-content">
