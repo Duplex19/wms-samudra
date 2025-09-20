@@ -171,8 +171,11 @@
 
             //config
             var reloadDataTable = form.data('table') === true;
+            var reloadPage = form.data('reload') || false;
             var resetForm = form.data('resetForm');
 
+            console.log('reloapage', reloadPage);
+            
             var param = {
                 url: form.attr('action'),
                 method: method,
@@ -186,12 +189,23 @@
                 loading(false, btnSubmit, btnLoading);
                 $(".modal").modal('hide');
 
-                swal({
-                    title: 'Berhasil',
-                    text: result.message,
-                    icon: 'success',
-                });
-
+                if(reloadPage) {
+                    swal({
+                        title: 'Berhasil',
+                        text: result.message,
+                        icon: 'success',
+                        timer: 3000,
+                    }).then(() => {
+                        window.location.href = "{{ url()->current() }}";
+                    });
+                }else {
+                    swal({
+                        title: 'Berhasil',
+                        text: result.message,
+                        icon: 'success',
+                    });
+                }
+                
                 if (resetForm) {
                     form.trigger('reset');
                 }

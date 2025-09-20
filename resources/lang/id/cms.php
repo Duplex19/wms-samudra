@@ -131,6 +131,8 @@ return [
     'create_manual_bill'=> 'Buat tagihan manual',
     'payment_date'      => 'Tanggal pembayaran',
     'payment_method'    => 'Metode pembayaran',
+    'pay_salary'    => 'Bayar gaji',
+    'employee_salary_management' => 'Manajemen gaji karyawan'
     //end general
 
 

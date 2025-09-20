@@ -129,5 +129,7 @@ return [
     'create_manual_bill'=> 'Create manual bill',
     'payment_date'      => 'Payment date',
     'payment_method'    => 'Payment method',
+    'pay_salary'    => 'Pay salary',
+    'employee_salary_management' => 'Employee salary management'
     //end general
 ];

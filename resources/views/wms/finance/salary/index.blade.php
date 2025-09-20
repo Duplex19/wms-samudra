@@ -272,19 +272,21 @@
         </div>
     </div>
 </div>
-<button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="{{ $user_pin == 'active' ? '#pinModal' : '#pinInfoCreateModal' }}">Bayar gaji</button>
-<button class="btn btn-primary my-3" onclick="confirm('Sedang dalam pengembangan')">Manajemen gaji karyawan <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+<button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="{{ $user_pin == 'active' ? '#pinModal' :  '#pinInfoCreateModal' }}">{{ __('cms.pay_salary') }}</button>
+<a href="{{ route('finance.salary.management') }}" class="btn btn-primary my-3">{{ __('cms.employee_salary_management') }} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 <div class="card">
-    <h5 class="card-header">Gaji karyawan</h5>
+    <h5 class="card-header">Riwayat Gaji karyawan</h5>
     <div class="card-body">
         <div class="table-responsive">
-                <table class="table table-sm text-nowrap" id="employeeBalance">
+                <table class="table table-sm text-nowrap" id="employeeSalaryHistory">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>{{ __('cms.name') }}</th>
                             <th>{{ __('cms.amount') }}</th>
-                            <th>Get Gaji</th>
+                            <th>{{ __('cms.description') }}</th>
+                            <th>{{ __('cms.date') }}</th>
+                            <th>{{ __('cms.status') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -445,17 +447,17 @@
     aria-hidden="true"
 >
     <div class="modal-dialog modal-dialog-centered">
-        <form action="{{ route('wms.finance.salary') }}" method="POST">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
-                </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                ></button>
+            </div>
+            <form action="{{ route('wms.finance.salary') }}" method="POST">
+                @csrf
                 <div class="modal-body text-center py-4">
                     <h5 class="modal-title" id="pinModalLabel">
                         <i class="fas fa-shield-alt me-2"></i>Masukkan PIN
@@ -533,11 +535,13 @@
                     >
                         <i class="fas fa-times me-2"></i>Batal
                     </button>
+                     <x-btnLoading id="btnLoadingVerifPin" />
                     <button
                         type="submit"
                         class="btn btn-primary"
                         id="verifyBtn"
                         disabled
+                        onclick="loading(true, 'verifyBtn', 'btnLoadingVerifPin')"
                     >
                         <i class="fas fa-check me-2"></i>Verifikasi PIN
                     </button>
@@ -610,7 +614,7 @@
             };
         } 
 
-        dataTable = $('#employeeBalance').DataTable({
+        dataTable = $('#employeeSalaryHistory').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
@@ -626,7 +630,17 @@
             },
             { data: 'user', name: 'user' },
             { data: 'amount', name: 'amount' },
-            { data: 'get_gaji', name: 'get_gaji'},
+            { data: 'description', name: 'description'},
+            { data: 'date', name: 'date'},
+            { data: 'status', name: 'status', render: function(data) {
+               let badgeClass = 'bg-secondary'; 
+                if (data.toLowerCase() === 'success') {
+                    badgeClass = 'bg-success';
+                } else if (data.toLowerCase() === 'failed') {
+                    badgeClass = 'bg-danger';
+                }
+                return `<span class="badge ${badgeClass} rounded-pill">${data}</span>`;
+            }},
         ],
         order: [[1, 'asc']], // Order by ref_id desc
         pageLength: 10,
