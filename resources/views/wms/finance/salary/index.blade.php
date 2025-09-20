@@ -336,7 +336,7 @@
                     aria-label="Close"
                 ></button>
             </div>
-            <form action="{{ route('wms.set-pin') }}" method="POST" data-table="false">
+            <form action="{{ route('wms.set-pin') }}" method="POST" data-table="false" data-reload="true">
             <div class="modal-body text-center py-4">
                 <h5 class="modal-title" id="pinModalLabel">
                     <i class="fas fa-shield-alt me-2"></i>Buat PIN

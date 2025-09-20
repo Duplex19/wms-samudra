@@ -13,6 +13,7 @@ class SalaryController extends Controller
 {
     public function index(Request $request)
     {
+        // dd(session('user_pin.blast_salary'));
          if ($request->ajax()) {
             if($request->category == 'financial_summary') {
                 $response = Http::withToken(session('api_token'))->get(config('app.api_service') .'/admin/finance/transaction/summary');
@@ -32,7 +33,7 @@ class SalaryController extends Controller
         
         return view('wms.finance.salary.index', [
             'title' => 'Employes Salary',
-            'user_pin'  => session('user_pin.blast_sallary') ? 'active' : 'inactive',
+            'user_pin'  => session('user_pin.blast_salary') ? 'active' : 'inactive',
         ]);
     }
 
