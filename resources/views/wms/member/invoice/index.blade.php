@@ -207,7 +207,7 @@
                             <th>{{ __('cms.due_date') }}</th>
                             <th>{{ __('cms.payment_date') }}</th>
                             <th>{{ __('cms.payment_method') }}</th>
-                            {{-- <th>{{ __('cms.action') }}</th> --}}
+                            <th>{{ __('cms.action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -340,10 +340,10 @@
         },
         columns: [
             { 
-            data: null,
-            name: 'No',
-            render: function (data, type, row, meta) {
-                return meta.row + meta.settings._iDisplayStart + 1;
+                data: null,
+                name: 'No',
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
             { data: 'ref_id', name: 'ref_id' },
@@ -351,23 +351,57 @@
             { data: 'item', name: 'item' },
             { data: 'amount', name: 'amount' },
             { data: 'discount', name: 'discount' },
-            { data: 'status', name: 'status', render: function(data, type, row) {
-                let badgeClass = 'bg-secondary'; 
+            { 
+                data: 'status', 
+                name: 'status',
+                render: function(data, type, row) {
+                    let badgeClass = 'bg-secondary'; 
 
-                if (data.toLowerCase() === 'paid') {
-                    badgeClass = 'bg-success';
-                } else if (data.toLowerCase() === 'unpaid') {
-                    badgeClass = 'bg-warning';
+                    if (data && data.toLowerCase() === 'paid') {
+                        badgeClass = 'bg-success';
+                    } else if (data && data.toLowerCase() === 'unpaid') {
+                        badgeClass = 'bg-warning';
+                    }
+                    return `<span class="badge ${badgeClass} rounded-pill cursor-pointer" onclick='setStatus(${JSON.stringify([row.id, row.status])})'>${data === 'paid' ? 'Dibayar' : 'Belum dibayar'}</span>`;
                 }
-                return `<span class="badge ${badgeClass} rounded-pill cursor-pointer" onclick='setStatus(${JSON.stringify([row.id, row.status])})'>${data == 'paid' ? 'Dibayar' : 'Belm dibayar'}</span>`;
-            }},
+            },
             { data: 'periode', name: 'periode' },
             { data: 'address', name: 'address' },
             { data: 'whatsapp', name: 'whatsapp', orderable: false },
             { data: 'due_date', name: 'due_date' },
             { data: 'paid_date', name: 'paid_date' },
             { data: 'payment_method', name: 'payment_method' },
+            {
+                data: null,
+                name: 'aksi',
+                orderable: false,
+                searchable: false,
+                render: function(data, type, row) {
+                    if (row.status !== 'paid') {
+                        return `
+                            <button class="btn btn-sm bg-success view-btn text-white" onclick="sendReminder('${row.id}')">
+                                <i class="fab fa-whatsapp"></i> Kirim pengingat
+                            </button>
+                            <button class="btn btn-sm btn-info view-btn" onclick="copyLink('${row.inv_link}')">
+                                <i class="fas fa-link"></i> Link pembayaran
+                            </button>
+                            <button class="btn btn-sm btn-primary view-btn" onclick="payment('${row.id}')">
+                                <i class="fas fa-credit-card"></i> Bayar
+                            </button>
+                            <button class="btn btn-sm btn-warning view-btn" onclick="editData('${row.id}', '${row.amount}')">
+                                <i class="fas fa-pencil"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger view-btn" onclick="hapus('/wms/member/invoice/delete/${row.id}')">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        `;
+                    } else {
+                        return '-';
+                    }
+                }
+            }
         ],
+
         order: [[1, 'desc']], // Order by ref_id desc
         pageLength: 10,
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
