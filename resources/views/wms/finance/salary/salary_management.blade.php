@@ -131,7 +131,6 @@
         border-radius: 12px;
         padding: 1.5rem;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        margin-bottom: 2rem;
     }
 </style>
 @endpush
@@ -146,11 +145,10 @@
                         <i class="tf-icons bx bx-dollar-circle"></i>
                     </div>
                     <div>
-                        <h2 class="card-number text-white" id="xendit_balance">
-                            7
-                            {{-- <div class="spinner-border spinner-border-sm" role="status">
+                        <h2 class="card-number text-white" id="total_user">
+                            <div class="spinner-border spinner-border-sm" role="status">
                                 <span class="visually-hidden">Loading...</span>
-                            </div> --}}
+                            </div>
                         </h2>
                         <p class="card-label">Total Karyawan</p>
                     </div>
@@ -232,209 +230,161 @@
             </div>
         </div>
 
+        <button class="btn btn-primary my-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Buat gaji karyawan</button>
         <!-- Employee Cards -->
         <div class="row" id="employeeList">
-            <!-- Umaedi Card -->
-            <div class="col-lg-6 mb-4">
-                <div class="employee-card">
-                    <div class="employee-header">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <h5 class="mb-1 text-white">
-                                    <i class="fas fa-user-circle me-2"></i>
-                                    Umaedi
-                                </h5>
-                                <small class="opacity-75">ID: 0199611f-9e80-7202-84ec-804df42d7292</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="p-3">
-                        <div class="row align-items-center mb-3">
-                            <div class="col">
-                                <h6 class="text-muted mb-1">Gaji</h6>
-                                <div class="salary-amount">Rp 18.000.000</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-money-bill-wave fa-2x text-success"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="bank-info">
-                            <h6 class="mb-2">
-                                <i class="fas fa-university me-2"></i>
-                                Informasi Bank
-                            </h6>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <small class="text-muted">Nama Akun</small>
-                                    <div class="fw-medium">Umaedi</div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <small class="text-muted">Bank</small>
-                                    <div class="fw-medium">BRI</div>
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <small class="text-muted">Nomor Rekening</small>
-                                <div class="fw-medium font-monospace">869869697659759</div>
-                            </div>
-                        </div>
-                        
-                        <div class="action-buttons mt-3 text-center">
-                            <button class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-edit me-1"></i>
-                                Edit
-                            </button>
-                            <button class="btn btn-outline-success btn-sm">
-                                <i class="fas fa-download me-1"></i>
-                                Slip Gaji
-                            </button>
-                            <button class="btn btn-outline-info btn-sm">
-                                <i class="fas fa-paper-plane me-1"></i>
-                                Transfer
-                            </button>
-                        </div>
+            <div class="col-md-6">
+                <div class="card" aria-hidden="true">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
                     </div>
                 </div>
             </div>
-
-            <!-- Erwin Card -->
-            <div class="col-lg-6 mb-4">
-                <div class="employee-card">
-                    <div class="employee-header">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <h5 class="mb-1 text-white">
-                                    <i class="fas fa-user-circle me-2"></i>
-                                    Erwin
-                                </h5>
-                                <small class="opacity-75">ID: 0199611f-2432-7051-888e-ac7349912b2b</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="p-3">
-                        <div class="row align-items-center mb-3">
-                            <div class="col">
-                                <h6 class="text-muted mb-1">Gaji</h6>
-                                <div class="salary-amount">Rp 280.000.000</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-money-bill-wave fa-2x text-success"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="bank-info">
-                            <h6 class="mb-2">
-                                <i class="fas fa-university me-2"></i>
-                                Informasi Bank
-                            </h6>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <small class="text-muted">Nama Akun</small>
-                                    <div class="fw-medium">Erwin Saputra</div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <small class="text-muted">Bank</small>
-                                    <div class="fw-medium">SINARMAS</div>
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <small class="text-muted">Nomor Rekening</small>
-                                <div class="fw-medium font-monospace">0057544546</div>
-                            </div>
-                        </div>
-                        
-                        <div class="action-buttons mt-3 text-center">
-                            <button class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-edit me-1"></i>
-                                Edit
-                            </button>
-                            <button class="btn btn-outline-success btn-sm">
-                                <i class="fas fa-download me-1"></i>
-                                Slip Gaji
-                            </button>
-                            <button class="btn btn-outline-info btn-sm">
-                                <i class="fas fa-paper-plane me-1"></i>
-                                Transfer
-                            </button>
-                        </div>
+            <div class="col-md-6">
+                <div class="card" aria-hidden="true">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Buat gaji karywan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formSubmit" action="{{ route('wms.finance.salary.store') }}" method="POST" data-reload="true">
+                @csrf
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <label for="user_id">Pilih user</label>
+                    <select name="user_id" id="user_id" class="form-select">
+                        <option value="">--pilih user--</option>
+                    </select>
+                    <span class="text-danger" id="error-user_id"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Jumlah gaji</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Rp</span>
+                        <input type="text" class="form-control" name="amount" id="amount" aria-describedby="basic-addon1">
+                    </div>
+                    <span class="text-danger" id="error-amount"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="get_sallary">Dibayar tiap bulan</label>
+                    <select name="get_sallary" id="get_sallary" class="form-select">
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
+                    </select>
+                    <span class="text-danger" id="error-get_sallary"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <x-btnLoading id="btnLoading" />
+                <x-btnSubmit id="btnSubmit" onclick="loading(true, 'btnSubmit', 'btnLoading')" />
+            </div>
+            </form>
+            </div>
+        </div>
+        </div>
+
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Sample data for reference
-        const salaryData = {
-            "code": 200,
-            "success": true,
-            "message": "Sallary List",
-            "metadata": [
-                {
-                    "id": "0199611f-9e80-7202-84ec-804df42d7292",
-                    "user_id": "2f04502b-ebe8-4f97-aa73-2471f4ff942b",
-                    "user": "Umaedi",
-                    "amount": "Rp 18.000.000",
-                    "get_sallary": 1,
-                    "bank": {
-                        "account_name": "Umaedi",
-                        "bank_account": "869869697659759",
-                        "bank_code": "BRI"
-                    }
-                },
-                {
-                    "id": "0199611f-2432-7051-888e-ac7349912b2b",
-                    "user_id": "019721de-6360-7057-8aa9-28f6c8fea8bc",
-                    "user": "Erwin",
-                    "amount": "Rp 280.000.000",
-                    "get_sallary": 1,
-                    "bank": {
-                        "account_name": "Erwin Saputra",
-                        "bank_account": "0057544546",
-                        "bank_code": "SINARMAS"
-                    }
-                }
-            ]
-        };
-
-        // Simple search functionality
-        document.querySelector('input[placeholder="Cari nama karyawan..."]').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const employeeCards = document.querySelectorAll('.employee-card');
-            
-            employeeCards.forEach(card => {
-                const employeeName = card.querySelector('h5').textContent.toLowerCase();
-                const cardContainer = card.parentElement;
-                
-                if (employeeName.includes(searchTerm)) {
-                    cardContainer.style.display = 'block';
-                } else {
-                    cardContainer.style.display = 'none';
-                }
-            });
-        });
-
-        // Add click handlers for action buttons
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.btn')) {
-                const button = e.target.closest('.btn');
-                const buttonText = button.textContent.trim();
-                
-                // Simple notification for demo purposes
-                if (buttonText.includes('Edit')) {
-                    alert('Fitur edit akan segera tersedia!');
-                } else if (buttonText.includes('Slip Gaji')) {
-                    alert('Mengunduh slip gaji...');
-                } else if (buttonText.includes('Transfer')) {
-                    alert('Memproses transfer...');
-                } else if (buttonText.includes('Tambah Karyawan')) {
-                    alert('Form tambah karyawan akan segera tersedia!');
-                }
-            }
-        });
-    </script>
 @endsection
+@push('js')
+    <script type="text/javascript">
+    $(document).ready(function() {
+        getSalary();
+        getUser();
+    });
+
+    async function getSalary()
+    {
+        let param = {
+            url: "{{ url()->current() }}",
+            method: "GET",
+            data: {
+                'load': 'get_salary'
+            }
+        }
+
+        await transAjax(param).then((result) => {
+            let data = result.metadata;
+            $("#employeeList").html(html);
+        }).catch((err) => {
+            return alert('Gagal mengambil data user ' + err);
+        });
+    }
+    async function getUser()
+    {
+        let param = {
+            url: "{{ url()->current() }}",
+            method: "GET",
+            data: {
+                'load': 'users'
+            }
+        }
+
+        await transAjax(param).then((result) => {
+            let data = result.metadata;
+            $("#total_user").html(data.length);
+            
+            let html = '<option value="">--pilih user--</option>'
+            data.forEach((item) => {
+                html += `
+                    <option value="${item.id}">${item.name}</option>
+                `
+            });
+            $("#user_id").html(html);
+        }).catch((err) => {
+            return alert('Gagal mengambil data user ' + err);
+        })
+    }
+
+    const amountInput = document.getElementById('amount');
+
+    amountInput.addEventListener('input', function(e) {
+        let value = this.value.replace(/\D/g, ""); // hanya angka
+        if (value) {
+            this.value = new Intl.NumberFormat("id-ID").format(value);
+        } else {
+            this.value = "";
+        }
+    });
+
+   function edit(data) {
+        $("#formSubmit").attr('action', '/wms/salary/update/' + data.user_id);
+        $("#exampleModal").modal('show');
+
+        // isi form sesuai data
+        $('#user_id').val(data.user_id);
+        $('#amount').val(data.amount); // format ke Rupiah
+        $('#get_sallary').val(data.get_sallary);
+    }
+    </script>
+@endpush
