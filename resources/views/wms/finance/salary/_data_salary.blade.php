@@ -1,15 +1,4 @@
 @forelse ($data as $item)
-    {{-- "id" => "01996b3a-cbef-7082-9405-3a57ce2522f7"
-    "user_id" => "5e458f5c-df03-4504-aa57-d9fdd8172cf8"
-    "user" => "Ian Edy"
-    "amount" => "Rp 10.000.000"
-    "get_sallary" => 1
-    "bank" => array:3 [
-      "account_name" => "EDI SIAGIAN"
-      "bank_account" => "1140027804544"
-      "bank_code" => "MANDIRI"
-    ] --}}
-    <!-- Umaedi Card -->
     <div class="col-lg-6 mb-4">
         <div class="employee-card">
             <div class="employee-header">
