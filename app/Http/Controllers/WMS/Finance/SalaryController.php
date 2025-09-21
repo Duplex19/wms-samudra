@@ -100,7 +100,7 @@ class SalaryController extends Controller
         
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'user_id'   => 'required',
@@ -120,7 +120,7 @@ class SalaryController extends Controller
         $data['amount'] = $amount;
 
         try {
-            $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/salary/'. $request->user_id, $data);
+            $response = Http::withToken(session('api_token'))->put(config('app.api_service') . '/salary/'. $id, $data);
             if ($response->status() === 401) {
                 session()->forget(['api_token', 'user_data']);
                 $request->session()->invalidate();

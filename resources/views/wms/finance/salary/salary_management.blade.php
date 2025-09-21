@@ -353,7 +353,7 @@
         await transAjax(param).then((result) => {
             let data = result.metadata;
             $("#total_user").html(data.length);
-            
+
             let html = '<option value="">--pilih user--</option>'
             data.forEach((item) => {
                 html += `
@@ -378,7 +378,7 @@
     });
 
    function edit(data) {
-        $("#formSubmit").attr('action', '/wms/salary/update/' + data.user_id);
+        $("#formSubmit").attr('action', '/wms/salary/update/' + data.id);
         $("#exampleModal").modal('show');
 
         // isi form sesuai data
