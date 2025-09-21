@@ -1,6 +1,5 @@
 @forelse ($data as $item)
-
- {{-- "id" => "01996b3a-cbef-7082-9405-3a57ce2522f7"
+    {{-- "id" => "01996b3a-cbef-7082-9405-3a57ce2522f7"
     "user_id" => "5e458f5c-df03-4504-aa57-d9fdd8172cf8"
     "user" => "Ian Edy"
     "amount" => "Rp 10.000.000"
@@ -24,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="p-3">
                 <div class="row align-items-center mb-3">
                     <div class="col">
@@ -32,10 +31,11 @@
                         <div class="salary-amount">{{ $item['amount'] }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-money-bill-wave fa-2x text-success"></i>
+                        <i
+                            class="fas fa-money-bill-wave fa-2x {{ $item['get_sallary'] ? 'text-success' : 'text-danger' }} "></i>
                     </div>
                 </div>
-                
+
                 <div class="bank-info">
                     <h6 class="mb-2">
                         <i class="fas fa-university me-2"></i>
@@ -56,7 +56,7 @@
                         <div class="fw-medium font-monospace">{{ $item['bank']['bank_account'] }}</div>
                     </div>
                 </div>
-                
+
                 <div class="action-buttons mt-3 text-center">
                     <button class="btn btn-outline-primary btn-sm" onclick='edit(@json($item))'>
                         <i class="fas fa-edit me-1"></i>
@@ -79,11 +79,11 @@
         document.querySelector('input[placeholder="Cari nama karyawan..."]').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const employeeCards = document.querySelectorAll('.employee-card');
-            
+
             employeeCards.forEach(card => {
                 const employeeName = card.querySelector('h5').textContent.toLowerCase();
                 const cardContainer = card.parentElement;
-                
+
                 if (employeeName.includes(searchTerm)) {
                     cardContainer.style.display = 'block';
                 } else {
@@ -93,5 +93,4 @@
         });
     </script>
 @empty
-    
 @endforelse
