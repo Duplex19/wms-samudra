@@ -207,7 +207,7 @@
                             <th>{{ __('cms.due_date') }}</th>
                             <th>{{ __('cms.payment_date') }}</th>
                             <th>{{ __('cms.payment_method') }}</th>
-                            <th>{{ __('cms.action') }}</th>
+                            {{-- <th>{{ __('cms.action') }}</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -339,7 +339,13 @@
             }
         },
         columns: [
-            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { 
+            data: null,
+            name: 'No',
+            render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
             { data: 'ref_id', name: 'ref_id' },
             { data: 'name', name: 'name' },
             { data: 'item', name: 'item' },
@@ -361,7 +367,6 @@
             { data: 'due_date', name: 'due_date' },
             { data: 'paid_date', name: 'paid_date' },
             { data: 'payment_method', name: 'payment_method' },
-            { data: 'action', name: 'action', orderable: false, searchable: false }
         ],
         order: [[1, 'desc']], // Order by ref_id desc
         pageLength: 10,
