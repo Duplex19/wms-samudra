@@ -120,12 +120,14 @@
                 <div data-i18n="Basic">{{ __('cms.sidebar_manual_billing') }}</div>
             </a>
         </li>
+        @if (session('user_data.role') === 'super_admin')
         <li class="menu-item {{ Request::is('wms/salary*') ? 'active' : '' }}">
             <a href="{{ route('finance.salary') }}" class="menu-link">
                 <i class="menu-icon icon-base bx bx-receipt"></i>
                 <div data-i18n="Basic">{{ __('cms.salary') }}</div>
             </a>
         </li>
+        @endif
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">{{ __('cms.sidebar_tim_management') }}</span>
         </li>
