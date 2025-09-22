@@ -217,7 +217,7 @@
                     last: "Terakhir"
                 }
             };
-        } 
+        }
         $(document).ready(function() {
             getProfilePppoe();
             dataTable = $('#dataTable').DataTable({
@@ -268,7 +268,8 @@
                         data: 'latestStatus',
                         name: 'latestStatus',
                         render: function(data) {
-                            if (!data.user) return '<span class="badge bg-danger rounded-pill">belum diproses</span>';
+                            if (!data.user)
+                                return '<span class="badge bg-danger rounded-pill">belum diproses</span>';
                             return `<span class="badge bg-primary rounded-pill cursor-pointer">
                                         ${data.user}
                                     </span>`;
@@ -326,13 +327,13 @@
                         data: 'npwp',
                         name: 'npwp',
                         render: function(data) {
-                            if(!data) return '-';
+                            if (!data) return '-';
                             return data;
                         }
                     },
                     {
-                        data: 'foto_npwp',
-                        name: 'foto_npwp',
+                        data: 'foto_ktp',
+                        name: 'foto_ktp',
                         render: function(data) {
                             return `<span class="badge bg-info rounded-pill cursor-pointer" onclick="showPhoto('${data}','Foto lokasi')">lihat foto</span>`
                         }
@@ -341,7 +342,7 @@
                         data: 'external_id',
                         name: 'external_id',
                         render: function(data) {
-                            if(!data) return '-';
+                            if (!data) return '-';
                             return data;
                         }
                     },
@@ -349,7 +350,7 @@
                         data: 'checkout_link',
                         name: 'checkout_link',
                         render: function(data) {
-                            if(!data) return '-';
+                            if (!data) return '-';
                             return data;
                         }
                     },
